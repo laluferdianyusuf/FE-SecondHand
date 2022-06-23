@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Alert, Row, Col, Button, Form, Container } from "react-bootstrap";
 import "../style/component.css";
 import ImageLogin from "../images/img.png";
@@ -245,6 +245,36 @@ export function RegisterForm() {
 }
 
 export function InfoAccForm() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const validateLogin = async (e) => {
+      try {
+        // Check status user login
+        // 1. Get token from localStorage
+        const token = localStorage.getItem("token");
+
+        // 2. Check token validity from API
+        const currentUserRequest = await axios.get(
+          "http://localhost:2000/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const currentUserResponse = currentUserRequest.data;
+
+        if (currentUserResponse.status) {
+          setUser(currentUserResponse.data.user);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    validateLogin();
+  }, []);
   const navigate = useNavigate();
   const nameField = useRef("");
   const cityField = useRef("");
@@ -271,7 +301,7 @@ export function InfoAccForm() {
       const token = localStorage.getItem("token");
 
       const createRequest = await axios.put(
-        `http://localhost/users/update/${id}`,
+        `http://localhost:2000/users/update/${id}`,
         createPostPayload,
         {
           headers: {
@@ -332,7 +362,12 @@ export function InfoAccForm() {
               <MdOutlinePhotoCamera
                 style={{ fontSize: "36px", color: "rgba(113, 38, 181, 1)" }}
               />
-              <Form.Control ref={pictureField} type="file" />
+              <Form.Control
+                onChange={(e) => {
+                  setPictureField(e.target.files[0]);
+                }}
+                type="file"
+              />
             </Button>
           </Form.Group>
           <div className="w-50 form-body">

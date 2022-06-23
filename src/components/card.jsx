@@ -40,7 +40,7 @@ export function CardProduct() {
             <Card.Img
               variant="top"
               multiple
-              src={`http://localhost:2000/files/${product.picture}`}
+              src={`http://localhost:2000/files/${product.picture[0]}`}
               style={image}
             />
             <Card.Body className="p-2">

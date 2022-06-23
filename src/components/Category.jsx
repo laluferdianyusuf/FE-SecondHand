@@ -62,7 +62,7 @@ export function Category() {
         </div>
 
         {isLoggedIn ? (
-          <Link to={`updateacc/${user.id}`} className="text-decoration-none">
+          <Link to={`/updateacc/${user.id}`} className="text-decoration-none">
             <Button className="d-flex gap-2 px-3 py-2 fixed-bottom button-sell mb-4">
               <BsPlus
                 className="align-self-center "
