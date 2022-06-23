@@ -1,0 +1,531 @@
+.card {
+  border-radius: 16px !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(113, 38, 181, 0);
+}
+
+.alert {
+  background-color: rgb(121, 25, 25) !important;
+  border-radius: 16px !important;
+  color: white !important;
+}
+
+.modal-open {
+  overflow: visible !important;
+  padding-right: 0 !important;
+}
+.offcanvas.show {
+  width: 50%;
+}
+
+.navbar-light .navbar-toggler {
+  border-radius: 16px;
+  padding: 10px;
+}
+
+/* navbar */
+/* homeNav */
+.box {
+  width: 100px;
+  height: 34px;
+  background-color: rgba(75, 25, 121, 1);
+}
+
+.home-nav {
+  box-shadow: 0 2px 10px rgb(177, 176, 176);
+}
+
+.blank-nav {
+  box-shadow: 0 2px 10px rgb(177, 176, 176);
+}
+
+.blank-navV2 {
+  box-shadow: 0 2px 10px rgb(177, 176, 176);
+}
+.home-nav form input {
+  width: 444px;
+  border-radius: 16px;
+  padding: 7px 12px;
+}
+
+/* navbar is login */
+.navbar-is_login .navbar-items button svg:hover {
+  color: rgba(113, 38, 181, 1) !important;
+}
+
+/* daftar jual */
+.home-nav.daftar-jual .container h3 {
+  display: none;
+}
+
+/* sidebar */
+.sidebar-category {
+  box-shadow: 0 0 10px rgba(177, 176, 176, 0.4);
+  border-radius: 12px;
+}
+.sidebar-category .card-sidebar-category button:nth-child(1),
+.sidebar-category .card-sidebar-category button:nth-child(2) {
+  border-bottom: 1px solid rgba(177, 176, 176, 0.5);
+  line-height: 2.5rem;
+  background-color: transparent;
+  color: black;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.sidebar-category .card-sidebar-category button:nth-child(3) {
+  border: 1px solid rgba(177, 176, 176, 0);
+  line-height: 2.5rem;
+  background-color: transparent;
+  color: black;
+}
+
+.sidebar-category .card-sidebar-category button svg {
+  font-size: 24px;
+  opacity: 0.5;
+  font-weight: bold;
+}
+
+/* carousel */
+.slider .owl-theme .owl-nav {
+  display: none;
+}
+
+.slider {
+  position: relative;
+  transition: all 0.5 ease;
+}
+
+.slider .owl-item.active.center .slider-card {
+  transform: scale(1.5);
+}
+.slider .slider-card {
+  margin: 50px 70px 50px 70px;
+  border: 1px solid transparent;
+}
+
+.slider .slider-card .card {
+  border: 1px solid transparent;
+}
+
+.slider .owl-theme .owl-dots {
+  display: none;
+}
+
+/* carousel product */
+.slider-product .owl-theme .owl-dots {
+  position: absolute;
+  top: 90%;
+  left: 45%;
+}
+
+.slider-product .owl-theme .owl-nav button.owl-next {
+  background-color: rgba(255, 255, 255, 1);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  top: 45%;
+  right: 10px;
+}
+
+.slider-product .owl-theme .owl-nav button.owl-next.disabled {
+  opacity: 0;
+}
+
+.slider-product .owl-theme .owl-nav button.owl-prev.disabled {
+  opacity: 0;
+}
+
+.slider-product .owl-theme .owl-nav button.owl-prev {
+  background-color: rgba(255, 255, 255, 1);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  top: 45%;
+  left: 10px;
+}
+
+.slider-product .owl-theme .owl-dots .owl-dot.active span {
+  background-color: rgba(113, 38, 181, 1);
+}
+.slider-product .owl-theme .owl-dots .owl-dot span {
+  width: 6px;
+  height: 6px;
+  margin: 3px;
+  background-color: rgba(196, 196, 196, 1);
+  border: 1px solid rgba(113, 38, 181, 1);
+}
+
+/* cayegory */
+.category div button {
+  border: 1px solid rgba(226, 212, 240, 1);
+  border-radius: 12px;
+  background-color: rgba(226, 212, 240, 1);
+  color: black;
+}
+
+.category div button.button-sell {
+  width: 7%;
+  border: 1px solid rgba(113, 38, 181, 1);
+  border-radius: 12px;
+  background-color: rgba(113, 38, 181, 1);
+  color: white;
+  margin: 0 46.5%;
+  box-shadow: 0 7px 20px rgba(0, 0, 0, 0.55);
+}
+
+.category div button:hover {
+  border: 1px solid rgba(113, 38, 181, 1);
+  border-radius: 12px;
+  background-color: rgba(113, 38, 181, 1);
+  color: white;
+}
+
+.category div button:focus {
+  border: 1px solid rgba(113, 38, 181, 1);
+  border-radius: 12px;
+  background-color: rgba(113, 38, 181, 1);
+  color: white;
+}
+
+/* card */
+.card-content {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  grid-gap: 20px;
+  grid-auto-flow: column;
+}
+/* form */
+/* form login */
+.row-login {
+  margin: 0;
+}
+
+.row-login .col:nth-child(2) svg {
+  display: none;
+}
+
+.row-register .col:nth-child(2) svg {
+  display: none;
+}
+
+/* form info akun */
+.upload {
+  margin: 20px 48%;
+}
+.upload .upload-image {
+  position: relative;
+  padding: 30px 33px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.upload .upload-image input[type="file"] {
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(3);
+  opacity: 0;
+}
+
+/* form info product */
+.upload-product .upload-image-product {
+  width: 18%;
+  position: relative;
+  padding: 30px 33px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.upload-product .upload-image-product input[type="file"] {
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(5);
+  opacity: 0;
+}
+
+/* form info akun */
+.form-info-acc h5 {
+  display: none;
+}
+.form-info-acc form .form-body {
+  transform: translate(55%);
+}
+
+.form-info-product h5 {
+  display: none;
+}
+.form-info-product form .form-body {
+  transform: translate(55%);
+}
+
+/* content */
+/* user profile */
+.user-profile .card:nth-child(1) {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+}
+
+/* content product */
+.content-product .upload-product .upload-image-product {
+  position: relative;
+  padding: 32% 0 !important;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-direction: column;
+}
+
+.content-product .upload-product .upload-image-product input[type="file"] {
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transform: scale(3);
+  opacity: 0;
+}
+
+.content-product .upload-product button {
+  background-color: rgba(255, 255, 255, 1);
+  color: rgba(0, 0, 0, 0.5);
+  border: 2px dashed rgba(0, 0, 0, 0.15);
+  padding-top: 0% !important;
+}
+
+.content-product .card {
+  border-radius: 4px !important;
+}
+
+.content-product {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-auto-flow: row;
+}
+@media only screen and (max-width: 1023px) {
+  /* navbar */
+  .box {
+    display: none;
+  }
+
+  /* home nav */
+  .home-nav {
+    box-shadow: 0 2px 10px rgba(177, 176, 176, 0);
+  }
+
+  /* blank nav */
+  div .blank-nav {
+    display: none !important;
+  }
+
+  .blank-navV2 {
+    display: none !important;
+  }
+
+  /* navbar is login */
+  .navbar-is_login {
+    display: none !important;
+  }
+
+  .slider .owl-item.active.center .slider-card {
+    transform: scale(1);
+  }
+  .home-nav form input {
+    width: 270px;
+  }
+
+  /* daftar jual */
+  .home-nav.daftar-jual .container h3 {
+    display: block;
+  }
+
+  .page-daftar-jual h5 {
+    display: none;
+  }
+
+  .page-daftar-jual.container {
+    margin-top: 0 !important;
+    width: 100% !important;
+  }
+
+  .home-nav.daftar-jual .container {
+    flex-direction: row-reverse;
+    gap: 20px;
+  }
+
+  .navigasi-user .card img {
+    width: 15% !important;
+  }
+  /* category */
+  .category div button.button-sell {
+    width: 25%;
+    margin: 0 37.5%;
+  }
+
+  .category .button-category {
+    overflow-x: scroll;
+  }
+  .category .button-category::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .card-sidebar-catergory_body {
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    top: 30%;
+    left: 0;
+  }
+
+  .sidebar-category .card-sidebar-category.card {
+    position: relative;
+    overflow-x: auto;
+    height: 60px;
+  }
+
+  .sidebar-category .card-sidebar-category.card h6 {
+    display: none;
+  }
+
+  .sidebar-category .card-sidebar-category button {
+    background-color: rgba(226, 212, 240, 1) !important;
+    padding: 0 10px !important;
+    border-radius: 12px;
+    height: 20%;
+    border-bottom: transparent !important;
+  }
+  /* card */
+  .card-content {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 20px;
+    grid-auto-flow: row;
+  }
+
+  /* login */
+  .row-login .col:nth-child(2) {
+    margin: 35% 0 !important;
+    padding: 0 16px !important;
+  }
+  .row-login .col:nth-child(2) svg {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 2rem;
+  }
+  .row-login .col div {
+    padding: 0 !important;
+  }
+  .row-login .col:nth-child(1) {
+    display: none;
+  }
+
+  .row-register .col:nth-child(2) {
+    margin: 25% 0 !important;
+    padding: 0 16px !important;
+  }
+  .row-register .col:nth-child(2) svg {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 2rem;
+  }
+  .row-register .col div {
+    padding: 0 !important;
+  }
+  .row-register .col:nth-child(1) {
+    display: none;
+  }
+
+  /* form info akun */
+  .form-info-acc h5 {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .form-info-acc a svg {
+    margin-left: -90px;
+  }
+
+  .form-info-acc .upload {
+    margin: 20px 35%;
+  }
+
+  .form-info-acc form {
+    margin-top: 40px;
+  }
+
+  .form-info-acc form .form-body {
+    width: 100% !important;
+    transform: translate(0);
+  }
+
+  .form-info-product form {
+    margin-top: 40px;
+  }
+
+  .form-info-product form .form-body {
+    width: 100% !important;
+    transform: translate(0);
+  }
+
+  .form-info-product form .upload-product .upload-image-product {
+    width: 25%;
+  }
+
+  .form-info-product h5 {
+    display: block;
+  }
+
+  .form-info-product a {
+    left: 8px !important;
+  }
+
+  /* content */
+  .buttons-user {
+    position: absolute;
+    z-index: 999;
+    bottom: -110%;
+  }
+
+  .user-profile {
+    width: 140%;
+    margin-left: -47px;
+  }
+
+  .card-product-carousel {
+    width: 150%;
+    margin: -30%;
+  }
+
+  .card-product-carousel .slider-product .owl-theme .item.active {
+    width: 150% !important;
+  }
+
+  .card-description {
+    width: 140%;
+    margin-left: -47px;
+  }
+
+  .buttons-user div {
+    position: fixed;
+    width: 90%;
+    left: 5%;
+  }
+
+  .buttons-user div button:nth-child(2) {
+    display: none;
+  }
+
+  .content-product {
+    grid-template-columns: auto auto;
+    margin-top: 20px;
+  }
+}
