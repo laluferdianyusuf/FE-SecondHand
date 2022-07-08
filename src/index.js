@@ -5,9 +5,11 @@ import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import InfoAcc from "./pages/InfoAcc";
+import InfoAccV2 from "./pages/InfoAccV2";
 import InfoProduct from "./pages/InfoProduct";
 import PageProduct from "./pages/PageProduct";
 import DaftarJual from "./pages/DaftarJual";
+import InfoOffer from "./pages/InfoOffer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -19,9 +21,11 @@ root.render(
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/updateacc/:id" element={<InfoAcc />} />
+        <Route path="/updateaccv2/:id" element={<InfoAccV2 />} />
         <Route path="/createproduct" element={<InfoProduct />} />
         <Route path="/homeproduct" element={<PageProduct />} />
         <Route path="/daftarjual" element={<DaftarJual />} />
+        <Route path="/offers" element={<InfoOffer />} />
       </Routes>
     </Router>
   </React.StrictMode>

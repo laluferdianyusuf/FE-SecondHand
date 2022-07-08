@@ -1,30 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, Card } from "react-bootstrap";
-import axios from "axios";
-import firstImage from "../images/Rectangle-23.png";
 
-export function CardProduct() {
-  const [product, setProduct] = useState([]);
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    //fetching
-    const response = await axios.get("http://localhost:2000/products");
-    //get response data
-    const data = await response.data.data.getDataAll;
-    console.log(data);
-
-    //assign response data to state "posts"
-    setProduct(data);
-  };
+export function CardProduct({ product }) {
   const title = {
     fontSize: "14px",
   };
 
   const image = {
-    width: "91%",
     margin: "8px",
   };
 
@@ -39,8 +21,9 @@ export function CardProduct() {
           <Card>
             <Card.Img
               variant="top"
+              className="align-self-center w-75"
               multiple
-              src={`http://localhost:2000/files/${product.picture[0]}`}
+              src={`http://localhost:2000/public/files/${product.picture[0]}`}
               style={image}
             />
             <Card.Body className="p-2">

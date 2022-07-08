@@ -1,9 +1,6 @@
-.card {
-  border-radius: 16px !important;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(113, 38, 181, 0);
+p {
+  margin: 0;
 }
-
 .alert {
   background-color: rgb(121, 25, 25) !important;
   border-radius: 16px !important;
@@ -48,6 +45,10 @@
   padding: 7px 12px;
 }
 
+.info-offers {
+  box-shadow: 0 2px 10px rgb(177, 176, 176);
+}
+
 /* navbar is login */
 .navbar-is_login .navbar-items button svg:hover {
   color: rgba(113, 38, 181, 1) !important;
@@ -58,35 +59,72 @@
   display: none;
 }
 
-/* sidebar */
-.sidebar-category {
-  box-shadow: 0 0 10px rgba(177, 176, 176, 0.4);
-  border-radius: 12px;
-}
-.sidebar-category .card-sidebar-category button:nth-child(1),
-.sidebar-category .card-sidebar-category button:nth-child(2) {
-  border-bottom: 1px solid rgba(177, 176, 176, 0.5);
-  line-height: 2.5rem;
-  background-color: transparent;
-  color: black;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
+.css-19kzrtu {
+  padding: 0 !important;
 }
 
-.sidebar-category .card-sidebar-category button:nth-child(3) {
-  border: 1px solid rgba(177, 176, 176, 0);
-  line-height: 2.5rem;
-  background-color: transparent;
-  color: black;
+.css-10d9dml-MuiTabs-indicator {
+  display: none !important;
 }
 
-.sidebar-category .card-sidebar-category button svg {
-  font-size: 24px;
-  opacity: 0.5;
-  font-weight: bold;
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  border-right: 1px solid transparent !important;
+  border-color: rgba(0, 0, 0, 0) !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+  padding: 5px 0 !important;
 }
 
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root div {
+  display: flex;
+  align-self: flex-start;
+  padding-left: 10px;
+  font-weight: 500 !important;
+  /* gap: 17px; */
+}
+
+.css-35zqo5-MuiTabs-root {
+  border-right: 1px solid transparent;
+}
+
+.sidebar-category-responsive {
+  display: none;
+}
+
+.css-heg063-MuiTabs-flexContainer {
+  gap: 20px;
+  overflow: scroll;
+  border-bottom: none;
+}
+
+.css-heg063-MuiTabs-flexContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-category-responsive button {
+  background: #e2d4f0;
+  border-radius: 16px;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 12px 16px !important;
+  color: black !important;
+}
+.css-1gsv261 {
+  border-bottom: none !important;
+}
+.sidebar-category-responsive button:hover {
+  background: #7126b5;
+  color: white !important;
+}
+
+.sidebar-category-responsive button:focus {
+  background: #7126b5;
+  color: white !important;
+}
+
+.css-1aquho2-MuiTabs-indicator {
+  display: none;
+}
 /* carousel */
 .slider .owl-theme .owl-nav {
   display: none;
@@ -100,6 +138,7 @@
 .slider .owl-item.active.center .slider-card {
   transform: scale(1.5);
 }
+
 .slider .slider-card {
   margin: 50px 70px 50px 70px;
   border: 1px solid transparent;
@@ -111,6 +150,59 @@
 
 .slider .owl-theme .owl-dots {
   display: none;
+}
+
+.slider .home-carousel-1 {
+  width: 450px;
+  height: 135px;
+  border-radius: 10px;
+  background-color: #ffe9ca;
+}
+
+.slider .home-carousel-2 {
+  width: 450px;
+  height: 135px;
+  border-radius: 10px;
+  background-color: #e2d4f0;
+}
+
+.slider .home-carousel-3 {
+  width: 450px;
+  height: 135px;
+  border-radius: 10px;
+  background-color: #b6d4a8;
+}
+
+.text-1 {
+  font-weight: bold;
+  z-index: 999;
+  position: relative;
+  margin: 25px 0 0 70px;
+}
+
+.text-2 {
+  margin: 5px 0 0 70px;
+  font-size: 10px;
+}
+
+.text-3 {
+  margin: 0px 0 0 70px;
+  color: red;
+}
+
+.carousel-1 img {
+  max-width: 150px;
+  max-height: 150px;
+  z-index: 999;
+  position: relative;
+  margin: 40px 0 0 50px;
+}
+
+.carousel-2 img {
+  height: 134px;
+  max-width: 205px;
+  position: absolute;
+  z-index: 1;
 }
 
 /* carousel product */
@@ -196,7 +288,12 @@
   display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   grid-gap: 20px;
-  grid-auto-flow: column;
+}
+
+.card-content .card {
+  border: 1px solid transparent;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 }
 /* form */
 /* form login */
@@ -300,6 +397,8 @@
 
 .content-product .card {
   border-radius: 4px !important;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(113, 38, 181, 0);
 }
 
 .content-product {
@@ -307,6 +406,64 @@
   grid-template-columns: auto auto auto;
   grid-auto-flow: row;
 }
+
+.daftar-jual_category {
+  display: none;
+}
+
+/* offers */
+.offers-page.container {
+  width: 55%;
+}
+
+.offers-page .product-offering {
+  margin: 0 0 0 10%;
+  width: 87%;
+}
+
+.offers-page .product-offering .card-buyer {
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+}
+
+.offers-page .product-offering .card-buyer .buyer {
+  height: 48px;
+  width: 48px;
+  border-radius: 12px;
+  margin-top: 5px;
+}
+
+.offers-page .product-offering .card-buyer .buyer img {
+  height: 48px;
+  width: 48px;
+  border-radius: 12px;
+}
+
+.offers-page .product-offering .items-offering {
+  border-bottom: 1px solid rgba(229, 229, 229, 1);
+}
+
+.offers-page .product-offering .items-offering .first-div img {
+  height: 48px;
+  width: 48px;
+  border-radius: 12px;
+  margin-top: 4px;
+}
+
+.offers-page .items-offering button {
+  border: 1px solid rgba(113, 38, 181, 1);
+  border-radius: 16px;
+  font-weight: 500;
+}
+
+.offers-page .items-offering button:nth-child(1) {
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+.offers-page .items-offering button:nth-child(2) {
+  background-color: rgba(113, 38, 181, 1);
+}
+
 @media only screen and (max-width: 1023px) {
   /* navbar */
   .box {
@@ -316,8 +473,17 @@
   /* home nav */
   .home-nav {
     box-shadow: 0 2px 10px rgba(177, 176, 176, 0);
+    background: transparent;
+    z-index: 999;
   }
 
+  .home-nav ~ .offcanvas.show {
+    display: none !important;
+  }
+
+  .info-offers {
+    box-shadow: none;
+  }
   /* blank nav */
   div .blank-nav {
     display: none !important;
@@ -327,16 +493,92 @@
     display: none !important;
   }
 
+  .navbar-light .navbar-toggler {
+    background-color: white;
+  }
+
   /* navbar is login */
   .navbar-is_login {
     display: none !important;
   }
 
-  .slider .owl-item.active.center .slider-card {
-    transform: scale(1);
+  .slider {
+    margin-top: -110px;
+  }
+
+  .slider .owl-item.active.center {
+    transform: none;
+    z-index: -1 !important;
+  }
+
+  .slider .home-carousel-1,
+  .slider .home-carousel-2,
+  .slider .home-carousel-3 {
+    height: 350px;
+    max-width: 100%;
+    border-radius: 0;
+  }
+
+  .slider .home-carousel-1 {
+    background: linear-gradient(#ffe9ca, white);
+  }
+
+  .slider .home-carousel-2 {
+    background: linear-gradient(#e2d4f0, white);
+  }
+
+  .slider .home-carousel-3 {
+    background: linear-gradient(#b6d4a8, white);
+  }
+
+  .slider .carousel-2 img {
+    display: none !important;
+  }
+
+  .slider .carousel-1 img {
+    margin-top: 121%;
+    margin-left: -30px !important;
+    max-width: 70%;
+  }
+
+  .slider .text-1,
+  .slider .text-2,
+  .slider .text-3 {
+    margin-right: 0 !important;
+  }
+
+  .slider .text-1 {
+    margin-top: 45%;
+    font-size: 18px;
+  }
+
+  .slider .text-2 {
+    font-size: 12px;
+    margin-top: 5%;
+  }
+
+  .slider .text-3 {
+    font-size: 20px;
+  }
+
+  .slider .slider-card {
+    margin: 0 !important;
+    z-index: -1;
+    position: relative;
+  }
+
+  .slider .slider-card .row {
+    margin-top: 30px;
+  }
+
+  /* carousel product */
+  .slider-product .owl-theme .owl-dots {
+    top: 80%;
+    left: 42%;
   }
   .home-nav form input {
     width: 270px;
+    background-color: white !important;
   }
 
   /* daftar jual */
@@ -361,6 +603,36 @@
   .navigasi-user .card img {
     width: 15% !important;
   }
+
+  .daftar-jual_category {
+    display: block;
+  }
+
+  .daftar-jual_category .button-category {
+    overflow-x: scroll;
+  }
+
+  .daftar-jual_category .button-category::-webkit-scrollbar {
+    display: none;
+  }
+
+  .daftar-jual_category .button-category button {
+    border-radius: 12px;
+    background-color: rgba(226, 212, 240, 1);
+    border: 1px solid rgba(226, 212, 240, 1);
+    color: rgba(60, 60, 60, 1);
+  }
+
+  .daftar-jual_category .button-category button:hover {
+    background-color: rgba(113, 38, 181, 1);
+    border: 1px solid rgba(113, 38, 181, 1);
+    color: white;
+  }
+
+  .sidebar-category-responsive {
+    display: block;
+  }
+
   /* category */
   .category div button.button-sell {
     width: 25%;
@@ -373,38 +645,11 @@
   .category .button-category::-webkit-scrollbar {
     width: 0;
   }
-
-  .card-sidebar-catergory_body {
-    position: absolute;
-    display: flex;
-    gap: 10px;
-    top: 30%;
-    left: 0;
-  }
-
-  .sidebar-category .card-sidebar-category.card {
-    position: relative;
-    overflow-x: auto;
-    height: 60px;
-  }
-
-  .sidebar-category .card-sidebar-category.card h6 {
-    display: none;
-  }
-
-  .sidebar-category .card-sidebar-category button {
-    background-color: rgba(226, 212, 240, 1) !important;
-    padding: 0 10px !important;
-    border-radius: 12px;
-    height: 20%;
-    border-bottom: transparent !important;
-  }
   /* card */
   .card-content {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 20px;
-    grid-auto-flow: row;
   }
 
   /* login */
@@ -526,6 +771,24 @@
 
   .content-product {
     grid-template-columns: auto auto;
-    margin-top: 20px;
+  }
+
+  /* offers */
+  .offers-page.container {
+    width: 100%;
+  }
+
+  .offers-page .product-offering {
+    width: 100%;
+    margin: 0;
+  }
+
+  .offers-page .product-offering .items-offering .first-div span:nth-child(2) {
+    right: 5% !important;
+  }
+
+  .offers-page .product-offering .items-offering .button-offers {
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }

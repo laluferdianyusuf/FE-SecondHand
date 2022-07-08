@@ -6,6 +6,9 @@ import { FiLogIn, FiBell, FiUser } from "react-icons/fi";
 import { BsListUl } from "react-icons/bs";
 import axios from "axios";
 import Dropdown from "react-bootstrap/Dropdown";
+import Badge from "@mui/material/Badge";
+import { IoMdArrowBack } from "react-icons/io";
+import { styled } from "@mui/material/styles";
 
 export function BlankNav() {
   return (
@@ -122,7 +125,7 @@ export function HomeNav() {
           onHide={handleClose}
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            <Offcanvas.Title>Second Hand</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             {isLoggedIn ? (
@@ -134,28 +137,15 @@ export function HomeNav() {
                   />
                 </Button>
 
-                <Dropdown>
-                  <Dropdown.Toggle
-                    style={buttonStyleV2}
-                    variant="success"
-                    id="dropdown-basic"
-                  >
+                <Button style={buttonStyleV2}>
+                  <Badge badgeContent={4} color="primary">
                     <FiBell
                       style={{ fontSize: "20px" }}
+                      color="action"
                       className="align-self-center text-black"
                     />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">
-                      Another action
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">
-                      Something else
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                  </Badge>
+                </Button>
 
                 <Dropdown>
                   <Dropdown.Toggle
@@ -191,95 +181,11 @@ export function HomeNav() {
   );
 }
 
-export function HomeNavIsLogin() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  const searchStyle = {
-    backgroundColor: "rgba(238, 238, 238, 1)",
-    border: "1px solid rgba(238, 238, 238, 1)",
-  };
-
-  const buttonStyle = {
-    border: "1px solid rgba(0,0,0,0)",
-    backgroundColor: "rgba(0,0,0,0)",
-  };
-
-  const buttonStyleV2 = {
-    border: "1px solid rgba(0,0,0,0)",
-    backgroundColor: "rgba(0,0,0,0)",
-    width: "50px",
-  };
-  return (
-    <Navbar expand="lg" className="py-3 home-nav navbar-is_login">
-      <Container>
-        <div className="box me-3"></div>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Form className="d-flex me-auto">
-            <Form.Control
-              type="search"
-              placeholder="Cari di sini..."
-              className="me-2"
-              aria-label="Search"
-              style={searchStyle}
-            />
-          </Form>
-
-          {isLoggedIn ? (
-            <Button className=" d-flex gap-2" style={buttonStyle}>
-              <FiLogIn className="align-self-center" />
-              Masuk
-            </Button>
-          ) : (
-            <div className="ms-auto d-flex navbar-items">
-              <Button style={buttonStyle}>
-                <BsListUl
-                  style={{ fontSize: "20px" }}
-                  className="align-self-center text-black"
-                />
-              </Button>
-              <Dropdown>
-                <Dropdown.Toggle
-                  style={buttonStyleV2}
-                  variant="success"
-                  id="dropdown-basic"
-                >
-                  <FiBell
-                    style={{ fontSize: "20px" }}
-                    className="align-self-center text-black"
-                  />
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">
-                    Another action
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">
-                    Something else
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-
-              <Button style={buttonStyle}>
-                <FiUser
-                  style={{ fontSize: "20px" }}
-                  className="align-self-center text-black"
-                />
-              </Button>
-            </div>
-          )}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
-}
-
 export function DaftarJualNavbar() {
-  const searchStyle = {
-    backgroundColor: "rgba(238, 238, 238, 1)",
-    border: "1px solid rgba(238, 238, 238, 1)",
-  };
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const buttonStyle = {
     border: "1px solid rgba(0,0,0,0)",
@@ -289,40 +195,82 @@ export function DaftarJualNavbar() {
     <Navbar expand="lg" className="py-3 home-nav daftar-jual">
       <Container>
         <div className="box me-3"></div>
-        <h3 className="me-auto fw-bold">Daftar Jual Saya</h3>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Form className="d-flex me-auto">
-            <Form.Control
-              type="search"
-              placeholder="Cari di sini..."
-              className="me-2"
-              aria-label="Search"
-              style={searchStyle}
-            />
-          </Form>
+        <h3 className="fw-bold" style={{ transform: "translate(-60px, 0px)" }}>
+          Daftar Jual Saya
+        </h3>
+        <Navbar.Toggle aria-controls="offcanvas" />
+        <Navbar.Offcanvas id="offcanvas">
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title style={{ fontSize: "14px", fontWeight: "700" }}>
+              Second Hand
+            </Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <div className="ms-auto d-flex navbar-items">
+              <Button style={buttonStyle}>
+                <BsListUl
+                  style={{ fontSize: "20px" }}
+                  className="align-self-center text-black"
+                />
+              </Button>
+              <Button style={buttonStyle}>
+                <FiBell
+                  style={{ fontSize: "20px" }}
+                  className="align-self-center text-black"
+                />
+              </Button>
+              <Button style={buttonStyle}>
+                <FiUser
+                  style={{ fontSize: "20px" }}
+                  className="align-self-center text-black"
+                />
+              </Button>
+            </div>
+          </Offcanvas.Body>
+        </Navbar.Offcanvas>
+      </Container>
+    </Navbar>
+  );
+}
 
-          <div className="ms-auto d-flex navbar-items">
-            <Button style={buttonStyle}>
-              <BsListUl
-                style={{ fontSize: "20px" }}
-                className="align-self-center text-black"
-              />
-            </Button>
-            <Button style={buttonStyle}>
-              <FiBell
-                style={{ fontSize: "20px" }}
-                className="align-self-center text-black"
-              />
-            </Button>
-            <Button style={buttonStyle}>
-              <FiUser
-                style={{ fontSize: "20px" }}
-                className="align-self-center text-black"
-              />
-            </Button>
+export function InfoPenawarNavbar() {
+  const Root = styled("div")(({ theme }) => ({
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  }));
+
+  const RootV2 = styled("div")(({ theme }) => ({
+    [theme.breakpoints.up("md")]: {
+      position: "absolute",
+      left: "45%",
+    },
+    [theme.breakpoints.down("md")]: {
+      position: "absolute",
+      top: "50%",
+      left: "35%",
+    },
+  }));
+  return (
+    <Navbar expand="lg" className="py-3 info-offers">
+      <Container>
+        <Root>
+          <Link
+            to="/daftarjual"
+            className="text-black position-absolute "
+            style={{ left: "2%", top: "45%" }}
+          >
+            <IoMdArrowBack style={{ fontSize: "20px" }} />
+          </Link>
+        </Root>
+        <div className="box me-3"></div>
+        <RootV2>
+          <div>
+            <h3 className="fw-bold justify-content-center d-flex">
+              Info Penawar
+            </h3>
           </div>
-        </Navbar.Collapse>
+        </RootV2>
       </Container>
     </Navbar>
   );

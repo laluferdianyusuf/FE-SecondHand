@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 import { DaftarJualNavbar } from "../components/Navbar";
-import { SidebarUser, SidebarCategory } from "../components/Sidebar";
-import { Content } from "../components/Content";
+import { SidebarUser, SidebarFix } from "../components/Sidebar";
 import { Container, Row, Col } from "react-bootstrap";
 
 export default function DaftarJual() {
-  return (
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const validateLogin = async (e) => {
+      try {
+        // Check status user login
+        // 1. Get token from localStorage
+        const token = localStorage.getItem("token");
+
+        // 2. Check token validity from API
+        const currentUserRequest = await axios.get(
+          "http://localhost:2000/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const currentUserResponse = currentUserRequest.data;
+
+        if (currentUserResponse.status) {
+          setUser(currentUserResponse.data.user);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    validateLogin();
+  }, []);
+
+  return isLoggedIn ? (
     <>
       <div>
         <DaftarJualNavbar />
@@ -19,19 +52,10 @@ export default function DaftarJual() {
             </div>
           </Col>
         </Row>
-        <Row className="mt-3">
-          <Col md={4}>
-            <div>
-              <SidebarCategory />
-            </div>
-          </Col>
-          <Col md={8}>
-            <div>
-              <Content />
-            </div>
-          </Col>
-        </Row>
+        <SidebarFix />
       </Container>
     </>
+  ) : (
+    <Navigate to="/login" replace />
   );
 }

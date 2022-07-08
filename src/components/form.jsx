@@ -292,6 +292,8 @@ export function InfoAccForm() {
     try {
       const createPostPayload = new FormData();
 
+      console.log(pictureField);
+      // console.log(setPictureField);
       createPostPayload.append("name", nameField.current.value);
       createPostPayload.append("city", cityField.current.value);
       createPostPayload.append("address", addressField.current.value);
@@ -310,6 +312,7 @@ export function InfoAccForm() {
           },
         }
       );
+      console.log(createRequest);
 
       const createResponse = createRequest.data;
 
@@ -363,10 +366,11 @@ export function InfoAccForm() {
                 style={{ fontSize: "36px", color: "rgba(113, 38, 181, 1)" }}
               />
               <Form.Control
+                type="file"
                 onChange={(e) => {
+                  console.log(e.target.files[0]);
                   setPictureField(e.target.files[0]);
                 }}
-                type="file"
               />
             </Button>
           </Form.Group>
@@ -407,6 +411,192 @@ export function InfoAccForm() {
                 ref={phoneNumberField}
               />
             </Form.Group>
+            {errorResponse.isError && (
+              <Alert variant="danger">{errorResponse.message}</Alert>
+            )}
+            <Button type="submit" style={buttonStyle} className="w-100 py-2">
+              Simpan
+            </Button>
+          </div>
+        </Form>
+      </Container>
+    </>
+  );
+}
+
+export function InfoAccFormV2() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState({});
+  useEffect(() => {
+    const validateLogin = async (e) => {
+      try {
+        // Check status user login
+        // 1. Get token from localStorage
+        const token = localStorage.getItem("token");
+
+        // 2. Check token validity from API
+        const currentUserRequest = await axios.get(
+          "http://localhost:2000/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const currentUserResponse = currentUserRequest.data;
+
+        if (currentUserResponse.status) {
+          setUser(currentUserResponse.data.user);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    validateLogin();
+  }, []);
+  const navigate = useNavigate();
+  const nameField = useRef("");
+  const cityField = useRef("");
+  const addressField = useRef("");
+  const phoneNumberField = useRef("");
+  const [pictureField, setPictureField] = useState();
+  const { id } = useParams();
+  const [errorResponse, setErrorResponse] = useState({
+    isError: false,
+    message: "",
+  });
+  const onUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      const createPostPayload = new FormData();
+
+      console.log(pictureField);
+      // console.log(setPictureField);
+      createPostPayload.append("name", nameField.current.value);
+      createPostPayload.append("city", cityField.current.value);
+      createPostPayload.append("address", addressField.current.value);
+      createPostPayload.append("phoneNumber", phoneNumberField.current.value);
+      createPostPayload.append("picture", pictureField);
+
+      const token = localStorage.getItem("token");
+
+      const createRequest = await axios.put(
+        `http://localhost:2000/users/update/${id}`,
+        createPostPayload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(createRequest);
+
+      const createResponse = createRequest.data;
+
+      if (createResponse.status) {
+        navigate("/daftarjual");
+      }
+    } catch (err) {
+      console.log(err);
+      const response = err.response.data;
+
+      setErrorResponse({
+        isError: true,
+        message: response.message,
+      });
+    }
+  };
+  const buttonStyle = {
+    borderRadius: "12px",
+    backgroundColor: "rgba(113, 38, 181, 1)",
+    border: "1px solid rgba(113, 38, 181, 1)",
+  };
+
+  const buttonUpload = {
+    borderRadius: "12px",
+    backgroundColor: "rgba(226, 212, 240, 1)",
+    border: "1px solid rgba(226, 212, 240, 1)",
+  };
+
+  const formStyle = {
+    borderRadius: "12px",
+  };
+  return (
+    <>
+      <Container className="form-info-acc ">
+        <Link
+          to="/"
+          className="text-black position-absolute "
+          style={{ left: "25%" }}
+        >
+          <IoMdArrowBack style={{ fontSize: "20px" }} />
+        </Link>
+        <h5 className="text-center">Lengkapi Info Akun</h5>
+        <Form onSubmit={onUpdate}>
+          <Form.Group className="mb-3 upload ">
+            <Button
+              variant="secondary"
+              style={buttonUpload}
+              className="upload-image "
+            >
+              <MdOutlinePhotoCamera
+                style={{ fontSize: "36px", color: "rgba(113, 38, 181, 1)" }}
+              />
+              <Form.Control
+                type="file"
+                onChange={(e) => {
+                  setPictureField(e.target.files[0]);
+                }}
+              />
+            </Button>
+          </Form.Group>
+          <div className="w-50 form-body">
+            <Form.Group className="mb-2">
+              <Form.Label>Nama</Form.Label>
+              <Form.Control
+                style={formStyle}
+                placeholder="Nama"
+                className="py-2"
+                ref={nameField}
+                defaultValue={user.name}
+              />
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Kota</Form.Label>
+              <Form.Select ref={cityField} style={formStyle} value={user.city}>
+                <option hidden>Pilih Kota</option>
+                <option value="Lombok">Lombok</option>
+                <option value="Mataram">Mataram</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Nama</Form.Label>
+              <Form.Control
+                style={formStyle}
+                as="textarea"
+                placeholder="Contoh: Jalan Ikan Hiu 33"
+                className="py-2"
+                ref={addressField}
+                defaultValue={user.address}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>No. Handphone</Form.Label>
+              <Form.Control
+                style={formStyle}
+                placeholder="contoh: +628123456789"
+                className="py-2"
+                ref={phoneNumberField}
+                defaultValue={user.phoneNumber}
+              />
+            </Form.Group>
+
+            {errorResponse.isError && (
+              <Alert variant="danger">{errorResponse.message}</Alert>
+            )}
             <Button type="submit" style={buttonStyle} className="w-100 py-2">
               Simpan
             </Button>
@@ -418,6 +608,20 @@ export function InfoAccForm() {
 }
 
 export function InfoProductForm() {
+  const navigate = useNavigate();
+  const nameField = useRef("");
+  const priceField = useRef("");
+  const categoryField = useRef("");
+  const descriptionField = useRef("");
+  const [isSold, setIsSold] = useState(Boolean);
+  const [isPublish, setIsPublish] = useState(Boolean);
+  const [pictureField, setPictureField] = useState();
+
+  const [errorResponse, setErrorResponse] = useState({
+    isError: false,
+    message: "",
+  });
+
   const buttonStyle = {
     borderRadius: "16px",
     backgroundColor: "rgba(113, 38, 181, 1)",
@@ -439,6 +643,49 @@ export function InfoProductForm() {
   const formStyle = {
     borderRadius: "12px",
   };
+
+  const onCreate = async (e) => {
+    e.preventDefault();
+
+    try {
+      const createPostPayload = new FormData();
+
+      createPostPayload.append("name", nameField.current.value);
+      createPostPayload.append("price", priceField.current.value);
+      createPostPayload.append("category", categoryField.current.value);
+      createPostPayload.append("description", descriptionField.current.value);
+      createPostPayload.append("sold", isSold);
+      createPostPayload.append("isPublish", isPublish);
+      createPostPayload.append("picture", pictureField);
+
+      const token = localStorage.getItem("token");
+
+      const createRequest = await axios.post(
+        "http://localhost:2000/products/create",
+        createPostPayload,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const createResponse = createRequest.data.data;
+
+      if (createResponse.status) {
+        navigate("/");
+      }
+    } catch (err) {
+      console.log(err);
+      const response = err.response.data;
+
+      setErrorResponse({
+        isError: true,
+        message: response.message,
+      });
+    }
+  };
   return (
     <>
       <Container className="form-info-product">
@@ -451,7 +698,7 @@ export function InfoProductForm() {
         </Link>
         <h5 className="text-center">Lengkapi Detail Product</h5>
 
-        <Form>
+        <Form onSubmit={onCreate}>
           <div className="w-50 form-body">
             <Form.Group className="mb-2">
               <Form.Label>Nama Product</Form.Label>
@@ -459,6 +706,7 @@ export function InfoProductForm() {
                 style={formStyle}
                 placeholder="Nama Produk"
                 className="py-2"
+                ref={nameField}
               />
             </Form.Group>
             <Form.Group className="mb-2">
@@ -467,14 +715,18 @@ export function InfoProductForm() {
                 style={formStyle}
                 placeholder="Rp 0,00"
                 className="py-2"
+                ref={priceField}
               />
             </Form.Group>
             <Form.Group className="mb-2">
               <Form.Label>Kategori</Form.Label>
-              <Form.Select style={formStyle}>
+              <Form.Select style={formStyle} ref={categoryField}>
                 <option hidden>Pilih Kategori</option>
-                <option>kategori</option>
-                <option>Kategori</option>
+                <option value="Hobi">Hobi</option>
+                <option value="Kendaraan">Kendaraan</option>
+                <option value="Baju">Baju</option>
+                <option value="Elektronik">Elektronik</option>
+                <option value="Kesehatan">Kesehatan</option>
               </Form.Select>
             </Form.Group>
 
@@ -485,6 +737,7 @@ export function InfoProductForm() {
                 as="textarea"
                 placeholder="Contoh: Jalan Ikan Hiu 33"
                 className="py-2"
+                ref={descriptionField}
               />
             </Form.Group>
 
@@ -493,24 +746,40 @@ export function InfoProductForm() {
               <Button
                 variant="secondary"
                 style={buttonUpload}
-                className="upload-image-product  "
+                className="upload-image-product"
               >
                 <AiOutlinePlus
                   style={{ fontSize: "24px", color: "rgba(138, 138, 138, 1)" }}
                 />
-                <Form.Control type="file" />
+                <Form.Control
+                  type="file"
+                  multiple
+                  onChange={(e) => {
+                    setPictureField(e.target.files[0]);
+                  }}
+                />
               </Button>
             </Form.Group>
+
+            {errorResponse.isError && (
+              <Alert variant="danger">{errorResponse.message}</Alert>
+            )}
 
             <div className="d-flex gap-3">
               <Button
                 type="submit"
                 style={buttonStyleV2}
                 className="w-50 py-2 text-black"
+                onClick={() => setIsPublish(false)}
               >
                 Preview
               </Button>
-              <Button type="submit" style={buttonStyle} className="w-50 py-2">
+              <Button
+                type="submit"
+                style={buttonStyle}
+                className="w-50 py-2"
+                onClick={() => setIsPublish(true)}
+              >
                 Terbitkan
               </Button>
             </div>
