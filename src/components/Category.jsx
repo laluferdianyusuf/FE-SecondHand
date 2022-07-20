@@ -5,6 +5,7 @@ import { FiSearch } from "react-icons/fi";
 import { BsPlus } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { CardProduct } from "../components/Card";
+import { useSelector } from "react-redux";
 
 export function Category() {
   const navigate = useNavigate();
@@ -12,8 +13,10 @@ export function Category() {
   const [user, setUser] = useState({});
   const [product, setProduct] = useState([]);
   const [category, setCategory] = useState("");
+  const search = useSelector((state) => state.search.search);
 
   const categories = category ? `&category=${category}` : "";
+  const searched = search ? `&name=${search}` : "";
 
   const sellButton = () => {
     isLoggedIn
@@ -26,7 +29,7 @@ export function Category() {
   const getProductPublish = async () => {
     try {
       const dataProduct = await axios.get(
-        `http://localhost:2000/api/filter?sold=false&isPublish=true${categories}`
+        `http://localhost:2000/api/filter?sold=false&isPublish=true${categories}${searched}`
       );
 
       const payloadData = await dataProduct.data.data.data;
@@ -64,7 +67,7 @@ export function Category() {
     };
     validateLogin();
     getProductPublish();
-  }, [categories]);
+  }, [categories, search]);
 
   return (
     <>

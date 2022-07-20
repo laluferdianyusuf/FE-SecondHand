@@ -1,10 +1,21 @@
 p {
   margin: 0;
 }
+
 .alert {
-  background-color: rgb(121, 25, 25) !important;
+  background-color: rgba(121, 25, 25, 0.5) !important;
   border-radius: 16px !important;
   color: white !important;
+  padding: 10px;
+}
+
+.css-1jwo4rq-MuiInputBase-root .MuiInputBase-input {
+  padding-left: 0 !important;
+}
+
+.css-i4bv87-MuiSvgIcon-root {
+  position: relative;
+  left: 90%;
 }
 
 .modal-open {
@@ -80,15 +91,10 @@ p {
   align-self: flex-start;
   padding-left: 10px;
   font-weight: 500 !important;
-  /* gap: 17px; */
 }
 
 .css-35zqo5-MuiTabs-root {
   border-right: 1px solid transparent;
-}
-
-.sidebar-category-responsive {
-  display: none;
 }
 
 .css-heg063-MuiTabs-flexContainer {
@@ -99,27 +105,6 @@ p {
 
 .css-heg063-MuiTabs-flexContainer::-webkit-scrollbar {
   display: none;
-}
-
-.sidebar-category-responsive button {
-  background: #e2d4f0;
-  border-radius: 16px;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  padding: 12px 16px !important;
-  color: black !important;
-}
-.css-1gsv261 {
-  border-bottom: none !important;
-}
-.sidebar-category-responsive button:hover {
-  background: #7126b5;
-  color: white !important;
-}
-
-.sidebar-category-responsive button:focus {
-  background: #7126b5;
-  color: white !important;
 }
 
 .css-1aquho2-MuiTabs-indicator {
@@ -206,49 +191,22 @@ p {
 }
 
 /* carousel product */
-.slider-product .owl-theme .owl-dots {
-  position: absolute;
-  top: 90%;
-  left: 45%;
-}
-
-.slider-product .owl-theme .owl-nav button.owl-next {
-  background-color: rgba(255, 255, 255, 1);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  position: absolute;
-  top: 45%;
-  right: 10px;
-}
-
-.slider-product .owl-theme .owl-nav button.owl-next.disabled {
-  opacity: 0;
-}
-
-.slider-product .owl-theme .owl-nav button.owl-prev.disabled {
-  opacity: 0;
-}
-
-.slider-product .owl-theme .owl-nav button.owl-prev {
-  background-color: rgba(255, 255, 255, 1);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  position: absolute;
-  top: 45%;
-  left: 10px;
-}
-
-.slider-product .owl-theme .owl-dots .owl-dot.active span {
-  background-color: rgba(113, 38, 181, 1);
-}
-.slider-product .owl-theme .owl-dots .owl-dot span {
+.slider-product .carousel .carousel-indicators button {
   width: 6px;
   height: 6px;
-  margin: 3px;
-  background-color: rgba(196, 196, 196, 1);
+  border-radius: 50%;
   border: 1px solid rgba(113, 38, 181, 1);
+  background-color: rgba(196, 196, 196, 1);
+  opacity: 1;
+}
+
+.slider-product .carousel .carousel-indicators button.active {
+  background-color: rgba(113, 38, 181, 1);
+}
+
+.slider-product .carousel .carousel-control-next-icon {
+  width: 50%;
+  height: 12px;
 }
 
 /* cayegory */
@@ -283,6 +241,40 @@ p {
   color: white;
 }
 
+/* sidebar */
+.category-daftar-jual_scroll .button-second-category {
+  display: none !important;
+}
+
+.sidebar-category-responsive.card {
+  border: 1px solid rgba(113, 38, 181, 0);
+  padding: 0 10px;
+}
+
+.category-daftar-jual_scroll.container {
+  padding-right: 0 !important;
+}
+
+.sidebar-category-responsive.card {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(113, 38, 181, 0);
+  border-radius: 16px;
+}
+
+.sidebar-category-responsive.card h5 {
+  padding: 5% 0 0 9%;
+}
+
+.css-16ac5r2-MuiButtonBase-root-MuiListItemButton-root.Mui-selected {
+  color: #7126b5 !important;
+  background-color: transparent !important;
+}
+
+.navigasi-user .card {
+  border: 1px solid transparent;
+  border-radius: 16px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
+}
 /* card */
 .card-content {
   display: grid;
@@ -360,6 +352,18 @@ p {
 }
 .form-info-product form .form-body {
   transform: translate(55%);
+}
+
+.upload-image-button {
+  width: 96px;
+  height: 96px;
+  border: 2px dashed rgba(208, 208, 208, 1) !important;
+  background-color: transparent !important;
+  border-radius: 12px;
+}
+
+.upload-image-button h2 {
+  color: rgba(208, 208, 208, 1);
 }
 
 /* content */
@@ -465,6 +469,22 @@ p {
 }
 
 @media only screen and (max-width: 1023px) {
+  .css-1xdupth {
+    top: 7px;
+  }
+
+  .css-1jwo4rq-MuiInputBase-root .MuiInputBase-input {
+    padding-left: 0 !important;
+  }
+
+  .css-i4bv87-MuiSvgIcon-root {
+    position: relative;
+    left: 85%;
+  }
+
+  .css-1xdupth {
+    width: 120% !important;
+  }
   /* navbar */
   .box {
     display: none;
@@ -629,10 +649,40 @@ p {
     color: white;
   }
 
-  .sidebar-category-responsive {
-    display: block;
+  /* sidebar */
+  .sidebar-category-responsive.card {
+    display: none;
   }
 
+  .category-daftar-jual_scroll .button-second-category {
+    display: flex !important;
+    overflow-x: scroll;
+  }
+
+  .category-daftar-jual_scroll .button-second-category::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-daftar-jual_scroll .button-second-category button {
+    height: 44px;
+    padding: 12px 16px !important;
+    align-items: center;
+    background-color: rgba(226, 212, 240, 1);
+    color: rgba(60, 60, 60, 1);
+    border-radius: 12px;
+    border: 1px solid rgba(226, 212, 240, 1);
+  }
+
+  .category-daftar-jual_scroll .button-second-category button:focus {
+    background-color: rgba(113, 38, 181, 1);
+    box-shadow: none;
+    color: white;
+  }
+
+  .category-daftar-jual_scroll {
+    margin-bottom: 10px;
+    padding: 0 !important;
+  }
   /* category */
   .category div button.button-sell {
     width: 25%;
@@ -650,6 +700,7 @@ p {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 20px;
+    justify-content: center;
   }
 
   /* login */

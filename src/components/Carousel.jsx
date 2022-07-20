@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import Carousel from "react-bootstrap/Carousel";
 import "../style/component.css";
-import { Card, Col, Row } from "react-bootstrap";
-import ImageProduct from "../images/Rectangle-134.png";
+import { Card, Col, Row, Alert } from "react-bootstrap";
+import { FiArrowLeft } from "react-icons/fi";
 
-export function Carousel() {
+export function CarouselHome() {
   const options = {
     items: 2,
     autoplay: true,
@@ -96,26 +99,100 @@ export function Carousel() {
 }
 
 export function CarouselProduct() {
+  // const navigate = useNavigate();
+  const { id } = useParams();
+  const [data, setData] = useState([]);
+  // console.log(data);
+  const [user, setUser] = useState({});
+  const [errorResponse, setErrorResponse] = useState({
+    isError: false,
+    message: "",
+  });
+
+  const [successResponse, setSuccessResponse] = useState({
+    isSuccess: false,
+    message: "",
+  });
+
+  const fetchData = async () => {
+    try {
+      // Check status user login
+      // 1. Get token from localStorage
+      const token = localStorage.getItem("token");
+
+      // 2. Check token validity from API
+      const currentUserRequest = await axios.get(
+        "http://localhost:2000/auth/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const currentUserResponse = currentUserRequest.data;
+
+      if (currentUserResponse.status) {
+        setUser(currentUserResponse.data.user);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getProduct = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const responseProduct = await axios.get(
+        `http://localhost:2000/products/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dataProduct = await responseProduct.data.data.getdata;
+      console.log(dataProduct);
+
+      setData(dataProduct);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    getProduct();
+  }, []);
   return (
     <>
       <div className="slider-product">
-        <OwlCarousel className="owl-theme" items={1} margin={10} nav>
-          <div class="item">
-            <img src={ImageProduct} className="w-100" alt="" />
-          </div>
-          <div class="item">
-            <img src={ImageProduct} className="w-100" alt="" />
-          </div>
-          <div class="item">
-            <img src={ImageProduct} className="w-100" alt="" />
-          </div>
-          <div class="item">
-            <img src={ImageProduct} className="w-100" alt="" />
-          </div>
-          <div class="item">
-            <img src={ImageProduct} className="w-100" alt="" />
-          </div>
-        </OwlCarousel>
+        {successResponse.isSuccess && (
+          <Alert
+            variant="success"
+            className="mt-5"
+            onClose={() => setSuccessResponse(true)}
+            dismissible
+          >
+            {successResponse.message}
+          </Alert>
+        )}
+
+        <Carousel>
+          {data.picture
+            ? data.picture.map((pics) => (
+                <Carousel.Item>
+                  <img
+                    className="d-block w-100"
+                    src={`${pics}`}
+                    alt="First slide"
+                    style={{ height: "436px" }}
+                  />
+                </Carousel.Item>
+              ))
+            : ""}
+        </Carousel>
       </div>
     </>
   );

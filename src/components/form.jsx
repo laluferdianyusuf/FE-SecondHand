@@ -3,10 +3,15 @@ import { Alert, Row, Col, Button, Form, Container } from "react-bootstrap";
 import "../style/component.css";
 import ImageLogin from "../images/img.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { MdOutlinePhotoCamera } from "react-icons/md";
+import { FiPlus } from "react-icons/fi";
 import { IoMdArrowBack } from "react-icons/io";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { useDropzone } from "react-dropzone";
+import { addProduct } from "../slices/productSlice";
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -17,6 +22,10 @@ export function LoginForm() {
     message: "",
   });
 
+  const [showPass, setShowPass] = useState(false);
+  const handleShowPass = () => {
+    setShowPass((prevState) => !prevState);
+  };
   const onLogin = async (e) => {
     e.preventDefault();
 
@@ -62,6 +71,18 @@ export function LoginForm() {
   const textStyle = {
     color: "rgba(113, 38, 181, 1)",
   };
+
+  const Root = styled("div")(({ theme }) => ({
+    position: "absolute",
+    [theme.breakpoints.up("sm")]: {
+      top: "50.8%",
+      right: "11%",
+    },
+    [theme.breakpoints.down("md")]: {
+      top: "48.8%",
+      right: "6%",
+    },
+  }));
   return (
     <>
       <Row className="row-login gx-0">
@@ -90,7 +111,7 @@ export function LoginForm() {
 
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type="password"
+                type={showPass ? "text" : "password"}
                 ref={passwordField}
                 placeholder="Enter password"
                 className="mb-4"
@@ -118,6 +139,27 @@ export function LoginForm() {
           </div>
         </Col>
       </Row>
+      <Root>
+        <Button
+          onClick={handleShowPass}
+          className="position-absolute"
+          style={{
+            top: "51%",
+            right: "10%",
+            backgroundColor: "transparent",
+            border: "1px solid transparent",
+          }}
+        >
+          {showPass ? (
+            <AiOutlineEyeInvisible
+              style={{ fontSize: "20px" }}
+              className="text-black"
+            />
+          ) : (
+            <AiOutlineEye className="text-black" style={{ fontSize: "20px" }} />
+          )}
+        </Button>
+      </Root>
     </>
   );
 }
@@ -528,7 +570,7 @@ export function InfoAccFormV2() {
     <>
       <Container className="form-info-acc ">
         <Link
-          to="/"
+          to="/daftarjual"
           className="text-black position-absolute "
           style={{ left: "25%" }}
         >
@@ -607,20 +649,87 @@ export function InfoAccFormV2() {
   );
 }
 
-export function InfoProductForm() {
+export function InfoProductForm(props) {
   const navigate = useNavigate();
   const nameField = useRef("");
   const priceField = useRef("");
   const categoryField = useRef("");
   const descriptionField = useRef("");
   const [isSold, setIsSold] = useState(Boolean);
-  const [isPublish, setIsPublish] = useState(Boolean);
-  const [pictureField, setPictureField] = useState();
+  const dispatch = useDispatch();
+  // const [open, setOpen] = useState(false);
 
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
     message: "",
   });
+
+  const [files, setFiles] = useState([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
+
+  const thumb = {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: "border-box",
+  };
+
+  const thumbInner = {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden",
+  };
+
+  const img = {
+    display: "block",
+    width: "auto",
+    height: "100%",
+  };
+
+  const thumbs = files.map((file) => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img
+          src={file.preview}
+          style={img}
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  const thumbsContainer = {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 16,
+  };
 
   const buttonStyle = {
     borderRadius: "16px",
@@ -634,20 +743,15 @@ export function InfoProductForm() {
     border: "1px solid rgba(113, 38, 181, 1)",
   };
 
-  const buttonUpload = {
-    borderRadius: "12px",
-    backgroundColor: "rgba(226, 212, 240, 0)",
-    border: "2px dashed rgba(226, 212, 240, 1)",
-  };
-
   const formStyle = {
     borderRadius: "12px",
   };
 
-  const onCreate = async (e) => {
+  const onCreate = async (e, isPublish) => {
     e.preventDefault();
 
     try {
+      const token = localStorage.getItem("token");
       const createPostPayload = new FormData();
 
       createPostPayload.append("name", nameField.current.value);
@@ -656,30 +760,31 @@ export function InfoProductForm() {
       createPostPayload.append("description", descriptionField.current.value);
       createPostPayload.append("sold", isSold);
       createPostPayload.append("isPublish", isPublish);
-      createPostPayload.append("picture", pictureField);
-
-      const token = localStorage.getItem("token");
-
+      files.forEach((element) => {
+        createPostPayload.append("picture", element);
+      });
+      // setOpen(true);
       const createRequest = await axios.post(
         "http://localhost:2000/products/create",
         createPostPayload,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
 
-      const createResponse = createRequest.data.data;
+      const createResponse = createRequest.data;
+
+      dispatch(addProduct(createResponse.message));
 
       if (createResponse.status) {
-        navigate("/");
+        if (isPublish) navigate("/daftarjual");
+        else navigate("/daftarjual");
       }
     } catch (err) {
-      console.log(err);
       const response = err.response.data;
-
       setErrorResponse({
         isError: true,
         message: response.message,
@@ -688,6 +793,12 @@ export function InfoProductForm() {
   };
   return (
     <>
+      {/* <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop> */}
       <Container className="form-info-product">
         <Link
           to="/"
@@ -741,24 +852,20 @@ export function InfoProductForm() {
               />
             </Form.Group>
 
-            <Form.Group className="mb-3 upload-product d-flex flex-column ">
+            <Form.Group className="mb-3 d-flex flex-column ">
               <Form.Label>Foto Produk</Form.Label>
-              <Button
-                variant="secondary"
-                style={buttonUpload}
-                className="upload-image-product"
-              >
-                <AiOutlinePlus
-                  style={{ fontSize: "24px", color: "rgba(138, 138, 138, 1)" }}
-                />
-                <Form.Control
-                  type="file"
-                  multiple
-                  onChange={(e) => {
-                    setPictureField(e.target.files[0]);
-                  }}
-                />
-              </Button>
+
+              <section>
+                <div {...getRootProps({ className: "dropzone" })}>
+                  <input {...getInputProps()} />
+                  <Button className="upload-image-button">
+                    <h2>
+                      <FiPlus />
+                    </h2>
+                  </Button>
+                </div>
+                <aside style={thumbsContainer}>{thumbs}</aside>
+              </section>
             </Form.Group>
 
             {errorResponse.isError && (
@@ -770,7 +877,7 @@ export function InfoProductForm() {
                 type="submit"
                 style={buttonStyleV2}
                 className="w-50 py-2 text-black"
-                onClick={() => setIsPublish(false)}
+                onClick={(e) => onCreate(e, false)}
               >
                 Preview
               </Button>
@@ -778,7 +885,7 @@ export function InfoProductForm() {
                 type="submit"
                 style={buttonStyle}
                 className="w-50 py-2"
-                onClick={() => setIsPublish(true)}
+                onClick={(e) => onCreate(e, true)}
               >
                 Terbitkan
               </Button>

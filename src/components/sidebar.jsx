@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Button, Container } from "react-bootstrap";
 import { FiBox, FiHeart, FiDollarSign, FiChevronRight } from "react-icons/fi";
 import axios from "axios";
 import { Content } from "../components/Content";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Divider from "@mui/material/Divider";
+import { useSelector } from "react-redux";
+import { Alert, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export function SidebarUser() {
@@ -59,10 +59,7 @@ export function SidebarUser() {
         <div className="navigasi-user">
           <Card className="p-3">
             <div className="d-flex gap-3">
-              <Card.Img
-                src={`http://localhost:2000/public/files/${user.picture}`}
-                style={{ width: "5%" }}
-              />
+              <Card.Img src={`${user.picture}`} style={{ width: "5%" }} />
               <div>
                 <Card.Text className="mb-0 fw-bold">{user.name}</Card.Text>
                 <Card.Text>{user.city}</Card.Text>
@@ -86,166 +83,178 @@ export function SidebarUser() {
   );
 }
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-}
-
 export function SidebarFix() {
-  const Root = styled("div")(({ theme }) => ({
-    [theme.breakpoints.down("md")]: {
-      display: "none",
-    },
-  }));
+  const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const [productSeller, setproductSeller] = useState([]);
+  const alert = useSelector((state) => state.product.alert);
+  const [show, setShow] = useState(true);
 
-  const styledV1 = {
-    padding: "10px",
-    boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.15)",
-    borderRadius: "16px",
+  const handleClose = () => {
+    setShow(false);
   };
 
-  const styledV2 = {
-    fontSize: "16px",
+  const [products, setProducts] = useState(true);
+  const [wishlist, setWishlist] = useState(false);
+  const [sold, setSold] = useState(false);
+  const productsHandler = (event, index) => {
+    setProducts(true);
+    setWishlist(false);
+    setSold(false);
+    setSelectedIndex(index);
+  };
+  const wishlistHandler = (event, index) => {
+    setProducts(false);
+    setWishlist(true);
+    setSold(false);
+    setSelectedIndex(index);
+  };
+  const soldHandler = (event, index) => {
+    setProducts(false);
+    setWishlist(false);
+    setSold(true);
+    setSelectedIndex(index);
   };
 
-  const styledV3 = {
-    fontSize: "16px",
-    borderBottom: "1px solid black",
-  };
-  const [value, setValue] = React.useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+        const currentUserRequest = await axios.get(
+          "http://localhost:2000/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-  return (
+        const currentUserResponse = currentUserRequest.data;
+
+        if (currentUserResponse.status) {
+          setUser(currentUserResponse.data.user);
+        }
+
+        if (currentUserResponse.data.user.id) {
+          const dataProducts = await axios.get(
+            `http://localhost:2000/users/${currentUserResponse.data.user.id}/products`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const payloadData = dataProducts.data.data.products;
+          console.log(payloadData);
+          setproductSeller(payloadData);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return isLoggedIn ? (
     <>
-      <Row className="mt-3">
-        <Col md={3}>
-          <Box
-            sx={{ width: "100%", typography: "body1" }}
-            className="sidebar-category-responsive mb-2"
-          >
-            <TabContext value={value}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                >
-                  <Tab
-                    label={
-                      <span className="d-flex align-self-center gap-2">
-                        <FiBox className="align-self-center" />{" "}
-                        <span className="fw-bold">Produk</span>
-                      </span>
-                    }
-                  />
-                  <Tab
-                    label={
-                      <span className="d-flex align-self-center gap-2">
-                        <FiHeart className="align-self-center" />{" "}
-                        <span className="fw-bold">Diminati</span>
-                      </span>
-                    }
-                  />
-                  <Tab
-                    label={
-                      <span className="d-flex align-self-center gap-2 ">
-                        <FiDollarSign className="align-self-center" />{" "}
-                        <span className="fw-bold">Terjual</span>
-                      </span>
-                    }
-                  />
-                </TabList>
-              </Box>
-            </TabContext>
-          </Box>
+      <Stack
+        sx={{
+          width: "50%",
+          left: "27%",
+          right: 0,
+          top: 0,
+          transition: "0.5s",
+          marginTop: show ? { xs: "120px", md: "100px" } : "-350px",
+          position: "absolute",
+          display: alert ? "block" : "none",
+        }}
+        spacing={2}
+      >
+        <Alert onClose={handleClose}>{alert}</Alert>
+      </Stack>
 
-          <Root>
-            <div classname="sidebar-category-desktop " style={styledV1}>
-              <h6 className="fw-bold pt-2 px-2">Kategori</h6>
-              <Tabs
-                orientation="vertical"
-                variant="scrollable"
-                value={value}
-                onChange={handleChange}
-                aria-label="Vertical tabs example"
-              >
-                <Tab
-                  label={
-                    <div style={styledV3}>
-                      <FiBox /> <span className="fw-bolder">Produk</span>
-                      <FiChevronRight />
-                    </div>
-                  }
-                  {...a11yProps(0)}
-                />
-                <Tab
-                  label={
-                    <div style={styledV3}>
-                      <FiHeart /> <span className="fw-bolder">Diminati</span>
-                      <FiChevronRight />
-                    </div>
-                  }
-                  {...a11yProps(1)}
-                />
-                <Tab
-                  label={
-                    <div style={styledV2}>
-                      <FiDollarSign />{" "}
-                      <span className="fw-bolder ">Terjual</span>
-                      <FiChevronRight />
-                    </div>
-                  }
-                  {...a11yProps(2)}
-                />
-              </Tabs>
-            </div>
-          </Root>
-        </Col>
+      <Container className="daftar-jual p-0 mt-3">
+        <div class="d-flex">
+          <div class="flex-shrink-0">
+            <Card className="sidebar-category-responsive">
+              <div className="category-daftar-jual-item">
+                <Box>
+                  <List>
+                    <h5 className="category-seller-text1">Kategori</h5>
+                    <ListItemButton
+                      className="category-seller-button d-flex gap-3"
+                      selected={selectedIndex === 1}
+                      onClick={(event) => productsHandler(event, 1)}
+                    >
+                      <FiBox className="seller-icon" />
 
-        <Col md={9}>
-          <div>
-            <TabPanel value={value} index={0}>
-              <Content />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <div>ferdi</div>
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <div>lalu</div>
-            </TabPanel>
+                      <ListItemText primary="Semua Produk" />
+                      <FiChevronRight className="seller-icon" />
+                    </ListItemButton>
+
+                    <Divider variant="middle" />
+                    <ListItemButton
+                      className="d-flex gap-3"
+                      selected={selectedIndex === 2}
+                      onClick={(event) => wishlistHandler(event, 2)}
+                    >
+                      <FiHeart className="seller-icon" />
+
+                      <ListItemText primary="Diminati" />
+                      <FiChevronRight className="seller-icon" />
+                    </ListItemButton>
+
+                    <Divider variant="middle" />
+                    <ListItemButton
+                      className="d-flex gap-3"
+                      selected={selectedIndex === 3}
+                      onClick={(event) => soldHandler(event, 3)}
+                    >
+                      <FiDollarSign className="seller-icon" />
+
+                      <ListItemText primary="Terjual" />
+                      <FiChevronRight className="seller-icon" />
+                    </ListItemButton>
+                  </List>
+                </Box>
+              </div>
+            </Card>
           </div>
-        </Col>
-      </Row>
+
+          <Container className="category-daftar-jual_scroll">
+            <div className="d-flex gap-3 button-second-category mb-3 ">
+              <Button
+                className="d-flex gap-2"
+                variant="primary"
+                onClick={productsHandler}
+              >
+                <FiBox className="align-self-center" /> Produk
+              </Button>
+              <Button
+                className="d-flex gap-2"
+                variant="primary"
+                onClick={wishlistHandler}
+              >
+                <FiHeart className="align-self-center" /> Diminati
+              </Button>
+              <Button
+                className="d-flex gap-2"
+                variant="primary"
+                onClick={soldHandler}
+              >
+                <FiDollarSign className="align-self-center" /> Terjual
+              </Button>
+            </div>
+            {products && <Content productSeller={productSeller} />}
+            {wishlist && <Content />}
+            {sold && <Content />}
+          </Container>
+        </div>
+      </Container>
     </>
+  ) : (
+    <Navigate to="/login" replace />
   );
 }

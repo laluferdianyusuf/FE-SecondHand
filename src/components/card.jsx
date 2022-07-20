@@ -8,6 +8,9 @@ export function CardProduct({ product }) {
 
   const image = {
     margin: "8px",
+    height: "100px",
+    width: "165px",
+    borderRadius: "4px",
   };
 
   const accesoris = {
@@ -15,15 +18,15 @@ export function CardProduct({ product }) {
     opacity: "0.5",
   };
   return (
-    <Container className="card-content">
+    <Container className="card-content ">
       {product.map((product) => (
         <div key={product.id}>
           <Card>
             <Card.Img
               variant="top"
-              className="align-self-center w-75"
+              className="align-self-center "
               multiple
-              src={`http://localhost:2000/public/files/${product.picture[0]}`}
+              src={`${product.picture[0]}`}
               style={image}
             />
             <Card.Body className="p-2">

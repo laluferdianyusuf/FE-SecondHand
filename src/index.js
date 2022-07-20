@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -14,7 +16,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
@@ -23,12 +25,12 @@ root.render(
         <Route path="/updateacc/:id" element={<InfoAcc />} />
         <Route path="/updateaccv2/:id" element={<InfoAccV2 />} />
         <Route path="/createproduct" element={<InfoProduct />} />
-        <Route path="/homeproduct" element={<PageProduct />} />
+        <Route path="/homeproduct/:id" element={<PageProduct />} />
         <Route path="/daftarjual" element={<DaftarJual />} />
         <Route path="/offers" element={<InfoOffer />} />
       </Routes>
     </Router>
-  </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

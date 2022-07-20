@@ -2,7 +2,7 @@ import React from "react";
 import { HomeNav } from "../components/Navbar";
 import { Category } from "../components/Category";
 
-import { Carousel } from "../components/Carousel";
+import { CarouselHome } from "../components/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Homepage() {
@@ -15,7 +15,7 @@ export default function Homepage() {
 
       {/* carousel */}
       <div className="mt-4">
-        <Carousel />
+        <CarouselHome />
       </div>
 
       {/* category */}

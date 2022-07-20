@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Container, Form, Navbar, Offcanvas } from "react-bootstrap";
+import { Button, Container, Navbar, Offcanvas } from "react-bootstrap";
 import "../style/component.css";
 import { FiLogIn, FiBell, FiUser } from "react-icons/fi";
 import { BsListUl } from "react-icons/bs";
@@ -9,6 +10,10 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Badge from "@mui/material/Badge";
 import { IoMdArrowBack } from "react-icons/io";
 import { styled } from "@mui/material/styles";
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+import { addSearch } from "../slices/searchSlice";
+import { addUser } from "../slices/userSlice";
 
 export function BlankNav() {
   return (
@@ -44,7 +49,13 @@ export function BlankNavV2() {
 
 export function HomeNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const dispatch = useDispatch();
   const [user, setUser] = useState({});
+  const [searching, setSearching] = useState("");
+
+  const handleSearch = () => {
+    dispatch(addSearch(searching));
+  };
 
   useEffect(() => {
     const validateLogin = async () => {
@@ -66,14 +77,25 @@ export function HomeNav() {
         const currentUserResponse = currentUserRequest.data;
 
         if (currentUserResponse.status) {
+          dispatch(
+            addUser({
+              user: currentUserResponse.data.user,
+              token: token,
+            })
+          );
+          localStorage.setItem(
+            "user",
+            JSON.stringify(currentUserResponse.data.user)
+          );
           setUser(currentUserResponse.data.user);
         }
       } catch (err) {
         setIsLoggedIn(false);
       }
     };
+    handleSearch();
     validateLogin();
-  }, []);
+  }, [searching]);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -97,25 +119,54 @@ export function HomeNav() {
     backgroundColor: "rgba(0,0,0,0)",
     width: "50px",
   };
-  const searchStyle = {
-    backgroundColor: "rgba(238, 238, 238, 1)",
-    border: "1px solid rgba(238, 238, 238, 1)",
-  };
+
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    background: "#EEEEEE",
+    borderRadius: "16px",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(3),
+      width: "auto",
+    },
+    display: "block",
+  }));
+
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: "inherit",
+    "& .MuiInputBase-input": {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("md")]: {
+        width: "35ch",
+      },
+    },
+  }));
+
   return (
     <Navbar expand="lg" className="py-3 home-nav">
       <Container>
         <div className="box me-3"></div>
         <div className="d-flex gap-3">
           <Navbar.Toggle aria-controls="offcanvas" onClick={handleShow} />
-          <Form className="d-flex me-auto">
-            <Form.Control
-              type="search"
-              placeholder="Cari di sini..."
-              className="me-2"
-              aria-label="Search"
-              style={searchStyle}
-            />
-          </Form>
+          <div className="me-auto">
+            <Search>
+              <SearchIcon className="search-icon" />
+              <StyledInputBase
+                onChange={(e) => {
+                  setSearching(e.target.value);
+                }}
+                placeholder="Cari di sini …"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </div>
         </div>
 
         <Navbar.Offcanvas
