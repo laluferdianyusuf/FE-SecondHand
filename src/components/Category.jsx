@@ -13,10 +13,12 @@ export function Category() {
   const [user, setUser] = useState({});
   const [product, setProduct] = useState([]);
   const [category, setCategory] = useState("");
-  const search = useSelector((state) => state.search.search);
+  const searching = useSelector((state) => state.search.search);
 
   const categories = category ? `&category=${category}` : "";
-  const searched = search ? `&name=${search}` : "";
+  const searched = searching
+    ? `&name=${searching} / &category=${searching}`
+    : "";
 
   const sellButton = () => {
     isLoggedIn
@@ -67,7 +69,7 @@ export function Category() {
     };
     validateLogin();
     getProductPublish();
-  }, [categories, search]);
+  }, [categories, searching]);
 
   return (
     <>

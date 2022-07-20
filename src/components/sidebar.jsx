@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import { useSelector } from "react-redux";
 import { Alert, Stack } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
 import { styled } from "@mui/material/styles";
 
 export function SidebarUser() {
@@ -172,7 +173,14 @@ export function SidebarFix() {
         }}
         spacing={2}
       >
-        <Alert onClose={handleClose}>{alert}</Alert>
+        <Alert
+          icon={<CheckIcon fontSize="inherit" />}
+          variant="filled"
+          severity="success"
+          onClose={handleClose}
+        >
+          {alert}
+        </Alert>
       </Stack>
 
       <Container className="daftar-jual p-0 mt-3">

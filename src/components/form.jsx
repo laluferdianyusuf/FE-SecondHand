@@ -809,7 +809,7 @@ export function InfoProductForm(props) {
         </Link>
         <h5 className="text-center">Lengkapi Detail Product</h5>
 
-        <Form onSubmit={onCreate}>
+        <Form>
           <div className="w-50 form-body">
             <Form.Group className="mb-2">
               <Form.Label>Nama Product</Form.Label>

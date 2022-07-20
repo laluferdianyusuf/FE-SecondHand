@@ -46,8 +46,11 @@ export function Content({ productSeller }) {
         {productSeller
           ? productSeller.map((item) => (
               <div className="px-2 mb-3 w-100" key={item.id}>
-                <Link to={`/homeproduct/${item.id}`}>
-                  <Card style={{ gap: "37px" }}>
+                <Link
+                  to={`/homeproduct/${item.id}`}
+                  className="text-decoration-none text-black"
+                >
+                  <Card>
                     <Card.Img
                       className="align-self-center"
                       variant="top"
@@ -220,29 +223,69 @@ export function UserProfile() {
 }
 
 export function ProductDesc() {
+  // const navigate = useNavigate();
+  const { id } = useParams();
+  const [data, setData] = useState([]);
+  // console.log(data);
+  const [user, setUser] = useState({});
+  const fetchData = async () => {
+    try {
+      // Check status user login
+      // 1. Get token from localStorage
+      const token = localStorage.getItem("token");
+
+      // 2. Check token validity from API
+      const currentUserRequest = await axios.get(
+        "http://localhost:2000/auth/me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const currentUserResponse = currentUserRequest.data;
+
+      if (currentUserResponse.status) {
+        setUser(currentUserResponse.data.user);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getProduct = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const responseProduct = await axios.get(
+        `http://localhost:2000/products/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dataProduct = await responseProduct.data.data.getdata;
+      console.log(dataProduct);
+
+      setData(dataProduct);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    getProduct();
+  }, []);
   return (
     <>
       <div className="mb-3 mt-4">
         <Card className="card-description">
           <Container className="py-3">
             <h4 className="fw-bold">Deskripsi</h4>
-            <p style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet
-              reiciendis quam ipsa distinctio, non, molestiae libero iste
-              aliquam, magnam obcaecati ratione deserunt facilis harum debitis?
-              Iure quidem maxime quo sequi harum distinctio animi unde,
-              doloribus aliquid autem dolores neque voluptas cupiditate est
-              omnis nihil cum, debitis consequatur totam voluptatibus maiores.
-            </p>
-
-            <p style={{ textAlign: "justify" }}>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet
-              reiciendis quam ipsa distinctio, non, molestiae libero iste
-              aliquam, magnam obcaecati ratione deserunt facilis harum debitis?
-              Iure quidem maxime quo sequi harum distinctio animi unde,
-              doloribus aliquid autem dolores neque voluptas cupiditate est
-              omnis nihil cum, debitis consequatur totam voluptatibus maiores.
-            </p>
+            <p style={{ textAlign: "justify" }}>{data.description}</p>
           </Container>
         </Card>
       </div>

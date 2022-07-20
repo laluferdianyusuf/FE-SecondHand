@@ -8,6 +8,7 @@ import Carousel from "react-bootstrap/Carousel";
 import "../style/component.css";
 import { Card, Col, Row, Alert } from "react-bootstrap";
 import { FiArrowLeft } from "react-icons/fi";
+import { styled } from "@mui/material/styles";
 
 export function CarouselHome() {
   const options = {
@@ -165,6 +166,13 @@ export function CarouselProduct() {
     fetchData();
     getProduct();
   }, []);
+
+  const Root = styled("div")(({ theme }) => ({
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
+  }));
+
   return (
     <>
       <div className="slider-product">
@@ -179,15 +187,33 @@ export function CarouselProduct() {
           </Alert>
         )}
 
-        <Carousel>
+        <Root>
+          <Link to="/daftarjual" className="text-black">
+            <h3
+              className="position-absolute"
+              style={{
+                zIndex: 99999,
+                backgroundColor: "white",
+                width: "24px",
+                height: "24px",
+                borderRadius: "50%",
+                top: "25px",
+                left: "20px",
+              }}
+            >
+              <FiArrowLeft className="position-absolute" />
+            </h3>
+          </Link>
+        </Root>
+
+        <Carousel className="carousel-home-product">
           {data.picture
             ? data.picture.map((pics) => (
-                <Carousel.Item>
+                <Carousel.Item className="carousel-item">
                   <img
                     className="d-block w-100"
                     src={`${pics}`}
                     alt="First slide"
-                    style={{ height: "436px" }}
                   />
                 </Carousel.Item>
               ))
