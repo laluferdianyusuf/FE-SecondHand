@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Alert, Row, Col, Button, Form, Container } from "react-bootstrap";
+import { Row, Col, Button, Form, Container, Card } from "react-bootstrap";
+import { Alert, Stack } from "@mui/material";
 import "../style/component.css";
 import ImageLogin from "../images/img.png";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -75,14 +76,19 @@ export function LoginForm() {
   const Root = styled("div")(({ theme }) => ({
     position: "absolute",
     [theme.breakpoints.up("sm")]: {
-      top: "50.8%",
-      right: "11%",
+      top: "51.3%",
+      right: "12%",
     },
     [theme.breakpoints.down("md")]: {
-      top: "48.8%",
-      right: "6%",
+      top: "49.5%",
+      right: "9%",
     },
   }));
+
+  const [show, setShow] = useState(true);
+  const handleClose = () => {
+    setShow(false);
+  };
   return (
     <>
       <Row className="row-login gx-0">
@@ -94,10 +100,10 @@ export function LoginForm() {
           />
         </Col>
         <Col className="mx-5 px-5 align-self-center">
-          <Link to="" className="text-black">
-            <IoMdArrowBack />
+          <Link to="" className="text-black arrow-back">
+            <IoMdArrowBack className="arrow-back" />
           </Link>
-          <div className="w-100 px-5">
+          <div className="w-100 px-5 row-login-body">
             <h3 className="mb-3 fw-bold">Masuk</h3>
             <Form onSubmit={onLogin}>
               <Form.Label>Email</Form.Label>
@@ -132,34 +138,58 @@ export function LoginForm() {
                   Daftar di sini
                 </Link>
               </p>
+
               {errorResponse.isError && (
-                <Alert variant="danger">{errorResponse.message}</Alert>
+                <Stack
+                  sx={{
+                    width: { xs: "80%", md: "50%" },
+                    left: { xs: "10%", md: "27%" },
+                    right: 0,
+                    top: 0,
+                    transition: "0.5s",
+                    marginTop: show ? { xs: "70px", md: "100px" } : "-350px",
+                    position: "absolute",
+                  }}
+                  spacing={2}
+                >
+                  <Alert
+                    icon={false}
+                    variant="filled"
+                    severity="error"
+                    onClose={handleClose}
+                  >
+                    {errorResponse.message}
+                  </Alert>
+                </Stack>
               )}
             </Form>
           </div>
+          <Root>
+            <Button
+              onClick={handleShowPass}
+              className="position-absolute"
+              style={{
+                top: "51%",
+                right: "10%",
+                backgroundColor: "transparent",
+                border: "1px solid transparent",
+              }}
+            >
+              {showPass ? (
+                <AiOutlineEyeInvisible
+                  style={{ fontSize: "20px", position: "inherit" }}
+                  className="text-black"
+                />
+              ) : (
+                <AiOutlineEye
+                  className="text-black"
+                  style={{ fontSize: "20px", position: "inherit" }}
+                />
+              )}
+            </Button>
+          </Root>
         </Col>
       </Row>
-      <Root>
-        <Button
-          onClick={handleShowPass}
-          className="position-absolute"
-          style={{
-            top: "51%",
-            right: "10%",
-            backgroundColor: "transparent",
-            border: "1px solid transparent",
-          }}
-        >
-          {showPass ? (
-            <AiOutlineEyeInvisible
-              style={{ fontSize: "20px" }}
-              className="text-black"
-            />
-          ) : (
-            <AiOutlineEye className="text-black" style={{ fontSize: "20px" }} />
-          )}
-        </Button>
-      </Root>
     </>
   );
 }
@@ -175,6 +205,16 @@ export function RegisterForm() {
     isError: false,
     message: "",
   });
+
+  const [showPass, setShowPass] = useState(false);
+  const handleShowPass = () => {
+    setShowPass((prevState) => !prevState);
+  };
+
+  const [show, setShow] = useState(true);
+  const handleClose = () => {
+    setShow(false);
+  };
   const onRegister = async (e) => {
     e.preventDefault();
 
@@ -217,6 +257,18 @@ export function RegisterForm() {
     color: "rgba(113, 38, 181, 1)",
   };
 
+  const Root = styled("div")(({ theme }) => ({
+    position: "absolute",
+    [theme.breakpoints.up("sm")]: {
+      top: "58.5%",
+      right: "12%",
+    },
+    [theme.breakpoints.down("md")]: {
+      top: "57%",
+      right: "9%",
+    },
+  }));
+
   return (
     <>
       <Row className="row-register gx-0">
@@ -227,11 +279,11 @@ export function RegisterForm() {
             style={{ height: "617px", width: "100%" }}
           />
         </Col>
-        <Col className="mx-5 px-5 align-self-center">
+        <Col className="mx-5 px-5 align-self-center ">
           <Link to="" className="text-black">
-            <IoMdArrowBack />
+            <IoMdArrowBack className="arrow-back" />
           </Link>
-          <div className="w-100 px-5">
+          <div className="w-100 px-5 row-register-body">
             <h3 className="mb-3 fw-bold">Daftar</h3>
             <Form onSubmit={onRegister}>
               <Form.Label>Nama</Form.Label>
@@ -253,7 +305,7 @@ export function RegisterForm() {
 
               <Form.Label>Password</Form.Label>
               <Form.Control
-                type="password"
+                type={showPass ? "text" : "password"}
                 placeholder="Masukan Password"
                 className="mb-4"
                 style={formStyle}
@@ -261,7 +313,27 @@ export function RegisterForm() {
               />
 
               {errorResponse.isError && (
-                <Alert variant="danger">{errorResponse.message}</Alert>
+                <Stack
+                  sx={{
+                    width: { xs: "80%", md: "50%" },
+                    left: { xs: "10%", md: "27%" },
+                    right: 0,
+                    top: 0,
+                    transition: "0.5s",
+                    marginTop: show ? { xs: "70px", md: "100px" } : "-350px",
+                    position: "absolute",
+                  }}
+                  spacing={2}
+                >
+                  <Alert
+                    icon={false}
+                    variant="filled"
+                    severity="error"
+                    onClose={handleClose}
+                  >
+                    {errorResponse.message}
+                  </Alert>
+                </Stack>
               )}
 
               <Button type="submit" style={buttonStyle} className="w-100">
@@ -280,6 +352,30 @@ export function RegisterForm() {
               </p>
             </Form>
           </div>
+          <Root>
+            <Button
+              onClick={handleShowPass}
+              className="position-absolute"
+              style={{
+                top: "51%",
+                right: "10%",
+                backgroundColor: "transparent",
+                border: "1px solid transparent",
+              }}
+            >
+              {showPass ? (
+                <AiOutlineEyeInvisible
+                  style={{ fontSize: "20px", position: "inherit" }}
+                  className="text-black"
+                />
+              ) : (
+                <AiOutlineEye
+                  className="text-black"
+                  style={{ fontSize: "20px", position: "inherit" }}
+                />
+              )}
+            </Button>
+          </Root>
         </Col>
       </Row>
     </>
@@ -322,7 +418,6 @@ export function InfoAccForm() {
   const cityField = useRef("");
   const addressField = useRef("");
   const phoneNumberField = useRef("");
-  const [pictureField, setPictureField] = useState();
   const { id } = useParams();
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
@@ -334,13 +429,14 @@ export function InfoAccForm() {
     try {
       const createPostPayload = new FormData();
 
-      console.log(pictureField);
       // console.log(setPictureField);
       createPostPayload.append("name", nameField.current.value);
       createPostPayload.append("city", cityField.current.value);
       createPostPayload.append("address", addressField.current.value);
       createPostPayload.append("phoneNumber", phoneNumberField.current.value);
-      createPostPayload.append("picture", pictureField);
+      files.forEach((element) => {
+        createPostPayload.append("picture", element);
+      });
 
       const token = localStorage.getItem("token");
 
@@ -371,6 +467,68 @@ export function InfoAccForm() {
       });
     }
   };
+
+  const thumb = {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: "border-box",
+  };
+
+  const thumbInner = {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden",
+  };
+
+  const img = {
+    display: "block",
+    width: "auto",
+    height: "100%",
+  };
+
+  const [files, setFiles] = useState([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
+
+  const thumbs = files.map((file) => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img
+          src={file.preview}
+          style={img}
+          alt=""
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
   const buttonStyle = {
     borderRadius: "12px",
     backgroundColor: "rgba(113, 38, 181, 1)",
@@ -399,22 +557,29 @@ export function InfoAccForm() {
         <h5 className="text-center">Lengkapi Info Akun</h5>
         <Form onSubmit={onUpdate}>
           <Form.Group className="mb-3 upload ">
-            <Button
-              variant="secondary"
-              style={buttonUpload}
-              className="upload-image "
-            >
-              <MdOutlinePhotoCamera
-                style={{ fontSize: "36px", color: "rgba(113, 38, 181, 1)" }}
-              />
-              <Form.Control
-                type="file"
-                onChange={(e) => {
-                  console.log(e.target.files[0]);
-                  setPictureField(e.target.files[0]);
-                }}
-              />
-            </Button>
+            <section>
+              <div {...getRootProps({ className: "dropzone" })}>
+                <input {...getInputProps()} />
+                {files.length === 0 ? (
+                  <Button
+                    variant="secondary"
+                    style={buttonUpload}
+                    className="upload-image "
+                  >
+                    <h2>
+                      <MdOutlinePhotoCamera
+                        style={{
+                          fontSize: "36px",
+                          color: "rgba(113, 38, 181, 1)",
+                        }}
+                      />
+                    </h2>
+                  </Button>
+                ) : (
+                  <div>{thumbs}</div>
+                )}
+              </div>
+            </section>
           </Form.Group>
           <div className="w-50 form-body">
             <Form.Group className="mb-2">
@@ -497,6 +662,7 @@ export function InfoAccFormV2() {
     };
     validateLogin();
   }, []);
+
   const navigate = useNavigate();
   const nameField = useRef("");
   const cityField = useRef("");
@@ -566,9 +732,24 @@ export function InfoAccFormV2() {
   const formStyle = {
     borderRadius: "12px",
   };
+
+  const image = {
+    display: "block",
+    width: "45%",
+    height: "100%",
+  };
+
+  const RootInfoAcc = styled("div")(({ theme }) => ({
+    [theme.breakpoints.up("sm")]: {
+      width: "30%",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "45%",
+    },
+  }));
   return (
     <>
-      <Container className="form-info-acc ">
+      <Container className="form-info-acc mt-3">
         <Link
           to="/daftarjual"
           className="text-black position-absolute "
@@ -578,24 +759,44 @@ export function InfoAccFormV2() {
         </Link>
         <h5 className="text-center">Lengkapi Info Akun</h5>
         <Form onSubmit={onUpdate}>
-          <Form.Group className="mb-3 upload ">
-            <Button
-              variant="secondary"
-              style={buttonUpload}
-              className="upload-image "
-            >
-              <MdOutlinePhotoCamera
-                style={{ fontSize: "36px", color: "rgba(113, 38, 181, 1)" }}
-              />
-              <Form.Control
-                type="file"
-                onChange={(e) => {
-                  setPictureField(e.target.files[0]);
-                }}
-              />
-            </Button>
-          </Form.Group>
           <div className="w-50 form-body">
+            {user.picture ? (
+              <RootInfoAcc className="m-auto">
+                <Card className="profil-image-preview ">
+                  <img
+                    component={"img"}
+                    src={`${user.picture}`}
+                    style={image}
+                  />
+
+                  <Form.Control
+                    type="file"
+                    className="formCamera"
+                    onChange={(e) => {
+                      setPictureField(e.target.files[0]);
+                    }}
+                  />
+                </Card>
+              </RootInfoAcc>
+            ) : (
+              <Form.Group className="mb-3 upload ">
+                <Button
+                  variant="secondary"
+                  style={buttonUpload}
+                  className="upload-image "
+                >
+                  <MdOutlinePhotoCamera
+                    style={{ fontSize: "36px", color: "rgba(113, 38, 181, 1)" }}
+                  />
+                  <Form.Control
+                    type="file"
+                    onChange={(e) => {
+                      setPictureField(e.target.files[0]);
+                    }}
+                  />
+                </Button>
+              </Form.Group>
+            )}
             <Form.Group className="mb-2">
               <Form.Label>Nama</Form.Label>
               <Form.Control
@@ -710,6 +911,7 @@ export function InfoProductForm(props) {
         <img
           src={file.preview}
           style={img}
+          alt=""
           // Revoke data uri after image is loaded
           onLoad={() => {
             URL.revokeObjectURL(file.preview);
@@ -723,13 +925,6 @@ export function InfoProductForm(props) {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
-
-  const thumbsContainer = {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 16,
-  };
 
   const buttonStyle = {
     borderRadius: "16px",
@@ -858,13 +1053,16 @@ export function InfoProductForm(props) {
               <section>
                 <div {...getRootProps({ className: "dropzone" })}>
                   <input {...getInputProps()} />
-                  <Button className="upload-image-button">
-                    <h2>
-                      <FiPlus />
-                    </h2>
-                  </Button>
+                  {files.length === 0 ? (
+                    <Button className="upload-image-button">
+                      <h2>
+                        <FiPlus />
+                      </h2>
+                    </Button>
+                  ) : (
+                    <div>{thumbs}</div>
+                  )}
                 </div>
-                <aside style={thumbsContainer}>{thumbs}</aside>
               </section>
             </Form.Group>
 

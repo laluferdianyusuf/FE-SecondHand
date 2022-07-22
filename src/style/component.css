@@ -1,3 +1,12 @@
+@font-face {
+  font-family: editFont;
+  src: url(../font/Poppins-Regular.ttf);
+}
+
+* {
+  font-family: "editFont";
+}
+
 p {
   margin: 0;
 }
@@ -337,11 +346,11 @@ p {
   margin: 0;
 }
 
-.row-login .col:nth-child(2) svg {
+.row-login .col:nth-child(2) .arrow-back {
   display: none;
 }
 
-.row-register .col:nth-child(2) svg {
+.row-register .col:nth-child(2) .arrow-back {
   display: none;
 }
 
@@ -410,6 +419,26 @@ p {
   color: rgba(208, 208, 208, 1);
 }
 
+.profil-image-preview {
+  position: relative;
+  place-content: center;
+  padding: 5px;
+}
+
+.profil-image-preview img {
+  object-fit: cover;
+  width: 100% !important;
+  border-radius: 4px;
+}
+
+.profil-image-preview input {
+  position: absolute;
+  top: 0;
+  align-self: center;
+  opacity: 0;
+  overflow: hidden;
+  height: 100%;
+}
 /* content */
 /* user profile */
 .user-profile .card:nth-child(1) {
@@ -756,14 +785,14 @@ p {
     margin: 35% 0 !important;
     padding: 0 16px !important;
   }
-  .row-login .col:nth-child(2) svg {
+  .row-login .col:nth-child(2) .arrow-back {
     display: block;
     font-size: 24px;
     font-weight: bold;
     position: absolute;
     top: 2rem;
   }
-  .row-login .col div {
+  .row-login .col .row-login-body {
     padding: 0 !important;
   }
   .row-login .col:nth-child(1) {
@@ -774,14 +803,14 @@ p {
     margin: 25% 0 !important;
     padding: 0 16px !important;
   }
-  .row-register .col:nth-child(2) svg {
+  .row-register .col:nth-child(2) .arrow-back {
     display: block;
     font-size: 24px;
     font-weight: bold;
     position: absolute;
     top: 2rem;
   }
-  .row-register .col div {
+  .row-register .col .row-register-body {
     padding: 0 !important;
   }
   .row-register .col:nth-child(1) {

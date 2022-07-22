@@ -16,9 +16,7 @@ export function Category() {
   const searching = useSelector((state) => state.search.search);
 
   const categories = category ? `&category=${category}` : "";
-  const searched = searching
-    ? `&name=${searching} / &category=${searching}`
-    : "";
+  const searched = searching ? `&name=${searching}` : "";
 
   const sellButton = () => {
     isLoggedIn

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { Card, Button, Container, Form } from "react-bootstrap";
 import { FiPlus } from "react-icons/fi";
 import "../style/component.css";
@@ -76,6 +76,138 @@ export function Content({ productSeller }) {
           : ""}
       </div>
     </>
+  );
+}
+
+export function ContentWistlist() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState({});
+  const [sellerProduct, setSellerProduct] = useState([]);
+
+  const text = {
+    fontSize: "16px",
+    textAlign: "center",
+    fontWeight: 400,
+  };
+
+  const image = {
+    width: "276px",
+    height: "194px",
+  };
+
+  const productCard = {
+    width: "300px",
+  };
+
+  const title = {
+    fontSize: "16px",
+  };
+
+  const imageCard = {
+    width: "91%",
+    height: "100px",
+    objectFit: "cover",
+    margin: "8px",
+    borderRadius: "5px",
+  };
+
+  const accesoris = {
+    fontSize: "12px",
+    opacity: "0.5",
+  };
+
+  const CardProduct = {
+    width: "100%",
+    height: "100%",
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const currentUserRequest = await axios.get(
+          "http://localhost:2000/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const currentUserResponse = currentUserRequest.data;
+
+        if (currentUserResponse.status) {
+          setUser(currentUserResponse.data.user);
+        }
+
+        if (currentUserResponse.data.user.id) {
+          const dataTransaction = await axios.get(
+            `http://localhost:2000/transactions/user/${currentUserResponse.data.user.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(dataTransaction);
+          const payloadData = dataTransaction.data.data.getTransactionByOwnerId;
+          console.log(payloadData);
+          setSellerProduct(payloadData);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return isLoggedIn ? (
+    <>
+      {sellerProduct ? (
+        <Container className="card-content-seller">
+          {sellerProduct.map((transaction) => (
+            <div key={transaction.id}>
+              {/* <Link to={``} style={{ textDecoration: "none", color: "black" }}> */}
+              <Card style={CardProduct}>
+                <Card.Img
+                  className="w-80 align-self-center"
+                  variant="top"
+                  multiple
+                  src={`${transaction.product.image[0]}`}
+                  style={imageCard}
+                />
+                <Card.Body className="p-2">
+                  <Card.Title className="mb-0" style={title}>
+                    {transaction.product.name}
+                  </Card.Title>
+                  <p className="mb-0" style={accesoris}>
+                    {transaction.product.category}
+                  </p>
+                  <Card.Text className="mb-1">
+                    Rp {transaction.product.price}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+              {/* // </Link> */}
+            </div>
+          ))}
+        </Container>
+      ) : (
+        <Container className="d-flex align-items-center justify-content-center">
+          <div style={productCard} className="my-4">
+            <img src="/images/imgwishlist.png" alt="" />
+
+            <p style={text}>
+              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
+              kok
+            </p>
+          </div>
+        </Container>
+      )}
+    </>
+  ) : (
+    <Navigate to="/login" replace />
   );
 }
 

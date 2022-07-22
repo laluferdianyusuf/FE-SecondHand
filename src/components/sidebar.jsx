@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Card, Button, Container } from "react-bootstrap";
 import { FiBox, FiHeart, FiDollarSign, FiChevronRight } from "react-icons/fi";
 import axios from "axios";
-import { Content } from "../components/Content";
+import { Content, ContentWistlist } from "../components/Content";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -11,7 +11,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import { useSelector } from "react-redux";
 import { Alert, Stack } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
 import { styled } from "@mui/material/styles";
 
 export function SidebarUser() {
@@ -173,12 +172,7 @@ export function SidebarFix() {
         }}
         spacing={2}
       >
-        <Alert
-          icon={<CheckIcon fontSize="inherit" />}
-          variant="filled"
-          severity="success"
-          onClose={handleClose}
-        >
+        <Alert variant="filled" severity="success" onClose={handleClose}>
           {alert}
         </Alert>
       </Stack>
@@ -256,7 +250,7 @@ export function SidebarFix() {
               </Button>
             </div>
             {products && <Content productSeller={productSeller} />}
-            {wishlist && <Content />}
+            {wishlist && <ContentWistlist />}
             {sold && <Content />}
           </Container>
         </div>
