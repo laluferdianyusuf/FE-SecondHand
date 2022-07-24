@@ -75,8 +75,8 @@ export function LoginForm() {
 
   const Root = styled("div")(({ theme }) => ({
     position: "absolute",
-    [theme.breakpoints.up("sm")]: {
-      top: "51.3%",
+    [theme.breakpoints.up("md")]: {
+      top: "53%",
       right: "12%",
     },
     [theme.breakpoints.down("md")]: {
@@ -259,8 +259,8 @@ export function RegisterForm() {
 
   const Root = styled("div")(({ theme }) => ({
     position: "absolute",
-    [theme.breakpoints.up("sm")]: {
-      top: "58.5%",
+    [theme.breakpoints.up("md")]: {
+      top: "60%",
       right: "12%",
     },
     [theme.breakpoints.down("md")]: {
@@ -601,7 +601,7 @@ export function InfoAccForm() {
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-2">
-                <Form.Label>Nama</Form.Label>
+                <Form.Label>Alamat</Form.Label>
                 <Form.Control
                   style={formStyle}
                   as="textarea"

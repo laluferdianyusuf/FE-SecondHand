@@ -155,6 +155,15 @@ export function HomeNav() {
     width: "50px",
   };
 
+  const RootDropdown = styled("div")(({ theme }) => ({
+    [theme.breakpoints.up("md")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "50%",
+    },
+  }));
+
   return (
     <Navbar expand="lg" className="py-3 home-nav">
       <Container>
@@ -202,7 +211,11 @@ export function HomeNav() {
 
                 <Dropdown>
                   <Dropdown.Toggle style={buttonStyleV2}>
-                    <Badge badgeContent={notif.length} color="primary">
+                    <Badge
+                      badgeContent={notif.length}
+                      color="secondary"
+                      variant="dot"
+                    >
                       <FiBell
                         style={{ fontSize: "20px" }}
                         color="action"
@@ -216,35 +229,48 @@ export function HomeNav() {
                       .map((notif) => (
                         <Dropdown.Item>
                           <Link
-                            to={`/sellerproductpenawar/${notif.id}`}
+                            to={`/offers/${notif.id}`}
                             style={{ textDecoration: "none", color: "black" }}
                           >
                             <div class="d-flex my-1">
                               <img
-                                src={`${notif.product.image[0]}`}
+                                src={`${notif.product.picture[0]}`}
                                 style={{
-                                  width: "60px",
-                                  height: "60px",
+                                  width: "48px",
+                                  height: "48px",
                                   marginTop: "5px",
+                                  borderRadius: "12px",
                                 }}
                                 alt=""
                               />
                               <div class="mx-3">
-                                <p className="mb-0 notif-accesoris">
+                                <p
+                                  className="mb-0"
+                                  style={{
+                                    fontSize: "10px",
+                                    color: "#8A8A8A",
+                                  }}
+                                >
                                   Penawaran Produk
                                 </p>
                                 <p className="mb-0">{notif.product.name}</p>
                                 <p className="mb-0">Rp.{notif.product.price}</p>
                                 <p className="mb-0">
-                                  {user.id === notif.owner_id
+                                  {user.id === notif.seller_id
                                     ? "ditawar"
                                     : user.id === notif.user_id &&
                                       "menawar"}{" "}
-                                  Rp.{notif.requestedPrice}
+                                  Rp.{notif.bargain_price}
                                 </p>
                               </div>
                               <div class="ms-auto">
-                                <p className="mb-0 notif-accesoris">
+                                <p
+                                  className="mb-0 "
+                                  style={{
+                                    fontSize: "10px",
+                                    color: "#8A8A8A",
+                                  }}
+                                >
                                   {dateFormat(notif.createdAt, "d mmm, h:MM")}
                                 </p>
                               </div>

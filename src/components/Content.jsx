@@ -6,7 +6,7 @@ import { FiPlus } from "react-icons/fi";
 import "../style/component.css";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
-// import styled from "@emotion/styled/types/base";
+import { styled } from "@mui/material/styles";
 
 export function Content({ productSeller }) {
   const title = {
@@ -23,6 +23,7 @@ export function Content({ productSeller }) {
     fontSize: "11px",
     opacity: "0.5",
   };
+
   return (
     <>
       <div className="content-product">
@@ -138,6 +139,7 @@ export function ContentWistlist() {
         );
 
         const currentUserResponse = currentUserRequest.data;
+        console.log(currentUserResponse);
 
         if (currentUserResponse.status) {
           setUser(currentUserResponse.data.user);
@@ -167,53 +169,51 @@ export function ContentWistlist() {
   return isLoggedIn ? (
     <>
       {sellerProduct ? (
+        <Container className="card-content-seller">
+          {sellerProduct.map((transaction) =>
+            transaction.product.sold === false ? (
+              <div key={transaction.id}>
+                <Link
+                  to={`/offers/${transaction.id}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <Card style={CardProduct}>
+                    <Card.Img
+                      className="w-80 align-self-center"
+                      variant="top"
+                      multiple
+                      src={`${transaction.product.picture[0]}`}
+                      style={imageCard}
+                    />
+                    <Card.Body className="p-2">
+                      <Card.Title className="mb-0" style={title}>
+                        {transaction.product.name}
+                      </Card.Title>
+                      <p className="mb-0" style={accesoris}>
+                        {transaction.product.category}
+                      </p>
+                      <Card.Text className="mb-1">
+                        Rp {transaction.product.price}
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </div>
+            ) : (
+              ""
+            )
+          )}
+        </Container>
+      ) : (
         <Container className="d-flex align-items-center justify-content-center">
           <div style={productCard} className="my-4">
-            <img style={image} src="/images/wishlist.png" alt="" />
+            <img style={image} src="./images/wishlist.png" alt="" />
 
             <p style={text}>
               Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
               kok
             </p>
           </div>
-        </Container>
-      ) : (
-        <Container className="card-content-seller">
-          {sellerProduct
-            .map((transaction) =>
-              transaction.product.sold === false ? (
-                <div key={transaction.id}>
-                  <Link
-                    to={`/sellerproductpenawar/${transaction.id}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    <Card style={CardProduct}>
-                      <Card.Img
-                        className="w-80 align-self-center"
-                        variant="top"
-                        multiple
-                        src={`${transaction.product.image[0]}`}
-                        style={imageCard}
-                      />
-                      <Card.Body className="p-2">
-                        <Card.Title className="mb-0" style={title}>
-                          {transaction.product.name}
-                        </Card.Title>
-                        <p className="mb-0" style={accesoris}>
-                          {transaction.product.category}
-                        </p>
-                        <Card.Text className="mb-1">
-                          Rp {transaction.product.price}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </Link>
-                </div>
-              ) : (
-                ""
-              )
-            )
-            .reverse()}
         </Container>
       )}
     </>
@@ -307,18 +307,6 @@ export function ContentSold() {
   return isLoggedIn ? (
     <>
       {sellerProduct ? (
-        <Container className="d-flex align-items-center justify-content-center">
-          <div style={productCard} className="my-4">
-            <div className="d-flex align-items-center justify-content-center mb-3">
-              <img style={image} src="/images/wishlist.png" alt="" />
-            </div>
-            <p style={text}>
-              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
-              kok
-            </p>
-          </div>
-        </Container>
-      ) : (
         <Container className="card-content-seller">
           {sellerProduct.map((sellerProduct) =>
             sellerProduct.product.sold === true ? (
@@ -332,7 +320,7 @@ export function ContentSold() {
                       className="w-80 align-self-center"
                       variant="top"
                       multiple
-                      src={`${sellerProduct.product.image[0]}`}
+                      src={`${sellerProduct.product.picture[0]}`}
                       style={imageCard}
                     />
                     <Card.Body className="p-2">
@@ -357,6 +345,18 @@ export function ContentSold() {
             )
           )}
         </Container>
+      ) : (
+        <Container className="d-flex align-items-center justify-content-center">
+          <div style={productCard} className="my-4">
+            <div className="d-flex align-items-center justify-content-center mb-3">
+              <img style={image} src="/images/wishlist.png" alt="" />
+            </div>
+            <p style={text}>
+              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
+              kok
+            </p>
+          </div>
+        </Container>
       )}
     </>
   ) : (
@@ -371,7 +371,7 @@ export function UserProfile() {
   const navigate = useNavigate();
   const [transaksi, setTransaksi] = useState([]);
   const [show, setShow] = useState(false);
-  const requestedPrice = useRef("");
+  const bargain_price = useRef("");
 
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
@@ -471,9 +471,9 @@ export function UserProfile() {
     try {
       const token = localStorage.getItem("token");
       const postPayload = {
-        owner_id: data.user.id,
+        seller_id: data.user.id,
         product_id: data.id,
-        requestedPrice: requestedPrice.current.value,
+        bargain_price: bargain_price.current.value,
         isOpened: isOpened,
         isRejected: isRejected,
         isAccepted: isAccepted,
@@ -573,19 +573,52 @@ export function UserProfile() {
     padding: "9px 0",
   };
 
+  const AlertStyle = styled("div")(({ theme }) => ({
+    zIndex: 99999999,
+    position: "absolute",
+
+    [theme.breakpoints.up("md")]: {
+      width: "50%",
+      left: "25%",
+      top: "14%",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      left: "6%",
+      top: "-33%",
+    },
+  }));
+
   return (
     <>
       {successResponse.isSuccess && (
-        <Alert
-          severity="success"
-          variant="filled"
-          icon={false}
-          className="mt-5"
-          onClose={() => setSuccessResponse(true)}
-          dismissible
-        >
-          {successResponse.message}
-        </Alert>
+        <AlertStyle>
+          <Alert
+            severity="success"
+            variant="filled"
+            icon={false}
+            className="mt-2 "
+            onClose={() => setSuccessResponse(true)}
+            dismissible
+            style={{ borderRadius: "16px " }}
+          >
+            {successResponse.message}
+          </Alert>
+        </AlertStyle>
+      )}
+
+      {errorResponse.isError && (
+        <AlertStyle>
+          <Alert
+            severity="error"
+            variant="filled"
+            className="mt-2 "
+            onClose={() => setErrorResponse(true)}
+            style={{ borderRadius: "16px " }}
+          >
+            {errorResponse.message}
+          </Alert>
+        </AlertStyle>
       )}
       <div className="user-profile">
         <Card className="pb-2">
@@ -673,7 +706,7 @@ export function UserProfile() {
                   <Form.Label className="fs-7">Harga Tawar</Form.Label>
                   <Form.Control
                     type="text"
-                    ref={requestedPrice}
+                    ref={bargain_price}
                     placeholder="Rp. 0,00"
                     style={{ borderRadius: "16px" }}
                     className="p-2"
@@ -691,17 +724,6 @@ export function UserProfile() {
             </Modal.Footer>
           </div>
         </Modal>
-
-        {errorResponse.isError && (
-          <Alert
-            severity="error"
-            variant="filled"
-            className="mt-2 "
-            style={{ borderRadius: "16px" }}
-          >
-            {errorResponse.message}
-          </Alert>
-        )}
       </div>
     </>
   );
