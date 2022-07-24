@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import { render } from "react-router-dom";
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
@@ -15,8 +15,8 @@ import DaftarJual from "./pages/DaftarJual";
 import InfoOffer from "./pages/InfoOffer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+const root = document.getElementById("root");
+render(
   <Provider store={store}>
     <Router>
       <Routes>
@@ -32,7 +32,8 @@ root.render(
         <Route path="/offers/:id" element={<InfoOffer />} />
       </Routes>
     </Router>
-  </Provider>
+  </Provider>,
+  root
 );
 
 // If you want to start measuring performance in your app, pass a function

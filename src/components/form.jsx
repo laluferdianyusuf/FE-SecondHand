@@ -37,7 +37,7 @@ export function LoginForm() {
       };
 
       const loginRequest = await axios.post(
-        "http://localhost:2000/auth/login",
+        "https://be-final.herokuapp.com/auth/login",
         userToLoginPayload
       );
 
@@ -226,7 +226,7 @@ export function RegisterForm() {
       };
 
       const registerRequest = await axios.post(
-        "http://localhost:2000/auth/register",
+        "https://be-final.herokuapp.com/auth/register",
         userToRegisterPayload
       );
 
@@ -394,7 +394,7 @@ export function InfoAccForm() {
 
         // 2. Check token validity from API
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -441,7 +441,7 @@ export function InfoAccForm() {
       const token = localStorage.getItem("token");
 
       const createRequest = await axios.put(
-        `http://localhost:2000/users/update/${id}`,
+        `https://be-final.herokuapp.com/users/update/${id}`,
         createPostPayload,
         {
           headers: {
@@ -647,7 +647,7 @@ export function InfoAccFormV2() {
 
         // 2. Check token validity from API
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -694,7 +694,7 @@ export function InfoAccFormV2() {
       const token = localStorage.getItem("token");
 
       const createRequest = await axios.put(
-        `http://localhost:2000/users/update/${id}`,
+        `https://be-final.herokuapp.com/users/update/${id}`,
         createPostPayload,
         {
           headers: {
@@ -974,7 +974,7 @@ export function InfoProductForm(props) {
       });
       // setOpen(true);
       const createRequest = await axios.post(
-        "http://localhost:2000/products/create",
+        "https://be-final.herokuapp.com/products/create",
         createPostPayload,
         {
           headers: {
@@ -1220,7 +1220,7 @@ export function UpdateProductForm(props) {
       });
       // setOpen(true);
       const createRequest = await axios.put(
-        `http://localhost:2000/products/${id}`,
+        `https://be-final.herokuapp.com/products/${id}`,
         createPostPayload,
         {
           headers: {
@@ -1248,7 +1248,7 @@ export function UpdateProductForm(props) {
     try {
       const token = localStorage.getItem("token");
       const responseProduct = await axios.get(
-        `http://localhost:2000/products/${id}`,
+        `https://be-final.herokuapp.com/products/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

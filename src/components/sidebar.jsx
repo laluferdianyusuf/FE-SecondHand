@@ -24,7 +24,7 @@ export function SidebarUser() {
 
         // 2. Check token validity from API
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -122,7 +122,7 @@ export function SidebarFix() {
         const token = localStorage.getItem("token");
 
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -138,7 +138,7 @@ export function SidebarFix() {
 
         if (currentUserResponse.data.user.id) {
           const dataProducts = await axios.get(
-            `http://localhost:2000/users/${currentUserResponse.data.user.id}/products`,
+            `https://be-final.herokuapp.com/users/${currentUserResponse.data.user.id}/products`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

@@ -130,7 +130,7 @@ export function ContentWistlist() {
         const token = localStorage.getItem("token");
 
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -147,7 +147,7 @@ export function ContentWistlist() {
 
         if (currentUserResponse.data.user.id) {
           const dataTransaction = await axios.get(
-            `http://localhost:2000/transactions/seller/${currentUserResponse.data.user.id}`,
+            `https://be-final.herokuapp.com/transactions/seller/${currentUserResponse.data.user.id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -269,7 +269,7 @@ export function ContentSold() {
         const token = localStorage.getItem("token");
 
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -285,7 +285,7 @@ export function ContentSold() {
 
         if (currentUserResponse.data.user.id) {
           const dataTransaction = await axios.get(
-            `http://localhost:2000/transactions/user/${currentUserResponse.data.user.id}`,
+            `https://be-final.herokuapp.com/transactions/user/${currentUserResponse.data.user.id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -394,7 +394,7 @@ export function UserProfile() {
 
       // 2. Check token validity from API
       const currentUserRequest = await axios.get(
-        "http://localhost:2000/auth/me",
+        "https://be-final.herokuapp.com/auth/me",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -415,7 +415,7 @@ export function UserProfile() {
     try {
       const token = localStorage.getItem("token");
       const responseProduct = await axios.get(
-        `http://localhost:2000/products/${id}`,
+        `https://be-final.herokuapp.com/products/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -442,7 +442,7 @@ export function UserProfile() {
       postPayload.append("isPublish", isPublish);
 
       const createRequest = await axios.put(
-        `http://localhost:2000/products/${id}`,
+        `https://be-final.herokuapp.com/products/${id}`,
         postPayload,
         {
           headers: {
@@ -481,7 +481,7 @@ export function UserProfile() {
       console.log(postPayload);
       setShow(false);
       const createRequest = await axios.post(
-        "http://localhost:2000/transactions",
+        "https://be-final.herokuapp.com/transactions",
         postPayload,
         {
           headers: {
@@ -501,7 +501,7 @@ export function UserProfile() {
       const userId = JSON.parse(user_id);
       // console.log(JSON.parse(user_id));
       const responseTransactionByUserId = await axios.get(
-        `http://localhost:2000/transactions/user/${userId.id}`,
+        `https://be-final.herokuapp.com/transactions/user/${userId.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -530,7 +530,7 @@ export function UserProfile() {
       const userId = JSON.parse(user_id);
       // console.log(JSON.parse(user_id));
       const responseTransactionByUserId = await axios.get(
-        `http://localhost:2000/transactions/user/${userId.id}`,
+        `https://be-final.herokuapp.com/transactions/user/${userId.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -743,7 +743,7 @@ export function ProductDesc() {
 
       // 2. Check token validity from API
       const currentUserRequest = await axios.get(
-        "http://localhost:2000/auth/me",
+        "https://be-final.herokuapp.com/auth/me",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -765,7 +765,7 @@ export function ProductDesc() {
     try {
       const token = localStorage.getItem("token");
       const responseProduct = await axios.get(
-        `http://localhost:2000/products/${id}`,
+        `https://be-final.herokuapp.com/products/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

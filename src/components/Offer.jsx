@@ -51,7 +51,7 @@ export function Offer() {
     try {
       const token = localStorage.getItem("token");
       const responseProduct = await axios.get(
-        `http://localhost:2000/transactions/${id}`,
+        `https://be-final.herokuapp.com/transactions/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -80,7 +80,7 @@ export function Offer() {
 
       const token = localStorage.getItem("token");
       const transactionRequest = await axios.put(
-        `http://localhost:2000/transactions/${id}`,
+        `https://be-final.herokuapp.com/transactions/${id}`,
         updateTransaction,
         {
           headers: {
@@ -93,7 +93,7 @@ export function Offer() {
       console.log(transactionResponse);
 
       const responseProduct = await axios.get(
-        `http://localhost:2000/transactions/${id}`,
+        `https://be-final.herokuapp.com/transactions/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -136,7 +136,7 @@ export function Offer() {
 
       const token = localStorage.getItem("token");
       const statusRequest = await axios.put(
-        `http://localhost:2000/transactions/${id}`,
+        `https://be-final.herokuapp.com/transactions/${id}`,
         payloadUpdateStatus,
         {
           headers: {
@@ -149,7 +149,7 @@ export function Offer() {
       console.log(statusResponse);
 
       const responseProduct = await axios.get(
-        `http://localhost:2000/transactions/${id}`,
+        `https://be-final.herokuapp.com/transactions/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

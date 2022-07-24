@@ -74,7 +74,7 @@ export function HomeNav() {
       const user = JSON.parse(user_local);
 
       const notifRequest = await axios.get(
-        `http://localhost:2000/transactions/notif/${user.id}`,
+        `https://be-final.herokuapp.com/transactions/notif/${user.id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ export function HomeNav() {
 
         // 2. Check token validity from API
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,

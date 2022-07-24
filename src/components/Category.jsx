@@ -29,7 +29,7 @@ export function Category() {
   const getProductPublish = async () => {
     try {
       const dataProduct = await axios.get(
-        `http://localhost:2000/api/filter?sold=false&isPublish=true${categories}${searched}`
+        `https://be-final.herokuapp.com/api/filter?sold=false&isPublish=true${categories}${searched}`
       );
 
       const payloadData = await dataProduct.data.data.data;
@@ -48,7 +48,7 @@ export function Category() {
 
         // 2. Check token validity from API
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,

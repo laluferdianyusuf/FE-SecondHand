@@ -18,7 +18,7 @@ export default function DaftarJual() {
 
         // 2. Check token validity from API
         const currentUserRequest = await axios.get(
-          "http://localhost:2000/auth/me",
+          "https://be-final.herokuapp.com/auth/me",
           {
             headers: {
               Authorization: `Bearer ${token}`,
