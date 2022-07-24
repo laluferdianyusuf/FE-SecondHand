@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams, useNavigate, Navigate } from "react-router-dom";
 import { Card, Button, Container, Form } from "react-bootstrap";
+import { Alert, Stack } from "@mui/material";
 import { FiPlus } from "react-icons/fi";
 import "../style/component.css";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
+// import styled from "@emotion/styled/types/base";
 
 export function Content({ productSeller }) {
   const title = {
@@ -90,6 +93,145 @@ export function ContentWistlist() {
     fontWeight: 400,
   };
 
+  const productCard = {
+    width: "300px",
+  };
+
+  const title = {
+    fontSize: "16px",
+  };
+
+  const imageCard = {
+    width: "91%",
+    height: "100px",
+    objectFit: "cover",
+    margin: "8px",
+    borderRadius: "5px",
+  };
+
+  const accesoris = {
+    fontSize: "12px",
+    opacity: "0.5",
+  };
+
+  const CardProduct = {
+    width: "100%",
+    height: "100%",
+  };
+
+  const image = {
+    width: "276px",
+    height: "194px",
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const currentUserRequest = await axios.get(
+          "http://localhost:2000/auth/me",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const currentUserResponse = currentUserRequest.data;
+
+        if (currentUserResponse.status) {
+          setUser(currentUserResponse.data.user);
+        }
+
+        if (currentUserResponse.data.user.id) {
+          const dataTransaction = await axios.get(
+            `http://localhost:2000/transactions/seller/${currentUserResponse.data.user.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(dataTransaction);
+          const payloadData = dataTransaction.data.data.transactions;
+          console.log(payloadData);
+          setSellerProduct(payloadData);
+        }
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return isLoggedIn ? (
+    <>
+      {sellerProduct ? (
+        <Container className="d-flex align-items-center justify-content-center">
+          <div style={productCard} className="my-4">
+            <img style={image} src="/images/wishlist.png" alt="" />
+
+            <p style={text}>
+              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
+              kok
+            </p>
+          </div>
+        </Container>
+      ) : (
+        <Container className="card-content-seller">
+          {sellerProduct
+            .map((transaction) =>
+              transaction.product.sold === false ? (
+                <div key={transaction.id}>
+                  <Link
+                    to={`/sellerproductpenawar/${transaction.id}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    <Card style={CardProduct}>
+                      <Card.Img
+                        className="w-80 align-self-center"
+                        variant="top"
+                        multiple
+                        src={`${transaction.product.image[0]}`}
+                        style={imageCard}
+                      />
+                      <Card.Body className="p-2">
+                        <Card.Title className="mb-0" style={title}>
+                          {transaction.product.name}
+                        </Card.Title>
+                        <p className="mb-0" style={accesoris}>
+                          {transaction.product.category}
+                        </p>
+                        <Card.Text className="mb-1">
+                          Rp {transaction.product.price}
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                </div>
+              ) : (
+                ""
+              )
+            )
+            .reverse()}
+        </Container>
+      )}
+    </>
+  ) : (
+    <Navigate to="/login" replace />
+  );
+}
+
+export function ContentSold() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [user, setUser] = useState({});
+  const [sellerProduct, setSellerProduct] = useState([]);
+
+  const text = {
+    fontSize: "16px",
+    textAlign: "center",
+  };
+
   const image = {
     width: "276px",
     height: "194px",
@@ -151,7 +293,7 @@ export function ContentWistlist() {
             }
           );
           console.log(dataTransaction);
-          const payloadData = dataTransaction.data.data.getTransactionByOwnerId;
+          const payloadData = dataTransaction.data.data.transactions;
           console.log(payloadData);
           setSellerProduct(payloadData);
         }
@@ -165,44 +307,55 @@ export function ContentWistlist() {
   return isLoggedIn ? (
     <>
       {sellerProduct ? (
-        <Container className="card-content-seller">
-          {sellerProduct.map((transaction) => (
-            <div key={transaction.id}>
-              {/* <Link to={``} style={{ textDecoration: "none", color: "black" }}> */}
-              <Card style={CardProduct}>
-                <Card.Img
-                  className="w-80 align-self-center"
-                  variant="top"
-                  multiple
-                  src={`${transaction.product.image[0]}`}
-                  style={imageCard}
-                />
-                <Card.Body className="p-2">
-                  <Card.Title className="mb-0" style={title}>
-                    {transaction.product.name}
-                  </Card.Title>
-                  <p className="mb-0" style={accesoris}>
-                    {transaction.product.category}
-                  </p>
-                  <Card.Text className="mb-1">
-                    Rp {transaction.product.price}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-              {/* // </Link> */}
-            </div>
-          ))}
-        </Container>
-      ) : (
         <Container className="d-flex align-items-center justify-content-center">
           <div style={productCard} className="my-4">
-            <img src="/images/imgwishlist.png" alt="" />
-
+            <div className="d-flex align-items-center justify-content-center mb-3">
+              <img style={image} src="/images/wishlist.png" alt="" />
+            </div>
             <p style={text}>
               Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
               kok
             </p>
           </div>
+        </Container>
+      ) : (
+        <Container className="card-content-seller">
+          {sellerProduct.map((sellerProduct) =>
+            sellerProduct.product.sold === true ? (
+              <div key={sellerProduct.id}>
+                <Link
+                  to={`/sellerproductpenawar/${sellerProduct.id}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <Card style={CardProduct}>
+                    <Card.Img
+                      className="w-80 align-self-center"
+                      variant="top"
+                      multiple
+                      src={`${sellerProduct.product.image[0]}`}
+                      style={imageCard}
+                    />
+                    <Card.Body className="p-2">
+                      <Card.Title className="mb-0" style={title}>
+                        {sellerProduct.product.name}
+                      </Card.Title>
+                      <p className="mb-0" style={accesoris}>
+                        {sellerProduct.product.category}
+                      </p>
+                      <Card.Text className="mb-1">
+                        Rp {sellerProduct.requestedPrice}
+                      </Card.Text>
+                      <span class="label other">
+                        {sellerProduct.product.sold ? "berhasil terjual" : ""}
+                      </span>
+                    </Card.Body>
+                  </Card>
+                </Link>
+              </div>
+            ) : (
+              ""
+            )
+          )}
         </Container>
       )}
     </>
@@ -216,11 +369,22 @@ export function UserProfile() {
   const [data, setData] = useState([]);
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+  const [transaksi, setTransaksi] = useState([]);
+  const [show, setShow] = useState(false);
+  const requestedPrice = useRef("");
 
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
     message: "",
   });
+
+  const [successResponse, setSuccessResponse] = useState({
+    isSuccess: false,
+    message: "",
+  });
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const fetchData = async () => {
     try {
@@ -301,9 +465,99 @@ export function UserProfile() {
     }
   };
 
+  const onCreateTransaction = async (e, isOpened, isRejected, isAccepted) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+      const postPayload = {
+        owner_id: data.user.id,
+        product_id: data.id,
+        requestedPrice: requestedPrice.current.value,
+        isOpened: isOpened,
+        isRejected: isRejected,
+        isAccepted: isAccepted,
+      };
+      console.log(postPayload);
+      setShow(false);
+      const createRequest = await axios.post(
+        "http://localhost:2000/transactions",
+        postPayload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(createRequest);
+
+      const successResponse = createRequest.data.message;
+      setSuccessResponse({
+        isSuccess: true,
+        message: successResponse,
+      });
+
+      const user_id = localStorage.getItem("user");
+      const userId = JSON.parse(user_id);
+      // console.log(JSON.parse(user_id));
+      const responseTransactionByUserId = await axios.get(
+        `http://localhost:2000/transactions/user/${userId.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dataTransactionByUserId = await responseTransactionByUserId.data
+        .data.transactions;
+
+      setTransaksi(dataTransactionByUserId);
+    } catch (err) {
+      console.log(err);
+      const response = err.response.data;
+      setErrorResponse({
+        isError: true,
+        message: response.message,
+      });
+    }
+  };
+
+  const getTransactionByUserId = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const user_id = localStorage.getItem("user");
+      const userId = JSON.parse(user_id);
+      // console.log(JSON.parse(user_id));
+      const responseTransactionByUserId = await axios.get(
+        `http://localhost:2000/transactions/user/${userId.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dataTransactionByUserId = await responseTransactionByUserId.data
+        .data.transactions;
+
+      setTransaksi(dataTransactionByUserId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const filteredTransaction =
+    Object.keys(transaksi).length !== 0
+      ? transaksi.filter(
+          (data) => data.product_id === Number(id) && data.isRejected === false
+        )
+      : "";
+
   useEffect(() => {
     fetchData();
     getProduct();
+    getTransactionByUserId();
   }, []);
   const buttonStyle = {
     border: "1px solid rgba(113, 38, 181, 1)",
@@ -318,8 +572,21 @@ export function UserProfile() {
     borderRadius: "16px",
     padding: "9px 0",
   };
+
   return (
     <>
+      {successResponse.isSuccess && (
+        <Alert
+          severity="success"
+          variant="filled"
+          icon={false}
+          className="mt-5"
+          onClose={() => setSuccessResponse(true)}
+          dismissible
+        >
+          {successResponse.message}
+        </Alert>
+      )}
       <div className="user-profile">
         <Card className="pb-2">
           <Card.Body>
@@ -327,28 +594,114 @@ export function UserProfile() {
             <Card.Text>{data.category}</Card.Text>
             <Card.Title>Rp. {data.price}</Card.Title>
             <div className=" buttons-user">
-              <div className="d-flex flex-column gap-3 mt-3">
+              <div className="mt-3">
                 <Button
                   className="w-100"
-                  onClick={(e) => onUpdateById(e, true)}
                   style={buttonStyle}
+                  disabled={Object.keys(filteredTransaction).length !== 0}
+                  onClick={
+                    data.user_id === user.id
+                      ? (e) => onUpdateById(e, true)
+                      : handleShow
+                  }
                 >
-                  Terbitkan
+                  {data.user_id === user.id ? (
+                    "terbitkan"
+                  ) : Object.keys(filteredTransaction).length !== 0 ? (
+                    "Menunggu Respon Penjual"
+                  ) : (
+                    <p className="mb-0" style={{ fontSize: "14px" }}>
+                      Saya Tertarik dan Ingin Nego
+                    </p>
+                  )}
                 </Button>
-                <Button className="w-100" style={buttonStyleV2}>
-                  Edit
-                </Button>
+                <Link to={`/update/product/${data.id}`}>
+                  <Button
+                    className="w-100"
+                    style={buttonStyleV2}
+                    hidden={data.user_id === user.id ? false : true}
+                  >
+                    Edit
+                  </Button>
+                </Link>
               </div>
             </div>
           </Card.Body>
         </Card>
-        <Card className="d-flex flex-row gap-3 px-3 py-3 mt-3">
-          <Card.Img src={`${user.picture}`} style={{ width: "20%" }} />
+        <Card
+          className="d-flex flex-row gap-3 px-3 py-3 mt-3"
+          style={{ borderRadius: "16px" }}
+        >
+          <Card.Img
+            src={`${data.user ? data.user.picture : ""}`}
+            style={{ width: "20%", borderRadius: "12px" }}
+          />
           <div>
-            <Card.Title>{user.name}</Card.Title>
-            <Card.Text>{user.city}</Card.Text>
+            <Card.Title>{data.user && data.user.name}</Card.Title>
+            <Card.Text>{data.user && data.user.city}</Card.Text>
           </div>
         </Card>
+
+        <Modal
+          show={show}
+          onHide={handleClose}
+          centered
+          className="modal-penawar"
+        >
+          <div className="p-3">
+            <Modal.Header closeButton className="border-0"></Modal.Header>
+            <Modal.Body className="py-0">
+              <p className="fw-bold">Masukan Harga Tawarmu</p>
+              <p className="text-black-50" style={{ fontSize: "14px" }}>
+                Harga tawaranmu akan diketahui penual, jika penjual cocok kamu
+                akan segera dihubungi penjual.
+              </p>
+              <Stack
+                direction="row"
+                spacing={2}
+                style={{ backgroundColor: "#EEEEEE", borderRadius: "16px" }}
+                className="p-3"
+              >
+                <img src={`${data.picture ? data.picture[0] : ""}`} alt="" />
+                <Stack>
+                  <p className="m-0 fw-bold">{data.name}</p>
+                  <p className="m-0 text-black-50">Rp. {data.price}</p>
+                </Stack>
+              </Stack>
+              <Form className="">
+                <Form.Group className="mt-3">
+                  <Form.Label className="fs-7">Harga Tawar</Form.Label>
+                  <Form.Control
+                    type="text"
+                    ref={requestedPrice}
+                    placeholder="Rp. 0,00"
+                    style={{ borderRadius: "16px" }}
+                    className="p-2"
+                  />
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer className="border-0">
+              <Button
+                className="w-100 py-2"
+                onClick={(e) => onCreateTransaction(e, false, false, null)}
+              >
+                Kirim
+              </Button>
+            </Modal.Footer>
+          </div>
+        </Modal>
+
+        {errorResponse.isError && (
+          <Alert
+            severity="error"
+            variant="filled"
+            className="mt-2 "
+            style={{ borderRadius: "16px" }}
+          >
+            {errorResponse.message}
+          </Alert>
+        )}
       </div>
     </>
   );

@@ -214,6 +214,7 @@ export function CarouselProduct() {
                     className="d-block w-100"
                     src={`${pics}`}
                     alt="First slide"
+                    style={{ borderRadius: "16px" }}
                   />
                 </Carousel.Item>
               ))

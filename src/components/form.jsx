@@ -3,7 +3,7 @@ import { Row, Col, Button, Form, Container, Card } from "react-bootstrap";
 import { Alert, Stack } from "@mui/material";
 import "../style/component.css";
 import ImageLogin from "../images/img.png";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, Navigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { MdOutlinePhotoCamera } from "react-icons/md";
@@ -546,87 +546,91 @@ export function InfoAccForm() {
   };
   return (
     <>
-      <Container className="form-info-acc ">
-        <Link
-          to="/"
-          className="text-black position-absolute "
-          style={{ left: "25%" }}
-        >
-          <IoMdArrowBack style={{ fontSize: "20px" }} />
-        </Link>
-        <h5 className="text-center">Lengkapi Info Akun</h5>
-        <Form onSubmit={onUpdate}>
-          <Form.Group className="mb-3 upload ">
-            <section>
-              <div {...getRootProps({ className: "dropzone" })}>
-                <input {...getInputProps()} />
-                {files.length === 0 ? (
-                  <Button
-                    variant="secondary"
-                    style={buttonUpload}
-                    className="upload-image "
-                  >
-                    <h2>
-                      <MdOutlinePhotoCamera
-                        style={{
-                          fontSize: "36px",
-                          color: "rgba(113, 38, 181, 1)",
-                        }}
-                      />
-                    </h2>
-                  </Button>
-                ) : (
-                  <div>{thumbs}</div>
-                )}
-              </div>
-            </section>
-          </Form.Group>
-          <div className="w-50 form-body">
-            <Form.Group className="mb-2">
-              <Form.Label>Nama</Form.Label>
-              <Form.Control
-                style={formStyle}
-                placeholder="Nama"
-                className="py-2"
-                ref={nameField}
-              />
+      {isLoggedIn ? (
+        <Container className="form-info-acc ">
+          <Link
+            to="/"
+            className="text-black position-absolute "
+            style={{ left: "25%" }}
+          >
+            <IoMdArrowBack style={{ fontSize: "20px" }} />
+          </Link>
+          <h5 className="text-center">Lengkapi Info Akun</h5>
+          <Form onSubmit={onUpdate}>
+            <Form.Group className="mb-3 upload ">
+              <section>
+                <div {...getRootProps({ className: "dropzone" })}>
+                  <input {...getInputProps()} />
+                  {files.length === 0 ? (
+                    <Button
+                      variant="secondary"
+                      style={buttonUpload}
+                      className="upload-image "
+                    >
+                      <h2>
+                        <MdOutlinePhotoCamera
+                          style={{
+                            fontSize: "36px",
+                            color: "rgba(113, 38, 181, 1)",
+                          }}
+                        />
+                      </h2>
+                    </Button>
+                  ) : (
+                    <div>{thumbs}</div>
+                  )}
+                </div>
+              </section>
             </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Kota</Form.Label>
-              <Form.Select ref={cityField} style={formStyle}>
-                <option hidden>Pilih Kota</option>
-                <option value="Lombok">Lombok</option>
-                <option value="Mataram">Mataram</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Nama</Form.Label>
-              <Form.Control
-                style={formStyle}
-                as="textarea"
-                placeholder="Contoh: Jalan Ikan Hiu 33"
-                className="py-2"
-                ref={addressField}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>No. Handphone</Form.Label>
-              <Form.Control
-                style={formStyle}
-                placeholder="contoh: +628123456789"
-                className="py-2"
-                ref={phoneNumberField}
-              />
-            </Form.Group>
-            {errorResponse.isError && (
-              <Alert variant="danger">{errorResponse.message}</Alert>
-            )}
-            <Button type="submit" style={buttonStyle} className="w-100 py-2">
-              Simpan
-            </Button>
-          </div>
-        </Form>
-      </Container>
+            <div className="w-50 form-body">
+              <Form.Group className="mb-2">
+                <Form.Label>Nama</Form.Label>
+                <Form.Control
+                  style={formStyle}
+                  placeholder="Nama"
+                  className="py-2"
+                  ref={nameField}
+                />
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Kota</Form.Label>
+                <Form.Select ref={cityField} style={formStyle}>
+                  <option hidden>Pilih Kota</option>
+                  <option value="Lombok">Lombok</option>
+                  <option value="Mataram">Mataram</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Nama</Form.Label>
+                <Form.Control
+                  style={formStyle}
+                  as="textarea"
+                  placeholder="Contoh: Jalan Ikan Hiu 33"
+                  className="py-2"
+                  ref={addressField}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>No. Handphone</Form.Label>
+                <Form.Control
+                  style={formStyle}
+                  placeholder="contoh: +628123456789"
+                  className="py-2"
+                  ref={phoneNumberField}
+                />
+              </Form.Group>
+              {errorResponse.isError && (
+                <Alert variant="danger">{errorResponse.message}</Alert>
+              )}
+              <Button type="submit" style={buttonStyle} className="w-100 py-2">
+                Simpan
+              </Button>
+            </div>
+          </Form>
+        </Container>
+      ) : (
+        <Navigate to="/login" replace />
+      )}
     </>
   );
 }
@@ -681,7 +685,6 @@ export function InfoAccFormV2() {
       const createPostPayload = new FormData();
 
       console.log(pictureField);
-      // console.log(setPictureField);
       createPostPayload.append("name", nameField.current.value);
       createPostPayload.append("city", cityField.current.value);
       createPostPayload.append("address", addressField.current.value);
@@ -749,103 +752,114 @@ export function InfoAccFormV2() {
   }));
   return (
     <>
-      <Container className="form-info-acc mt-3">
-        <Link
-          to="/daftarjual"
-          className="text-black position-absolute "
-          style={{ left: "25%" }}
-        >
-          <IoMdArrowBack style={{ fontSize: "20px" }} />
-        </Link>
-        <h5 className="text-center">Lengkapi Info Akun</h5>
-        <Form onSubmit={onUpdate}>
-          <div className="w-50 form-body">
-            {user.picture ? (
-              <RootInfoAcc className="m-auto">
-                <Card className="profil-image-preview ">
-                  <img
-                    component={"img"}
-                    src={`${user.picture}`}
-                    style={image}
-                  />
+      {isLoggedIn ? (
+        <Container className="form-info-acc mt-3">
+          <Link
+            to="/daftarjual"
+            className="text-black position-absolute "
+            style={{ left: "25%" }}
+          >
+            <IoMdArrowBack style={{ fontSize: "20px" }} />
+          </Link>
+          <h5 className="text-center">Lengkapi Info Akun</h5>
+          <Form onSubmit={onUpdate}>
+            <div className="w-50 form-body">
+              {user.picture ? (
+                <RootInfoAcc className="m-auto">
+                  <Card className="profil-image-preview ">
+                    <img
+                      component={"img"}
+                      src={`${user.picture}`}
+                      style={image}
+                    />
 
-                  <Form.Control
-                    type="file"
-                    className="formCamera"
-                    onChange={(e) => {
-                      setPictureField(e.target.files[0]);
-                    }}
-                  />
-                </Card>
-              </RootInfoAcc>
-            ) : (
-              <Form.Group className="mb-3 upload ">
-                <Button
-                  variant="secondary"
-                  style={buttonUpload}
-                  className="upload-image "
-                >
-                  <MdOutlinePhotoCamera
-                    style={{ fontSize: "36px", color: "rgba(113, 38, 181, 1)" }}
-                  />
-                  <Form.Control
-                    type="file"
-                    onChange={(e) => {
-                      setPictureField(e.target.files[0]);
-                    }}
-                  />
-                </Button>
+                    <Form.Control
+                      type="file"
+                      className="formCamera"
+                      onChange={(e) => {
+                        setPictureField(e.target.files[0]);
+                      }}
+                    />
+                  </Card>
+                </RootInfoAcc>
+              ) : (
+                <Form.Group className="mb-3 upload ">
+                  <Button
+                    variant="secondary"
+                    style={buttonUpload}
+                    className="upload-image "
+                  >
+                    <MdOutlinePhotoCamera
+                      style={{
+                        fontSize: "36px",
+                        color: "rgba(113, 38, 181, 1)",
+                      }}
+                    />
+                    <Form.Control
+                      type="file"
+                      onChange={(e) => {
+                        setPictureField(e.target.files[0]);
+                      }}
+                    />
+                  </Button>
+                </Form.Group>
+              )}
+              <Form.Group className="mb-2">
+                <Form.Label>Nama</Form.Label>
+                <Form.Control
+                  style={formStyle}
+                  placeholder="Nama"
+                  className="py-2"
+                  ref={nameField}
+                  defaultValue={user.name}
+                />
               </Form.Group>
-            )}
-            <Form.Group className="mb-2">
-              <Form.Label>Nama</Form.Label>
-              <Form.Control
-                style={formStyle}
-                placeholder="Nama"
-                className="py-2"
-                ref={nameField}
-                defaultValue={user.name}
-              />
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Kota</Form.Label>
-              <Form.Select ref={cityField} style={formStyle} value={user.city}>
-                <option hidden>Pilih Kota</option>
-                <option value="Lombok">Lombok</option>
-                <option value="Mataram">Mataram</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-2">
-              <Form.Label>Nama</Form.Label>
-              <Form.Control
-                style={formStyle}
-                as="textarea"
-                placeholder="Contoh: Jalan Ikan Hiu 33"
-                className="py-2"
-                ref={addressField}
-                defaultValue={user.address}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>No. Handphone</Form.Label>
-              <Form.Control
-                style={formStyle}
-                placeholder="contoh: +628123456789"
-                className="py-2"
-                ref={phoneNumberField}
-                defaultValue={user.phoneNumber}
-              />
-            </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Kota</Form.Label>
+                <Form.Select
+                  ref={cityField}
+                  defaultValue={user.city}
+                  style={formStyle}
+                >
+                  <option hidden>Pilih Kota</option>
+                  <option value="Lombok">Lombok</option>
+                  <option value="Mataram">Mataram</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className="mb-2">
+                <Form.Label>Nama</Form.Label>
+                <Form.Control
+                  style={formStyle}
+                  as="textarea"
+                  placeholder="Contoh: Jalan Ikan Hiu 33"
+                  className="py-2"
+                  ref={addressField}
+                  defaultValue={user.address}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>No. Handphone</Form.Label>
+                <Form.Control
+                  style={formStyle}
+                  placeholder="contoh: +628123456789"
+                  className="py-2"
+                  ref={phoneNumberField}
+                  defaultValue={user.phoneNumber}
+                />
+              </Form.Group>
 
-            {errorResponse.isError && (
-              <Alert variant="danger">{errorResponse.message}</Alert>
-            )}
-            <Button type="submit" style={buttonStyle} className="w-100 py-2">
-              Simpan
-            </Button>
-          </div>
-        </Form>
-      </Container>
+              {errorResponse.isError && (
+                <Alert variant="danger">{errorResponse.message}</Alert>
+              )}
+              <Button type="submit" style={buttonStyle} className="w-100 py-2">
+                Simpan
+              </Button>
+            </div>
+          </Form>
+        </Container>
+      ) : (
+        <Navigate to="/login" />
+      )}
     </>
   );
 }
@@ -1087,6 +1101,280 @@ export function InfoProductForm(props) {
               >
                 Terbitkan
               </Button>
+            </div>
+          </div>
+        </Form>
+      </Container>
+    </>
+  );
+}
+
+export function UpdateProductForm(props) {
+  const navigate = useNavigate();
+  const nameField = useRef("");
+  const priceField = useRef("");
+  const categoryField = useRef("");
+  const descriptionField = useRef("");
+  const [isSold, setIsSold] = useState(Boolean);
+  const [data, setData] = useState([]);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  // const [open, setOpen] = useState(false);
+
+  const [errorResponse, setErrorResponse] = useState({
+    isError: false,
+    message: "",
+  });
+
+  const [files, setFiles] = useState([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
+
+  const thumb = {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: "border-box",
+  };
+
+  const thumbInner = {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden",
+  };
+
+  const img = {
+    display: "block",
+    width: "auto",
+    height: "100%",
+  };
+
+  const thumbs = files.map((file) => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img
+          src={file.preview}
+          style={img}
+          alt=""
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  const buttonStyle = {
+    borderRadius: "16px",
+    backgroundColor: "rgba(113, 38, 181, 1)",
+    border: "1px solid rgba(113, 38, 181, 1)",
+  };
+  const cancelButtonStyle = {
+    borderRadius: "16px",
+    backgroundColor: "grey",
+    border: "1px solid grey",
+  };
+
+  const formStyle = {
+    borderRadius: "12px",
+  };
+
+  const onUpdate = async (e, isPublish) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+      const createPostPayload = new FormData();
+
+      createPostPayload.append("name", nameField.current.value);
+      createPostPayload.append("price", priceField.current.value);
+      createPostPayload.append("category", categoryField.current.value);
+      createPostPayload.append("description", descriptionField.current.value);
+      createPostPayload.append("sold", isSold);
+      createPostPayload.append("isPublish", isPublish);
+      files.forEach((element) => {
+        createPostPayload.append("picture", element);
+      });
+      // setOpen(true);
+      const createRequest = await axios.put(
+        `http://localhost:2000/products/${id}`,
+        createPostPayload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const createResponse = createRequest.data;
+
+      dispatch(addProduct(createResponse.message));
+
+      if (createResponse.status) navigate(`/homeproduct/${data.id}`);
+    } catch (err) {
+      const response = err.response.data;
+      setErrorResponse({
+        isError: true,
+        message: response.message,
+      });
+    }
+  };
+
+  const getProduct = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const responseProduct = await axios.get(
+        `http://localhost:2000/products/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const dataProduct = await responseProduct.data.data.getdata;
+      console.log(dataProduct);
+
+      setData(dataProduct);
+      console.log(dataProduct);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  return (
+    <>
+      {/* <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop> */}
+      <Container className="form-info-product">
+        <Link
+          to={`/homeproduct/${data.id}`}
+          className="text-black position-absolute "
+          style={{ left: "25%" }}
+        >
+          <IoMdArrowBack style={{ fontSize: "20px" }} />
+        </Link>
+        <h5 className="text-center">Update Produk</h5>
+
+        <Form>
+          <div className="w-50 form-body">
+            <Form.Group className="mb-2">
+              <Form.Label>Nama Product</Form.Label>
+              <Form.Control
+                style={formStyle}
+                placeholder="Nama Produk"
+                className="py-2"
+                ref={nameField}
+                defaultValue={data.name}
+              />
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Harga Produk</Form.Label>
+              <Form.Control
+                style={formStyle}
+                placeholder="Rp 0,00"
+                className="py-2"
+                ref={priceField}
+                defaultValue={data.price}
+              />
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Kategori</Form.Label>
+              <Form.Select
+                style={formStyle}
+                ref={categoryField}
+                defaultValue={data.category}
+              >
+                <option hidden>Pilih Kategori</option>
+                <option value="Hobi">Hobi</option>
+                <option value="Kendaraan">Kendaraan</option>
+                <option value="Baju">Baju</option>
+                <option value="Elektronik">Elektronik</option>
+                <option value="Kesehatan">Kesehatan</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-2">
+              <Form.Label>Deskripsi</Form.Label>
+              <Form.Control
+                style={formStyle}
+                as="textarea"
+                placeholder="Contoh: Jalan Ikan Hiu 33"
+                className="py-2"
+                ref={descriptionField}
+                defaultValue={data.description}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 d-flex flex-column ">
+              <Form.Label>Foto Produk</Form.Label>
+
+              <section>
+                <div {...getRootProps({ className: "dropzone" })}>
+                  <input {...getInputProps()} />
+                  {files.length === 0 ? (
+                    <Button className="upload-image-button">
+                      <h2>
+                        <FiPlus />
+                      </h2>
+                    </Button>
+                  ) : (
+                    <div>{thumbs}</div>
+                  )}
+                </div>
+              </section>
+            </Form.Group>
+
+            {errorResponse.isError && (
+              <Alert variant="danger">{errorResponse.message}</Alert>
+            )}
+
+            <div className="d-flex gap-3 justify-content-center">
+              <Button
+                type="submit"
+                style={buttonStyle}
+                className="w-50 py-2"
+                onClick={(e) => onUpdate(e, false)}
+              >
+                Simpan
+              </Button>
+              <Link className="w-50" to={`/homeproduct/${data.id}`}>
+                <Button style={cancelButtonStyle} className="w-100 py-2">
+                  Batal
+                </Button>
+              </Link>
             </div>
           </div>
         </Form>

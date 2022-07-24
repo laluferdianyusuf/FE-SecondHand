@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import InfoAcc from "./pages/InfoAcc";
 import InfoAccV2 from "./pages/InfoAccV2";
+import UpdateProduct from "./pages/UpdateProduct";
 import InfoProduct from "./pages/InfoProduct";
 import PageProduct from "./pages/PageProduct";
 import DaftarJual from "./pages/DaftarJual";
@@ -25,9 +26,10 @@ root.render(
         <Route path="/updateacc/:id" element={<InfoAcc />} />
         <Route path="/updateaccv2/:id" element={<InfoAccV2 />} />
         <Route path="/createproduct" element={<InfoProduct />} />
+        <Route path="/update/product/:id" element={<UpdateProduct />} />
         <Route path="/homeproduct/:id" element={<PageProduct />} />
         <Route path="/daftarjual" element={<DaftarJual />} />
-        <Route path="/offers" element={<InfoOffer />} />
+        <Route path="/offers/:id" element={<InfoOffer />} />
       </Routes>
     </Router>
   </Provider>

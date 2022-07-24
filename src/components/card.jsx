@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container, Card } from "react-bootstrap";
-import { FiSearch } from "react-icons/fi";
-
+import { Link } from "react-router-dom";
 export function CardProduct({ product }) {
   const title = {
     fontSize: "14px",
@@ -57,26 +56,31 @@ export function CardProduct({ product }) {
       </div> */}
       <Container className="card-content ">
         {product.map((product) => (
-          <div key={product.id}>
-            <Card>
-              <Card.Img
-                variant="top"
-                className="align-self-center "
-                multiple
-                src={`${product.picture[0]}`}
-                style={image}
-              />
-              <Card.Body className="p-2">
-                <Card.Title className="mb-0" style={title}>
-                  {product.title}
-                </Card.Title>
-                <p className="mb-0" style={accesoris}>
-                  {product.category}
-                </p>
-                <Card.Text className="mb-1">{product.price}</Card.Text>
-              </Card.Body>
-            </Card>
-          </div>
+          <Link
+            to={`/homeproduct/${product.id}`}
+            className="text-decoration-none text-black"
+          >
+            <div key={product.id}>
+              <Card>
+                <Card.Img
+                  variant="top"
+                  className="align-self-center "
+                  multiple
+                  src={`${product.picture[0]}`}
+                  style={image}
+                />
+                <Card.Body className="p-2">
+                  <Card.Title className="mb-0" style={title}>
+                    {product.title}
+                  </Card.Title>
+                  <p className="mb-0" style={accesoris}>
+                    {product.category}
+                  </p>
+                  <Card.Text className="mb-1">{product.price}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+          </Link>
         ))}
       </Container>
     </>

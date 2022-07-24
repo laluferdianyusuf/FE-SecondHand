@@ -13,6 +13,7 @@ import { styled } from "@mui/material/styles";
 import { addUser } from "../slices/userSlice";
 import { FiSearch } from "react-icons/fi";
 import { addSearch } from "../slices/searchingSlice";
+import dateFormat from "dateformat";
 
 export function BlankNav() {
   return (
@@ -60,8 +61,33 @@ export function HomeNav() {
   const dispatch = useDispatch();
   const [user, setUser] = useState({});
   const [searching, setSearching] = useState("");
+  const [notif, setNotif] = useState([]);
+
   const handleSearch = () => {
     dispatch(addSearch(searching));
+  };
+
+  const notifikasi = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const user_local = localStorage.getItem("user");
+      const user = JSON.parse(user_local);
+
+      const notifRequest = await axios.get(
+        `http://localhost:2000/transactions/notif/${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(notifRequest);
+      const notifResponse = notifRequest.data.data.getTransactionNotif;
+      console.log(notifResponse);
+      setNotif(notifResponse);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -100,8 +126,10 @@ export function HomeNav() {
         setIsLoggedIn(false);
       }
     };
+
     handleSearch();
     validateLogin();
+    notifikasi();
   }, [searching]);
 
   const logout = () => {
@@ -172,15 +200,61 @@ export function HomeNav() {
                   />
                 </Button>
 
-                <Button style={buttonStyleV2}>
-                  <Badge badgeContent={4} color="primary">
-                    <FiBell
-                      style={{ fontSize: "20px" }}
-                      color="action"
-                      className="align-self-center text-black"
-                    />
-                  </Badge>
-                </Button>
+                <Dropdown>
+                  <Dropdown.Toggle style={buttonStyleV2}>
+                    <Badge badgeContent={notif.length} color="primary">
+                      <FiBell
+                        style={{ fontSize: "20px" }}
+                        color="action"
+                        className="align-self-center text-black"
+                      />
+                    </Badge>
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    {notif
+                      .map((notif) => (
+                        <Dropdown.Item>
+                          <Link
+                            to={`/sellerproductpenawar/${notif.id}`}
+                            style={{ textDecoration: "none", color: "black" }}
+                          >
+                            <div class="d-flex my-1">
+                              <img
+                                src={`${notif.product.image[0]}`}
+                                style={{
+                                  width: "60px",
+                                  height: "60px",
+                                  marginTop: "5px",
+                                }}
+                                alt=""
+                              />
+                              <div class="mx-3">
+                                <p className="mb-0 notif-accesoris">
+                                  Penawaran Produk
+                                </p>
+                                <p className="mb-0">{notif.product.name}</p>
+                                <p className="mb-0">Rp.{notif.product.price}</p>
+                                <p className="mb-0">
+                                  {user.id === notif.owner_id
+                                    ? "ditawar"
+                                    : user.id === notif.user_id &&
+                                      "menawar"}{" "}
+                                  Rp.{notif.requestedPrice}
+                                </p>
+                              </div>
+                              <div class="ms-auto">
+                                <p className="mb-0 notif-accesoris">
+                                  {dateFormat(notif.createdAt, "d mmm, h:MM")}
+                                </p>
+                              </div>
+                            </div>
+                          </Link>
+                        </Dropdown.Item>
+                      ))
+                      .reverse()}
+                  </Dropdown.Menu>
+                </Dropdown>
 
                 <Dropdown>
                   <Dropdown.Toggle

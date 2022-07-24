@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { Card, Button, Container } from "react-bootstrap";
 import { FiBox, FiHeart, FiDollarSign, FiChevronRight } from "react-icons/fi";
 import axios from "axios";
-import { Content, ContentWistlist } from "../components/Content";
+import { Content, ContentWistlist, ContentSold } from "../components/Content";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -172,7 +172,12 @@ export function SidebarFix() {
         }}
         spacing={2}
       >
-        <Alert variant="filled" severity="success" onClose={handleClose}>
+        <Alert
+          icon={false}
+          variant="filled"
+          severity="success"
+          onClose={handleClose}
+        >
           {alert}
         </Alert>
       </Stack>
@@ -251,7 +256,7 @@ export function SidebarFix() {
             </div>
             {products && <Content productSeller={productSeller} />}
             {wishlist && <ContentWistlist />}
-            {sold && <Content />}
+            {sold && <ContentSold />}
           </Container>
         </div>
       </Container>
