@@ -14,7 +14,7 @@ export function CarouselHome() {
   const options = {
     items: 2,
     autoplay: true,
-    autoplayTimeout: 5000,
+    autoplayTimeout: false,
     autoplayHoverPause: true,
     center: true,
     loop: true,
