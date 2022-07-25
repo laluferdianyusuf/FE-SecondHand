@@ -13,7 +13,7 @@ import { styled } from "@mui/material/styles";
 export function CarouselHome() {
   const options = {
     items: 2,
-    autoplay: true,
+    autoplay: false,
     autoplayTimeout: false,
     autoplayHoverPause: true,
     center: true,
