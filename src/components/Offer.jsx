@@ -15,10 +15,7 @@ export function Offer() {
     },
   }));
 
-  const [user, setUser] = useState({});
-
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [productSeller, setProductSeller] = useState([]);
   const { id } = useParams();
   console.log(productSeller);
@@ -281,10 +278,9 @@ export function Offer() {
             </div>
           </div>
         </div>
+
         {/* modal accepted */}
         <Modal
-          style={{ padding: "10px 36px" }}
-          className="w-75"
           show={showAccepted}
           onHide={handleCloseAccepted}
           aria-labelledby="contained-modal-title-vcenter"

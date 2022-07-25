@@ -593,6 +593,15 @@ p {
   .dropdown-menu.show {
     transform: translate(-33%);
   }
+
+  .modal-content {
+    width: 100% !important;
+  }
+
+  .fade.moda.show {
+    padding: 0 !important;
+  }
+
   .dropdown-menu.show .dropdown-item a div {
     display: flex;
     flex-direction: column !important;

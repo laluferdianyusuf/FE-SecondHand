@@ -21,7 +21,9 @@ export function BlankNav() {
       <div className="blank-nav">
         <Navbar expand="lg" className="py-3 ">
           <Container>
-            <div className="box me-3"></div>
+            <Link to="/">
+              <div className="box me-3"></div>
+            </Link>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <h6 style={{ transform: "translate(400px)" }}>
@@ -39,7 +41,9 @@ export function BlankNavV2() {
   return (
     <Navbar expand="lg" className="py-3 blank-navV2">
       <Container>
-        <div className="box me-3"></div>
+        <Link to="/">
+          <div className="box me-3"></div>
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav"></Navbar.Collapse>
       </Container>
@@ -158,7 +162,9 @@ export function HomeNav() {
   return (
     <Navbar expand="lg" className="py-3 home-nav">
       <Container>
-        <div className="box me-3"></div>
+        <Link to="/">
+          <div className="box me-3"></div>
+        </Link>
         <div className="d-flex gap-3">
           <Navbar.Toggle aria-controls="offcanvas" onClick={handleShow} />
         </div>
