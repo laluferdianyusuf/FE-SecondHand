@@ -123,7 +123,7 @@ export function CarouselProduct() {
 
       // 2. Check token validity from API
       const currentUserRequest = await axios.get(
-        "http://localhost:2000/auth/me",
+        "https://be-final.herokuapp.com/auth/me",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ export function CarouselProduct() {
     try {
       const token = localStorage.getItem("token");
       const responseProduct = await axios.get(
-        `http://localhost:2000/products/${id}`,
+        `https://be-final.herokuapp.com/products/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
