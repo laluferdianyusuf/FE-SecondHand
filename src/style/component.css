@@ -719,6 +719,9 @@ p {
     background-color: white !important;
   }
 
+  .carousel-text {
+    padding-left: 5%;
+  }
   /* daftar jual */
   .home-nav.daftar-jual .container h3 {
     display: block;
