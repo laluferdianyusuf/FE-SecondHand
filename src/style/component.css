@@ -172,6 +172,10 @@ p {
   background-color: #b6d4a8;
 }
 
+carousel-text col-md-6 col-8 {
+  width: 100% !important;
+}
+
 .text-1 {
   font-weight: bold;
   z-index: 999;
