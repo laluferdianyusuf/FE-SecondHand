@@ -251,7 +251,9 @@ p {
 
 .carousel-home-product .carousel-item img {
   height: 436px;
+  border-radius: 16px;
 }
+
 /* cayegory */
 .category div button {
   border: 1px solid rgba(226, 212, 240, 1);
@@ -655,6 +657,7 @@ p {
 
   .carousel-home-product .carousel-item img {
     height: 300px;
+    border-radius: 0;
   }
 
   .slider .home-carousel-1 {
@@ -722,6 +725,7 @@ p {
   .carousel-text {
     padding-left: 5%;
   }
+
   /* daftar jual */
   .home-nav.daftar-jual .container h3 {
     display: block;
