@@ -352,7 +352,7 @@ export function ContentSold() {
                         {products.product.category}
                       </p>
                       <Card.Text className="mb-1">
-                        Rp {products.requestedPrice}
+                        Rp {products.bargain_price}
                       </Card.Text>
                       <span>
                         {products.product.sold ? (

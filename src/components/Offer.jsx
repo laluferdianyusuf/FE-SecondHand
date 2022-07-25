@@ -1,18 +1,9 @@
-import {
-  Container,
-  Button,
-  Form,
-  Alert,
-  Col,
-  Card,
-  Modal,
-} from "react-bootstrap";
+import { Container, Button, Form, Alert, Card, Modal } from "react-bootstrap";
 import { IoMdArrowBack } from "react-icons/io";
 import "../style/component.css";
 import { styled } from "@mui/material/styles";
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, Link, useParams, Navigate } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
 import axios from "axios";
 import dateFormat from "dateformat";

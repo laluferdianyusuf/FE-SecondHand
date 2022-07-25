@@ -341,7 +341,7 @@ p {
 /* card */
 .card-content {
   display: grid;
-  grid-template-columns: 181px 181px 181px 181px 181px 181px;
+  grid-template-columns: 16.6% 16.6% 16.6% 16.6% 16.6% 16.6%;
   grid-gap: 20px;
 }
 
