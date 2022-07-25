@@ -674,8 +674,8 @@ p {
   }
 
   .slider .carousel-1 img {
-    margin-top: 60%;
-    margin-left: -30px !important;
+    margin-top: 100%;
+    margin-left: -60px !important;
     max-width: 70%;
   }
 
@@ -686,7 +686,7 @@ p {
   }
 
   .slider .text-1 {
-    margin-top: 10%;
+    margin-top: 30%;
     font-size: 18px;
   }
 
