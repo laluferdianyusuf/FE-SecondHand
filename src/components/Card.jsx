@@ -69,9 +69,9 @@ export function CardProduct({ product }) {
                   src={`${product.picture[0]}`}
                   style={image}
                 />
-                <Card.Body className="p-2">
+                <Card.Body className="px-2 pt-0 pb-0">
                   <Card.Title className="mb-0" style={title}>
-                    {product.title}
+                    {product.name}
                   </Card.Title>
                   <p className="mb-0" style={accesoris}>
                     {product.category}

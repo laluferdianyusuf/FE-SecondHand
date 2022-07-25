@@ -155,15 +155,6 @@ export function HomeNav() {
     width: "50px",
   };
 
-  const RootDropdown = styled("div")(({ theme }) => ({
-    [theme.breakpoints.up("md")]: {
-      width: "100%",
-    },
-    [theme.breakpoints.down("md")]: {
-      width: "50%",
-    },
-  }));
-
   return (
     <Navbar expand="lg" className="py-3 home-nav">
       <Container>
@@ -197,7 +188,11 @@ export function HomeNav() {
           onHide={handleClose}
         >
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Second Hand</Offcanvas.Title>
+            <Offcanvas.Title>
+              <Link to="/" className="text-decoration-none text-black">
+                Second Hand
+              </Link>
+            </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             {isLoggedIn ? (

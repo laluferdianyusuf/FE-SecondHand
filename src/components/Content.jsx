@@ -7,6 +7,7 @@ import "../style/component.css";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 import { styled } from "@mui/material/styles";
+import ImageWishList from "../images/wish.png";
 
 export function Content({ productSeller }) {
   const title = {
@@ -14,7 +15,7 @@ export function Content({ productSeller }) {
   };
 
   const image = {
-    width: "55%",
+    width: "90%",
     height: "100px",
     margin: "5px",
   };
@@ -56,21 +57,43 @@ export function Content({ productSeller }) {
                 >
                   <Card>
                     <Card.Img
-                      className="align-self-center"
+                      className="w-80 align-self-center"
                       variant="top"
                       src={`${item.picture[0]}`}
                       style={image}
                     />
                     <Card.Body className="p-2">
                       <Card.Title className="mb-0" style={title}>
-                        {item.title}
+                        {item.name}
                       </Card.Title>
                       <p className="mb-0" style={accesoris}>
                         {item.category}
                       </p>
                       <Card.Text className="mb-1">Rp. {item.price}</Card.Text>
-                      <span class="label other">
-                        {item.isPublish ? "Publish" : "Unpublish"}
+                      <span>
+                        {item.isPublish ? (
+                          <span
+                            className="d-flex"
+                            style={{
+                              fontSize: "10px",
+                              color: "grey",
+                              flexDirection: "row-reverse",
+                            }}
+                          >
+                            Publish
+                          </span>
+                        ) : (
+                          <span
+                            className="d-flex"
+                            style={{
+                              fontSize: "10px",
+                              color: "grey",
+                              flexDirection: "row-reverse",
+                            }}
+                          >
+                            Unublish
+                          </span>
+                        )}
                       </span>
                     </Card.Body>
                   </Card>
@@ -166,15 +189,15 @@ export function ContentWistlist() {
     fetchData();
   }, []);
 
-  return isLoggedIn ? (
+  return (
     <>
       {sellerProduct ? (
-        <Container className="card-content-seller">
-          {sellerProduct.map((transaction) =>
-            transaction.product.sold === false ? (
-              <div key={transaction.id}>
+        <div className="card-content-seller">
+          {sellerProduct.map((products) =>
+            products.product.sold === false ? (
+              <div key={products.id} className="product-seller">
                 <Link
-                  to={`/offers/${transaction.id}`}
+                  to={`/offers/${products.id}`}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <Card style={CardProduct}>
@@ -182,43 +205,41 @@ export function ContentWistlist() {
                       className="w-80 align-self-center"
                       variant="top"
                       multiple
-                      src={`${transaction.product.picture[0]}`}
+                      src={`${products.product.picture[0]}`}
                       style={imageCard}
                     />
                     <Card.Body className="p-2">
                       <Card.Title className="mb-0" style={title}>
-                        {transaction.product.name}
+                        {products.product.name}
                       </Card.Title>
                       <p className="mb-0" style={accesoris}>
-                        {transaction.product.category}
+                        {products.product.category}
                       </p>
                       <Card.Text className="mb-1">
-                        Rp {transaction.product.price}
+                        Rp {products.product.price}
                       </Card.Text>
                     </Card.Body>
                   </Card>
                 </Link>
               </div>
             ) : (
-              ""
+              <div className="d-flex align-items-center justify-content-center">
+                <div style={productCard} className="my-4">
+                  <img style={image} src={ImageWishList} alt="" />
+
+                  <p style={text}>
+                    Belum ada produkmu yang diminati nih, sabar ya rejeki nggak
+                    kemana kok
+                  </p>
+                </div>
+              </div>
             )
           )}
-        </Container>
+        </div>
       ) : (
-        <Container className="d-flex align-items-center justify-content-center">
-          <div style={productCard} className="my-4">
-            <img style={image} src="./images/wishlist.png" alt="" />
-
-            <p style={text}>
-              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
-              kok
-            </p>
-          </div>
-        </Container>
+        ""
       )}
     </>
-  ) : (
-    <Navigate to="/login" replace />
   );
 }
 
@@ -304,15 +325,15 @@ export function ContentSold() {
     fetchData();
   }, []);
 
-  return isLoggedIn ? (
+  return (
     <>
       {sellerProduct ? (
-        <Container className="card-content-seller">
-          {sellerProduct.map((sellerProduct) =>
-            sellerProduct.product.sold === true ? (
-              <div key={sellerProduct.id}>
+        <div className="card-content-seller">
+          {sellerProduct.map((products) =>
+            products.product.sold === true ? (
+              <div key={products.id} className="product-seller">
                 <Link
-                  to={`/sellerproductpenawar/${sellerProduct.id}`}
+                  to={`/offers/${products.id}`}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <Card style={CardProduct}>
@@ -320,47 +341,58 @@ export function ContentSold() {
                       className="w-80 align-self-center"
                       variant="top"
                       multiple
-                      src={`${sellerProduct.product.picture[0]}`}
+                      src={`${products.product.picture[0]}`}
                       style={imageCard}
                     />
                     <Card.Body className="p-2">
                       <Card.Title className="mb-0" style={title}>
-                        {sellerProduct.product.name}
+                        {products.product.name}
                       </Card.Title>
                       <p className="mb-0" style={accesoris}>
-                        {sellerProduct.product.category}
+                        {products.product.category}
                       </p>
                       <Card.Text className="mb-1">
-                        Rp {sellerProduct.requestedPrice}
+                        Rp {products.requestedPrice}
                       </Card.Text>
-                      <span class="label other">
-                        {sellerProduct.product.sold ? "berhasil terjual" : ""}
+                      <span>
+                        {products.product.sold ? (
+                          <span
+                            className="d-flex"
+                            style={{
+                              fontSize: "10px",
+                              color: "grey",
+                              flexDirection: "row-reverse",
+                            }}
+                          >
+                            berhasil terjual
+                          </span>
+                        ) : (
+                          ""
+                        )}
                       </span>
                     </Card.Body>
                   </Card>
                 </Link>
               </div>
             ) : (
-              ""
+              <div className="d-flex align-items-center justify-content-center">
+                <div style={productCard} className="my-4">
+                  <div className="d-flex align-items-center justify-content-center mb-3">
+                    <img style={image} src={ImageWishList} alt="" />
+                  </div>
+                  <p style={text}>
+                    Belum ada produkmu yang diminati nih, sabar ya rejeki nggak
+                    kemana kok
+                  </p>
+                </div>
+              </div>
             )
           )}
-        </Container>
+        </div>
       ) : (
-        <Container className="d-flex align-items-center justify-content-center">
-          <div style={productCard} className="my-4">
-            <div className="d-flex align-items-center justify-content-center mb-3">
-              <img style={image} src="/images/wishlist.png" alt="" />
-            </div>
-            <p style={text}>
-              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
-              kok
-            </p>
-          </div>
-        </Container>
+        ""
       )}
     </>
-  ) : (
-    <Navigate to="/login" replace />
   );
 }
 
@@ -411,6 +443,7 @@ export function UserProfile() {
       console.log(err);
     }
   };
+
   const getProduct = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -623,9 +656,11 @@ export function UserProfile() {
       <div className="user-profile">
         <Card className="pb-2">
           <Card.Body>
-            <Card.Title>{data.title}</Card.Title>
-            <Card.Text>{data.category}</Card.Text>
-            <Card.Title>Rp. {data.price}</Card.Title>
+            <Card.Title className="fw-bold">{data.name}</Card.Title>
+            <Card.Text style={{ fontSize: "14px", color: "#8A8A8A" }}>
+              {data.category}
+            </Card.Text>
+            <Card.Text style={{ fontSize: "16px" }}>Rp. {data.price}</Card.Text>
             <div className=" buttons-user">
               <div className="mt-3">
                 <Button
@@ -663,7 +698,11 @@ export function UserProfile() {
         </Card>
         <Card
           className="d-flex flex-row gap-3 px-3 py-3 mt-3"
-          style={{ borderRadius: "16px" }}
+          style={{
+            borderRadius: "16px",
+            border: "none",
+            boxShadow: "0 0 4px 0 rgba(0,0,0,0.15)",
+          }}
         >
           <Card.Img
             src={`${data.user ? data.user.picture : ""}`}
@@ -789,7 +828,14 @@ export function ProductDesc() {
   return (
     <>
       <div className="mb-3 mt-4">
-        <Card className="card-description">
+        <Card
+          className="card-description"
+          style={{
+            borderRadius: "16px",
+            border: "none",
+            boxShadow: "0 0 4px 0 rgba(0, 0, 0, 0.15)",
+          }}
+        >
           <Container className="py-3">
             <h4 className="fw-bold">Deskripsi</h4>
             <p style={{ textAlign: "justify" }}>{data.description}</p>

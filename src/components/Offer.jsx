@@ -271,7 +271,16 @@ export function Offer() {
                       : false
                   }
                 >
-                  {productSeller.isAccepted === true ? "Hubungi di " : "Terima"}
+                  {productSeller.isAccepted === true ? (
+                    <span
+                      className="d-flex justify-content-evenly"
+                      style={{ fontSize: "14px" }}
+                    >
+                      Hubungi di <FaWhatsapp className=" align-self-center" />
+                    </span>
+                  ) : (
+                    "Terima"
+                  )}
                 </Button>
 
                 {errorResponse.isError && (
@@ -283,24 +292,29 @@ export function Offer() {
         </div>
         {/* modal accepted */}
         <Modal
-          className="Modal-info-penawar-seller"
+          style={{ padding: "10px 36px" }}
+          className="w-75"
           show={showAccepted}
           onHide={handleCloseAccepted}
           aria-labelledby="contained-modal-title-vcenter"
-          size="sm"
           centered
         >
-          <Modal.Header closeButton></Modal.Header>
+          <Modal.Header
+            closeButton
+            className="px-0"
+            style={{ borderBottom: "none" }}
+          ></Modal.Header>
           <Modal.Body
+            className="fw-bold px-0"
             style={{
               color: "black",
-              fontWeight: "bold",
               fontSize: "14px",
             }}
           >
             Yeay kamu berhasil mendapat harga yang sesuai
           </Modal.Body>
           <Modal.Body
+            className="px-0"
             style={{
               color: "#8A8A8A",
               marginTop: "-25px",
@@ -309,100 +323,88 @@ export function Offer() {
           >
             Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya
           </Modal.Body>
-          <Container>
-            <Col className="gambar-modal">
-              <Modal.Body
-                style={{
-                  color: "black",
-                  fontWeight: "bold",
-                  textAlign: "center",
-                  fontSize: "14px",
-                }}
-              >
+
+          <div>
+            <Card
+              style={{
+                borderRadius: "16px ",
+                backgroundColor: "#EEEEEE",
+                border: "1px solid #EEEEEE",
+              }}
+            >
+              <Modal.Body className="text-center px-0 fw-bold">
                 Product Match
               </Modal.Body>
-              <Card.Img
-                src={`${productSeller.user ? productSeller.user.picture : ""}`}
-                alt=""
-                style={{
-                  color: "black",
-                  width: "48px",
-                  height: "48px",
-                  marginLeft: "10px",
-                  borderRadius: "12px",
-                  flex: "none",
-                }}
-              />
-              <Card.Title
-                className="nama-seller-product-penawar"
-                style={{
-                  color: "black",
-                  marginTop: "-50px",
-                }}
-              >
-                {productSeller.user && productSeller.user.name}
-              </Card.Title>
-              <Card.Text className="card-kota-seller-product-penawar">
-                {productSeller.user && productSeller.user.city}
-              </Card.Text>
-              <Card.Img
-                src={`${
-                  productSeller.product ? productSeller.product.picture[0] : ""
-                }`}
-                alt=""
-                style={{
-                  color: "black",
-                  width: "48px",
-                  height: "48px",
-                  marginLeft: "10px",
-                  borderRadius: "12px",
-                  flex: "none",
-                }}
-              />
-              <Card.Title
-                className="nama2-seller-product-penawar"
-                style={{
-                  marginTop: "-50px",
-                }}
-              >
-                {productSeller.product && productSeller.product.name}
-              </Card.Title>
-              <Card.Text
-                className="nama2-seller-product-penawar"
-                style={{
-                  marginTop: "-5px",
-                }}
-              >
-                <s>Rp {productSeller.product && productSeller.product.price}</s>
-              </Card.Text>
-              <Card.Text className="nama2-seller-product-penawar">
-                Ditawar Rp {productSeller.bargain_price}
-              </Card.Text>
-            </Col>
-          </Container>
-          <Modal.Body>
+
+              <div className="d-flex flex-row p-3 gap-2">
+                <Card.Img
+                  src={`${
+                    productSeller.user ? productSeller.user.picture : ""
+                  }`}
+                  alt=""
+                  style={{ width: "48px", height: "48px" }}
+                />
+                <div>
+                  <Card.Title className="mb-0 fw-bold">
+                    {productSeller.user && productSeller.user.name}
+                  </Card.Title>
+                  <Card.Text>
+                    {productSeller.user && productSeller.user.city}
+                  </Card.Text>
+                </div>
+              </div>
+
+              <div className="d-flex flex-row p-3 gap-2">
+                <Card.Img
+                  src={`${
+                    productSeller.product
+                      ? productSeller.product.picture[0]
+                      : ""
+                  }`}
+                  alt=""
+                  style={{ width: "48px", height: "48px" }}
+                />
+                <div>
+                  <Card.Title className="mb-0 fw-bold">
+                    {productSeller.product && productSeller.product.name}
+                  </Card.Title>
+                  <Card.Text>
+                    <s>
+                      Rp {productSeller.product && productSeller.product.price}
+                    </s>
+                  </Card.Text>
+                  <Card.Text>
+                    Ditawar Rp {productSeller.bargain_price}
+                  </Card.Text>
+                </div>
+              </div>
+            </Card>
+          </div>
+
+          <Modal.Footer className="px-0" style={{ borderTop: "none" }}>
             <button
-              className="myButton8-seller-product-penawar w-100"
+              className="modal-offers-button w-100"
               onClick={handleCloseAccepted}
             >
               <Link
-                to="/productSellerpenawar2"
-                className="text-decoration-none"
+                to="/gatau"
+                className="text-decoration-none d-flex"
                 style={{
                   color: "white",
+                  justifyContent: "space-between",
                 }}
               >
+                <div style={{ opacity: 0 }}>p</div>
                 Hubungi via Whatsapp
                 <FaWhatsapp
                   style={{
-                    fontSize: "15px",
-                    marginLeft: "6px",
-                    marginBotom: "15px",
+                    fontSize: "normal",
+                    placeSelf: "center",
                   }}
                 />
               </Link>
             </button>
-          </Modal.Body>
+          </Modal.Footer>
         </Modal>
 
         {/* modal status */}

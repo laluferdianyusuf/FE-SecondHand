@@ -14,6 +14,9 @@ p {
 
 .dropdown-menu.show {
   transform: translateX(-85%);
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
 
 .alert {
@@ -347,6 +350,10 @@ p {
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
   border-radius: 4px;
 }
+
+.card-content-seller .product-seller {
+  width: 33.3% !important;
+}
 /* form */
 /* form login */
 .row-login {
@@ -487,7 +494,7 @@ p {
 
 .content-product {
   display: grid;
-  grid-template-columns: 234px 234px 234px;
+  grid-template-columns: 33.3% 33.3% 33.3%;
   grid-auto-flow: row;
 }
 
@@ -569,6 +576,17 @@ p {
   background-color: #7126b5;
   border: 1px solid #7126b5;
   border-radius: 16px;
+}
+
+.modal-offers-button {
+  border-radius: 16px;
+  padding: 10px 22px;
+  background: #7126b5;
+  border: 1px solid #7126b5;
+}
+
+.modal.show .modal-dialog .modal-content {
+  padding: 10px 36px;
 }
 
 @media only screen and (max-width: 1023px) {
@@ -897,6 +915,10 @@ p {
     transform: translate(0);
   }
 
+  .upload-product {
+    height: 185px;
+  }
+
   .form-info-product form .upload-product .upload-image-product {
     width: 25%;
   }
@@ -935,6 +957,10 @@ p {
     margin-left: -47px;
   }
 
+  .card-content-seller .product-seller {
+    width: 50% !important;
+  }
+
   .buttons-user div {
     position: fixed;
     width: 90%;
@@ -946,7 +972,7 @@ p {
   }
 
   .content-product {
-    grid-template-columns: auto auto;
+    grid-template-columns: 50% 50%;
   }
 
   /* offers */

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Row, Col, Button, Form, Container, Card } from "react-bootstrap";
-import { Alert, Stack } from "@mui/material";
+import { Alert } from "@mui/material";
 import "../style/component.css";
 import ImageLogin from "../images/img.png";
 import { Link, useNavigate, useParams, Navigate } from "react-router-dom";
@@ -73,22 +73,6 @@ export function LoginForm() {
     color: "rgba(113, 38, 181, 1)",
   };
 
-  const Root = styled("div")(({ theme }) => ({
-    position: "absolute",
-    [theme.breakpoints.up("md")]: {
-      top: "53%",
-      right: "12%",
-    },
-    [theme.breakpoints.down("md")]: {
-      top: "49.5%",
-      right: "9%",
-    },
-  }));
-
-  const [show, setShow] = useState(true);
-  const handleClose = () => {
-    setShow(false);
-  };
   return (
     <>
       <Row className="row-login gx-0">
@@ -116,15 +100,51 @@ export function LoginForm() {
               />
 
               <Form.Label>Password</Form.Label>
-              <Form.Control
-                type={showPass ? "text" : "password"}
-                ref={passwordField}
-                placeholder="Enter password"
-                className="mb-4"
-                style={formStyle}
-              />
+              <div className="d-flex position-relative">
+                <Form.Control
+                  type={showPass ? "text" : "password"}
+                  ref={passwordField}
+                  placeholder="Enter password"
+                  className="mb-4"
+                  style={formStyle}
+                />
 
-              <Button type="submit" style={buttonStyle} className="w-100">
+                <Button
+                  onClick={handleShowPass}
+                  className="position-absolute"
+                  style={{
+                    right: "0",
+                    backgroundColor: "transparent",
+                    border: "1px solid transparent",
+                  }}
+                >
+                  {showPass ? (
+                    <AiOutlineEyeInvisible
+                      style={{ fontSize: "20px" }}
+                      className="text-black"
+                    />
+                  ) : (
+                    <AiOutlineEye
+                      className="text-black"
+                      style={{ fontSize: "20px" }}
+                    />
+                  )}
+                </Button>
+              </div>
+
+              {errorResponse.isError && (
+                <Alert
+                  variant="filled"
+                  severity="error"
+                  style={{
+                    borderRadius: "12px",
+                  }}
+                >
+                  {errorResponse.message}
+                </Alert>
+              )}
+
+              <Button type="submit" style={buttonStyle} className="w-100 mt-3">
                 Masuk
               </Button>
 
@@ -138,56 +158,8 @@ export function LoginForm() {
                   Daftar di sini
                 </Link>
               </p>
-
-              {errorResponse.isError && (
-                <Stack
-                  sx={{
-                    width: { xs: "80%", md: "50%" },
-                    left: { xs: "10%", md: "27%" },
-                    right: 0,
-                    top: 0,
-                    transition: "0.5s",
-                    marginTop: show ? { xs: "70px", md: "100px" } : "-350px",
-                    position: "absolute",
-                  }}
-                  spacing={2}
-                >
-                  <Alert
-                    icon={false}
-                    variant="filled"
-                    severity="error"
-                    onClose={handleClose}
-                  >
-                    {errorResponse.message}
-                  </Alert>
-                </Stack>
-              )}
             </Form>
           </div>
-          <Root>
-            <Button
-              onClick={handleShowPass}
-              className="position-absolute"
-              style={{
-                top: "51%",
-                right: "10%",
-                backgroundColor: "transparent",
-                border: "1px solid transparent",
-              }}
-            >
-              {showPass ? (
-                <AiOutlineEyeInvisible
-                  style={{ fontSize: "20px", position: "inherit" }}
-                  className="text-black"
-                />
-              ) : (
-                <AiOutlineEye
-                  className="text-black"
-                  style={{ fontSize: "20px", position: "inherit" }}
-                />
-              )}
-            </Button>
-          </Root>
         </Col>
       </Row>
     </>
@@ -304,39 +276,51 @@ export function RegisterForm() {
               />
 
               <Form.Label>Password</Form.Label>
-              <Form.Control
-                type={showPass ? "text" : "password"}
-                placeholder="Masukan Password"
-                className="mb-4"
-                style={formStyle}
-                ref={passwordField}
-              />
+              <div className="d-flex position-relative">
+                <Form.Control
+                  type={showPass ? "text" : "password"}
+                  ref={passwordField}
+                  placeholder="Enter password"
+                  className="mb-4"
+                  style={formStyle}
+                />
+
+                <Button
+                  onClick={handleShowPass}
+                  className="position-absolute"
+                  style={{
+                    right: "0",
+                    backgroundColor: "transparent",
+                    border: "1px solid transparent",
+                  }}
+                >
+                  {showPass ? (
+                    <AiOutlineEyeInvisible
+                      style={{ fontSize: "20px" }}
+                      className="text-black"
+                    />
+                  ) : (
+                    <AiOutlineEye
+                      className="text-black"
+                      style={{ fontSize: "20px" }}
+                    />
+                  )}
+                </Button>
+              </div>
 
               {errorResponse.isError && (
-                <Stack
-                  sx={{
-                    width: { xs: "80%", md: "50%" },
-                    left: { xs: "10%", md: "27%" },
-                    right: 0,
-                    top: 0,
-                    transition: "0.5s",
-                    marginTop: show ? { xs: "70px", md: "100px" } : "-350px",
-                    position: "absolute",
+                <Alert
+                  variant="filled"
+                  severity="error"
+                  style={{
+                    borderRadius: "12px",
                   }}
-                  spacing={2}
                 >
-                  <Alert
-                    icon={false}
-                    variant="filled"
-                    severity="error"
-                    onClose={handleClose}
-                  >
-                    {errorResponse.message}
-                  </Alert>
-                </Stack>
+                  {errorResponse.message}
+                </Alert>
               )}
 
-              <Button type="submit" style={buttonStyle} className="w-100">
+              <Button type="submit" style={buttonStyle} className="w-100 mt-3">
                 Daftar
               </Button>
 
@@ -352,30 +336,6 @@ export function RegisterForm() {
               </p>
             </Form>
           </div>
-          <Root>
-            <Button
-              onClick={handleShowPass}
-              className="position-absolute"
-              style={{
-                top: "51%",
-                right: "10%",
-                backgroundColor: "transparent",
-                border: "1px solid transparent",
-              }}
-            >
-              {showPass ? (
-                <AiOutlineEyeInvisible
-                  style={{ fontSize: "20px", position: "inherit" }}
-                  className="text-black"
-                />
-              ) : (
-                <AiOutlineEye
-                  className="text-black"
-                  style={{ fontSize: "20px", position: "inherit" }}
-                />
-              )}
-            </Button>
-          </Root>
         </Col>
       </Row>
     </>
