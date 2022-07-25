@@ -629,7 +629,7 @@ export function UserProfile() {
             <div className=" buttons-user">
               <div className="mt-3">
                 <Button
-                  className="w-100"
+                  className="w-100 mb-2"
                   style={buttonStyle}
                   disabled={Object.keys(filteredTransaction).length !== 0}
                   onClick={
