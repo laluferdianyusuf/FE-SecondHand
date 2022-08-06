@@ -13,11 +13,14 @@ import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { useDropzone } from "react-dropzone";
 import { addProduct } from "../slices/productSlice";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function LoginForm() {
   const navigate = useNavigate();
   const emailField = useRef("");
   const passwordField = useRef("");
+  const [open, setOpen] = useState(false);
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
     message: "",
@@ -35,6 +38,8 @@ export function LoginForm() {
         email: emailField.current.value,
         password: passwordField.current.value,
       };
+
+      setOpen(true);
 
       const loginRequest = await axios.post(
         "https://be-final.herokuapp.com/auth/login",
@@ -75,6 +80,12 @@ export function LoginForm() {
 
   return (
     <>
+      <Backdrop
+        sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Row className="row-login gx-0">
         <Col>
           <img
@@ -183,10 +194,6 @@ export function RegisterForm() {
     setShowPass((prevState) => !prevState);
   };
 
-  const [show, setShow] = useState(true);
-  const handleClose = () => {
-    setShow(false);
-  };
   const onRegister = async (e) => {
     e.preventDefault();
 
@@ -345,6 +352,7 @@ export function RegisterForm() {
 export function InfoAccForm() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState({});
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const validateLogin = async (e) => {
       try {
@@ -398,6 +406,7 @@ export function InfoAccForm() {
         createPostPayload.append("picture", element);
       });
 
+      setOpen(true);
       const token = localStorage.getItem("token");
 
       const createRequest = await axios.put(
@@ -506,6 +515,12 @@ export function InfoAccForm() {
   };
   return (
     <>
+      <Backdrop
+        sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       {isLoggedIn ? (
         <Container className="form-info-acc ">
           <Link
@@ -598,6 +613,7 @@ export function InfoAccForm() {
 export function InfoAccFormV2() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState({});
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     const validateLogin = async (e) => {
       try {
@@ -650,7 +666,7 @@ export function InfoAccFormV2() {
       createPostPayload.append("address", addressField.current.value);
       createPostPayload.append("phoneNumber", phoneNumberField.current.value);
       createPostPayload.append("picture", pictureField);
-
+      setOpen(true);
       const token = localStorage.getItem("token");
 
       const createRequest = await axios.put(
@@ -712,6 +728,12 @@ export function InfoAccFormV2() {
   }));
   return (
     <>
+      <Backdrop
+        sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       {isLoggedIn ? (
         <Container className="form-info-acc mt-3">
           <Link
@@ -832,7 +854,7 @@ export function InfoProductForm(props) {
   const descriptionField = useRef("");
   const [isSold, setIsSold] = useState(Boolean);
   const dispatch = useDispatch();
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
@@ -932,7 +954,8 @@ export function InfoProductForm(props) {
       files.forEach((element) => {
         createPostPayload.append("picture", element);
       });
-      // setOpen(true);
+      setOpen(true);
+
       const createRequest = await axios.post(
         "https://be-final.herokuapp.com/products/create",
         createPostPayload,
@@ -962,15 +985,261 @@ export function InfoProductForm(props) {
   };
   return (
     <>
-      {/* <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      <Backdrop
+        sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
       >
         <CircularProgress color="inherit" />
-      </Backdrop> */}
+      </Backdrop>
       <Container className="form-info-product">
         <Link
           to="/"
+          className="text-black position-absolute "
+          style={{ left: "25%" }}
+        >
+          <IoMdArrowBack style={{ fontSize: "20px" }} />
+        </Link>
+        <h5 className="text-center">Lengkapi Detail Product</h5>
+
+        <Form>
+          <div className="w-50 form-body">
+            <Form.Group className="mb-2">
+              <Form.Label>Nama Product</Form.Label>
+              <Form.Control
+                style={formStyle}
+                placeholder="Nama Produk"
+                className="py-2"
+                ref={nameField}
+              />
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Harga Produk</Form.Label>
+              <Form.Control
+                style={formStyle}
+                placeholder="Rp 0,00"
+                className="py-2"
+                ref={priceField}
+              />
+            </Form.Group>
+            <Form.Group className="mb-2">
+              <Form.Label>Kategori</Form.Label>
+              <Form.Select style={formStyle} ref={categoryField}>
+                <option hidden>Pilih Kategori</option>
+                <option value="Hobi">Hobi</option>
+                <option value="Kendaraan">Kendaraan</option>
+                <option value="Baju">Baju</option>
+                <option value="Elektronik">Elektronik</option>
+                <option value="Kesehatan">Kesehatan</option>
+              </Form.Select>
+            </Form.Group>
+
+            <Form.Group className="mb-2">
+              <Form.Label>Deskripsi</Form.Label>
+              <Form.Control
+                style={formStyle}
+                as="textarea"
+                placeholder="Contoh: Jalan Ikan Hiu 33"
+                className="py-2"
+                ref={descriptionField}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3 d-flex flex-column ">
+              <Form.Label>Foto Produk</Form.Label>
+
+              <section>
+                <div {...getRootProps({ className: "dropzone" })}>
+                  <input {...getInputProps()} />
+                  {files.length === 0 ? (
+                    <Button className="upload-image-button">
+                      <h2>
+                        <FiPlus />
+                      </h2>
+                    </Button>
+                  ) : (
+                    <div>{thumbs}</div>
+                  )}
+                </div>
+              </section>
+            </Form.Group>
+
+            {errorResponse.isError && (
+              <Alert variant="danger">{errorResponse.message}</Alert>
+            )}
+
+            <div className="d-flex gap-3">
+              <Button
+                type="submit"
+                style={buttonStyleV2}
+                className="w-50 py-2 text-black"
+                onClick={(e) => onCreate(e, false)}
+              >
+                Preview
+              </Button>
+              <Button
+                type="submit"
+                style={buttonStyle}
+                className="w-50 py-2"
+                onClick={(e) => onCreate(e, true)}
+              >
+                Terbitkan
+              </Button>
+            </div>
+          </div>
+        </Form>
+      </Container>
+    </>
+  );
+}
+
+export function InfoProductFormV2(props) {
+  const navigate = useNavigate();
+  const nameField = useRef("");
+  const priceField = useRef("");
+  const categoryField = useRef("");
+  const descriptionField = useRef("");
+  const [isSold, setIsSold] = useState(Boolean);
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+
+  const [errorResponse, setErrorResponse] = useState({
+    isError: false,
+    message: "",
+  });
+
+  const [files, setFiles] = useState([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      "image/*": [],
+    },
+    onDrop: (acceptedFiles) => {
+      setFiles(
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        )
+      );
+    },
+  });
+
+  const thumb = {
+    display: "inline-flex",
+    borderRadius: 2,
+    border: "1px solid #eaeaea",
+    marginBottom: 8,
+    marginRight: 8,
+    width: 100,
+    height: 100,
+    padding: 4,
+    boxSizing: "border-box",
+  };
+
+  const thumbInner = {
+    display: "flex",
+    minWidth: 0,
+    overflow: "hidden",
+  };
+
+  const img = {
+    display: "block",
+    width: "auto",
+    height: "100%",
+  };
+
+  const thumbs = files.map((file) => (
+    <div style={thumb} key={file.name}>
+      <div style={thumbInner}>
+        <img
+          src={file.preview}
+          style={img}
+          alt=""
+          // Revoke data uri after image is loaded
+          onLoad={() => {
+            URL.revokeObjectURL(file.preview);
+          }}
+        />
+      </div>
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  const buttonStyle = {
+    borderRadius: "16px",
+    backgroundColor: "rgba(113, 38, 181, 1)",
+    border: "1px solid rgba(113, 38, 181, 1)",
+  };
+
+  const buttonStyleV2 = {
+    borderRadius: "16px",
+    backgroundColor: "rgba(113, 38, 181, 0)",
+    border: "1px solid rgba(113, 38, 181, 1)",
+  };
+
+  const formStyle = {
+    borderRadius: "12px",
+  };
+
+  const onCreate = async (e, isPublish) => {
+    e.preventDefault();
+
+    try {
+      const token = localStorage.getItem("token");
+      const createPostPayload = new FormData();
+
+      createPostPayload.append("name", nameField.current.value);
+      createPostPayload.append("price", priceField.current.value);
+      createPostPayload.append("category", categoryField.current.value);
+      createPostPayload.append("description", descriptionField.current.value);
+      createPostPayload.append("sold", isSold);
+      createPostPayload.append("isPublish", isPublish);
+      files.forEach((element) => {
+        createPostPayload.append("picture", element);
+      });
+      setOpen(true);
+
+      const createRequest = await axios.post(
+        "https://be-final.herokuapp.com/products/create",
+        createPostPayload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      const createResponse = createRequest.data;
+
+      dispatch(addProduct(createResponse.message));
+
+      if (createResponse.status) {
+        if (isPublish) navigate("/daftarjual");
+        else navigate("/daftarjual");
+      }
+    } catch (err) {
+      const response = err.response.data;
+      setErrorResponse({
+        isError: true,
+        message: response.message,
+      });
+    }
+  };
+  return (
+    <>
+      <Backdrop
+        sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Container className="form-info-product">
+        <Link
+          to="/daftarjual"
           className="text-black position-absolute "
           style={{ left: "25%" }}
         >
@@ -1079,6 +1348,7 @@ export function UpdateProductForm(props) {
   const [data, setData] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   // const [open, setOpen] = useState(false);
 
   const [errorResponse, setErrorResponse] = useState({
@@ -1178,7 +1448,7 @@ export function UpdateProductForm(props) {
       files.forEach((element) => {
         createPostPayload.append("picture", element);
       });
-      // setOpen(true);
+      setOpen(true);
       const createRequest = await axios.put(
         `https://be-final.herokuapp.com/products/${id}`,
         createPostPayload,
@@ -1232,12 +1502,12 @@ export function UpdateProductForm(props) {
 
   return (
     <>
-      {/* <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      <Backdrop
+        sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
       >
         <CircularProgress color="inherit" />
-      </Backdrop> */}
+      </Backdrop>
       <Container className="form-info-product">
         <Link
           to={`/homeproduct/${data.id}`}

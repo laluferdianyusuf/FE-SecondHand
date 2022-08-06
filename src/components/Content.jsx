@@ -35,7 +35,7 @@ export function Content({ productSeller }) {
               className="w-100 d-flex upload-image-product gap-2  align-items-center justify-content-center"
             >
               <Link
-                to="/createproduct"
+                to="/createproductDJ"
                 className="text-decoration-none"
                 style={{ color: "rgba(138, 138, 138, 1)" }}
               >
@@ -375,22 +375,22 @@ export function ContentSold() {
                 </Link>
               </div>
             ) : (
-              <div className="d-flex align-items-center justify-content-center">
-                <div style={productCard} className="my-4">
-                  <div className="d-flex align-items-center justify-content-center mb-3">
-                    <img style={image} src={ImageWishList} alt="" />
-                  </div>
-                  <p style={text}>
-                    Belum ada produkmu yang diminati nih, sabar ya rejeki nggak
-                    kemana kok
-                  </p>
-                </div>
-              </div>
+              ""
             )
           )}
         </div>
       ) : (
-        ""
+        <div className="d-flex align-items-center justify-content-center">
+          <div style={productCard} className="my-4">
+            <div className="d-flex align-items-center justify-content-center mb-3">
+              <img style={image} src={ImageWishList} alt="" />
+            </div>
+            <p style={text}>
+              Belum ada produkmu yang diminati nih, sabar ya rejeki nggak kemana
+              kok
+            </p>
+          </div>
+        </div>
       )}
     </>
   );

@@ -203,12 +203,14 @@ export function HomeNav() {
           <Offcanvas.Body>
             {isLoggedIn ? (
               <div className="ms-auto d-flex ">
-                <Button style={buttonStyleV2}>
-                  <BsListUl
-                    style={{ fontSize: "20px" }}
-                    className="align-self-center text-black"
-                  />
-                </Button>
+                <Link to="/daftarjual">
+                  <Button style={buttonStyleV2}>
+                    <BsListUl
+                      style={{ fontSize: "20px" }}
+                      className="align-self-center text-black"
+                    />
+                  </Button>
+                </Link>
 
                 <Dropdown>
                   <Dropdown.Toggle style={buttonStyleV2}>

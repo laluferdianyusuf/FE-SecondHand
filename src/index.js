@@ -10,6 +10,7 @@ import InfoAcc from "./pages/InfoAcc";
 import InfoAccV2 from "./pages/InfoAccV2";
 import UpdateProduct from "./pages/UpdateProduct";
 import InfoProduct from "./pages/InfoProduct";
+import CreateProductDaftarJual from "./pages/CreateProductDaftarJual";
 import PageProduct from "./pages/PageProduct";
 import DaftarJual from "./pages/DaftarJual";
 import InfoOffer from "./pages/InfoOffer";
@@ -26,6 +27,7 @@ render(
         <Route path="/updateacc/:id" element={<InfoAcc />} />
         <Route path="/updateaccv2/:id" element={<InfoAccV2 />} />
         <Route path="/createproduct" element={<InfoProduct />} />
+        <Route path="/createproductDJ" element={<CreateProductDaftarJual />} />
         <Route path="/update/product/:id" element={<UpdateProduct />} />
         <Route path="/homeproduct/:id" element={<PageProduct />} />
         <Route path="/daftarjual" element={<DaftarJual />} />
