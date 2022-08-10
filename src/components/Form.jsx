@@ -26,10 +26,15 @@ export function LoginForm() {
     message: "",
   });
 
+  const handleCloseProgress = () => {
+    setOpen(false);
+  };
+
   const [showPass, setShowPass] = useState(false);
   const handleShowPass = () => {
     setShowPass((prevState) => !prevState);
   };
+
   const onLogin = async (e) => {
     e.preventDefault();
 
@@ -38,9 +43,7 @@ export function LoginForm() {
         email: emailField.current.value,
         password: passwordField.current.value,
       };
-
       setOpen(true);
-
       const loginRequest = await axios.post(
         "https://be-final.herokuapp.com/auth/login",
         userToLoginPayload
@@ -83,6 +86,7 @@ export function LoginForm() {
       <Backdrop
         sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
+        onClick={handleCloseProgress}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -353,6 +357,9 @@ export function InfoAccForm() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState({});
   const [open, setOpen] = useState(false);
+  const handleCloseProgress = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     const validateLogin = async (e) => {
       try {
@@ -381,6 +388,7 @@ export function InfoAccForm() {
     };
     validateLogin();
   }, []);
+
   const navigate = useNavigate();
   const nameField = useRef("");
   const cityField = useRef("");
@@ -518,6 +526,7 @@ export function InfoAccForm() {
       <Backdrop
         sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
+        onClick={handleCloseProgress}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -614,6 +623,9 @@ export function InfoAccFormV2() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [user, setUser] = useState({});
   const [open, setOpen] = useState(false);
+  const handleCloseProgress = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     const validateLogin = async (e) => {
       try {
@@ -731,6 +743,7 @@ export function InfoAccFormV2() {
       <Backdrop
         sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
+        onClick={handleCloseProgress}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -856,6 +869,10 @@ export function InfoProductForm(props) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
+  const handleCloseProgress = () => {
+    setOpen(false);
+  };
+
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
     message: "",
@@ -988,6 +1005,7 @@ export function InfoProductForm(props) {
       <Backdrop
         sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
+        onClick={handleCloseProgress}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -1102,6 +1120,10 @@ export function InfoProductFormV2(props) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
+  const handleCloseProgress = () => {
+    setOpen(false);
+  };
+
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
     message: "",
@@ -1200,8 +1222,8 @@ export function InfoProductFormV2(props) {
       files.forEach((element) => {
         createPostPayload.append("picture", element);
       });
-      setOpen(true);
 
+      setOpen(true);
       const createRequest = await axios.post(
         "https://be-final.herokuapp.com/products/create",
         createPostPayload,
@@ -1234,6 +1256,7 @@ export function InfoProductFormV2(props) {
       <Backdrop
         sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
+        onClick={handleCloseProgress}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -1505,6 +1528,7 @@ export function UpdateProductForm(props) {
       <Backdrop
         sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
+        onClick={handleCloseProgress}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
