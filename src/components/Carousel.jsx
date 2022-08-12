@@ -105,10 +105,6 @@ export function CarouselProduct() {
   const [data, setData] = useState([]);
   // console.log(data);
   const [user, setUser] = useState({});
-  const [errorResponse, setErrorResponse] = useState({
-    isError: false,
-    message: "",
-  });
 
   const [successResponse, setSuccessResponse] = useState({
     isSuccess: false,

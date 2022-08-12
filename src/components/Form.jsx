@@ -1395,6 +1395,10 @@ export function UpdateProductForm(props) {
     },
   });
 
+  const handleCloseProgress = () => {
+    setOpen(false);
+  };
+
   const thumb = {
     display: "inline-flex",
     borderRadius: 2,

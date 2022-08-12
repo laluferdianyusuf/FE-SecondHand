@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Container, Navbar, Offcanvas } from "react-bootstrap";
 import "../style/component.css";
 import { FiLogIn, FiBell, FiUser } from "react-icons/fi";
@@ -66,6 +66,7 @@ export function HomeNav() {
   const [user, setUser] = useState({});
   const [searching, setSearching] = useState("");
   const [notif, setNotif] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     dispatch(addSearch(searching));
@@ -320,11 +321,6 @@ export function HomeNav() {
 }
 
 export function DaftarJualNavbar() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const buttonStyle = {
     border: "1px solid rgba(0,0,0,0)",
     backgroundColor: "rgba(0,0,0,0)",
