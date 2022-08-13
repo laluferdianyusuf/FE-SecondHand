@@ -166,12 +166,11 @@ export function Offer() {
     getTransaksiById();
   }, []);
 
-  console.log(productSeller);
   return (
     <>
       <Container className="offers-page mt-5">
         <Root>
-          <Link to="/daftarjual" className="text-black position-absolute">
+          <Link to="/" className="text-black position-absolute">
             <IoMdArrowBack style={{ fontSize: "20px" }} />
           </Link>
         </Root>

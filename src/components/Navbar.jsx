@@ -390,7 +390,7 @@ export function InfoPenawarNavbar() {
       <Container>
         <Root>
           <Link
-            to="/daftarjual"
+            to="/"
             className="text-black position-absolute "
             style={{ left: "2%", top: "45%" }}
           >
