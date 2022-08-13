@@ -58,7 +58,10 @@ export function SidebarUser() {
         <div className="navigasi-user">
           <Card className="p-3">
             <div className="d-flex gap-3">
-              <Card.Img src={`${user.picture}`} style={{ width: "5%" }} />
+              <Card.Img
+                src={`${user.picture}`}
+                style={{ width: "5%", height: "48px" }}
+              />
               <div>
                 <Card.Text className="mb-0 fw-bold">{user.name}</Card.Text>
                 <Card.Text>{user.city}</Card.Text>
