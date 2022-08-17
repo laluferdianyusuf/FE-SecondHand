@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { FiSearch } from "react-icons/fi";
 export function CardProduct({ product }) {
   const title = {
     fontSize: "14px",
@@ -17,32 +18,40 @@ export function CardProduct({ product }) {
     fontSize: "11px",
     opacity: "0.5",
   };
-  // const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState("");
 
-  // const searchText = (e) => {
-  //   setFilter(e.target.value);
-  // };
+  const searchText = (e) => {
+    setFilter(e.target.value);
+  };
 
-  // let dataSearch = product.filter((item) => {
-  //   return Object.keys(item).some((key) =>
-  //     item[key]
-  //       .toString()
-  //       .toLowerCase()
-  //       .includes(filter.toString().toLowerCase())
-  //   );
-  // });
+  let dataSearch = product.filter((item) => {
+    return Object.keys(item).some((key) =>
+      item[key]
+        .toString()
+        .toLowerCase()
+        .includes(filter.toString().toLowerCase())
+    );
+  });
 
   const styleSearch = {
-    width: "27%",
+    width: "30%",
+    zIndex: 999999,
+    top: 15,
+    left: 250,
   };
 
   return (
     <>
-      {/* <div className="position-absolute" style={styleSearch}>
+      <div className="position-absolute search-bar" style={styleSearch}>
         <div className="search-bar position-relative">
           <FiSearch
             className="position-absolute"
-            style={{ top: "11px", right: "10px", fontSize: "18px" }}
+            style={{
+              top: "11px",
+              right: "15px",
+              fontSize: "18px",
+              color: "#8A8A8A",
+            }}
           />
           <input
             style={{ height: "40px", borderRadius: "16px" }}
@@ -53,9 +62,9 @@ export function CardProduct({ product }) {
             placeholder="Cari Di sini..."
           />
         </div>
-      </div> */}
+      </div>
       <Container className="card-content ">
-        {product.map((product) => (
+        {dataSearch.map((product) => (
           <Link
             to={`/homeproduct/${product.id}`}
             className="text-decoration-none text-black"

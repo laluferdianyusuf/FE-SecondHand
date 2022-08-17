@@ -189,7 +189,7 @@ export function ContentWistlist() {
     fetchData();
   }, []);
 
-  return (
+  return isLoggedIn ? (
     <>
       {sellerProduct ? (
         <div className="card-content-seller">
@@ -240,6 +240,8 @@ export function ContentWistlist() {
         ""
       )}
     </>
+  ) : (
+    ""
   );
 }
 
@@ -269,7 +271,6 @@ export function ContentSold() {
   const imageCard = {
     width: "91%",
     height: "100px",
-    objectFit: "cover",
     margin: "8px",
     borderRadius: "5px",
   };
@@ -325,7 +326,7 @@ export function ContentSold() {
     fetchData();
   }, []);
 
-  return (
+  return isLoggedIn ? (
     <>
       {sellerProduct ? (
         <div className="card-content-seller">
@@ -393,6 +394,8 @@ export function ContentSold() {
         </div>
       )}
     </>
+  ) : (
+    <Navigate to="/login" replace />
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-import { HomeNav } from "../components/Navbar";
+import { DaftarJualNavbar } from "../components/Navbar";
 import { SidebarUser, SidebarFix } from "../components/Sidebar";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -41,7 +41,7 @@ export default function DaftarJual() {
   return isLoggedIn ? (
     <>
       <div>
-        <HomeNav />
+        <DaftarJualNavbar />
       </div>
       <Container className="mt-4 page-daftar-jual" style={{ width: "70%" }}>
         <h5 className="fw-bold mb-3">Daftar Jual Saya</h5>

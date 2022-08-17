@@ -290,7 +290,7 @@ p {
 }
 
 /* search bar */
-.search-bar-fixed input {
+/* .search-bar-fixed input {
   background-color: #eeeeee;
   border: 1px solid #eeeeee;
   padding: 0 20px;
@@ -302,7 +302,7 @@ p {
 .search-bar-fixed .search-icon {
   transform: translate(-50px, 4px);
   color: #8a8a8a;
-}
+} */
 
 /* sidebar */
 .category-daftar-jual_scroll .button-second-category {
@@ -585,10 +585,13 @@ p {
   border: 1px solid #7126b5;
 }
 
-.modal.show .modal-dialog .modal-content {
+.modal-ofering.modal.show .modal-dialog .modal-content {
   padding: 10px 36px;
 }
 
+.modal-status .modal-content {
+  width: 100% !important;
+}
 @media only screen and (max-width: 1023px) {
   .dropdown-menu.show {
     transform: translate(-33%);
@@ -600,6 +603,11 @@ p {
 
   .fade.moda.show {
     padding: 0 !important;
+  }
+
+  /* search bar */
+  .search-bar {
+    display: none;
   }
 
   .dropdown-menu.show .dropdown-item a div {

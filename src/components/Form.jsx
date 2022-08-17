@@ -183,10 +183,14 @@ export function LoginForm() {
 
 export function RegisterForm() {
   const navigate = useNavigate();
-
+  const [open, setOpen] = useState(false);
   const nameField = useRef("");
   const emailField = useRef("");
   const passwordField = useRef("");
+
+  const handleCloseProgress = () => {
+    setOpen(false);
+  };
 
   const [errorResponse, setErrorResponse] = useState({
     isError: false,
@@ -240,20 +244,15 @@ export function RegisterForm() {
     color: "rgba(113, 38, 181, 1)",
   };
 
-  const Root = styled("div")(({ theme }) => ({
-    position: "absolute",
-    [theme.breakpoints.up("md")]: {
-      top: "60%",
-      right: "12%",
-    },
-    [theme.breakpoints.down("md")]: {
-      top: "57%",
-      right: "9%",
-    },
-  }));
-
   return (
     <>
+      <Backdrop
+        sx={{ color: "#7126B5", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+        onClick={handleCloseProgress}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Row className="row-register gx-0">
         <Col>
           <img
@@ -766,6 +765,7 @@ export function InfoAccFormV2() {
                       component={"img"}
                       src={`${user.picture}`}
                       style={image}
+                      alt=""
                     />
 
                     <Form.Control

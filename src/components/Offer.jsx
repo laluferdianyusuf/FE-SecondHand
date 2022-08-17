@@ -166,6 +166,12 @@ export function Offer() {
     getTransaksiById();
   }, []);
 
+  const buttonModalStyle = {
+    borderRadius: "16px",
+    padding: "12px 24px",
+    backgroundColor: "#7126B5",
+    border: "1px solid #7126B5",
+  };
   return (
     <>
       <Container className="offers-page mt-5">
@@ -284,6 +290,7 @@ export function Offer() {
           onHide={handleCloseAccepted}
           aria-labelledby="contained-modal-title-vcenter"
           centered
+          className="modal-ofering"
         >
           <Modal.Header
             closeButton
@@ -400,13 +407,14 @@ export function Offer() {
           centered
           size="sm"
           dialogClassName="modal-30w"
+          className="modal-status"
         >
           <div className="p-3">
             <Modal.Header closeButton className="border-0">
               <Modal.Title></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p className="fw-bold">Perbarui status penjualan produkmu</p>
+              <p className="fw-bold pb-3">Perbarui status penjualan produkmu</p>
               <Form>
                 <div key={`radio`} onChange={selectedButton} className="mb-3">
                   <Form.Check
@@ -416,7 +424,7 @@ export function Offer() {
                     label={`Berhasil terjual`}
                     value={true}
                   />
-                  <p className=" text-black-50">
+                  <p className=" text-black-50 pb-4">
                     Kamu telah sepakat menjual produk ini kepada pembeli
                   </p>
 
@@ -435,7 +443,8 @@ export function Offer() {
             </Modal.Body>
             <Modal.Footer className="border-0">
               <Button
-                className="bg-color-primary w-100 radius-primary border-0"
+                className="w-100"
+                style={buttonModalStyle}
                 onClick={(e) => {
                   updateStatus(e);
                   handleCloseStatus();
