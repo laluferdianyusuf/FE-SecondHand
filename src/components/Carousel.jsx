@@ -47,8 +47,8 @@ export function CarouselHome() {
           <Card className=" home-carousel-1">
             <Row>
               <Col xs={8} md={6} className="carousel-text">
-                <p className="text-1">Bulan Ramadhan Banyak diskon!</p>
-                <p className="text-2">Diskon Hingga</p>
+                <p className="text-1">Month of Ramadan Many discounts!</p>
+                <p className="text-2">Up To</p>
                 <p className="text-3">60%</p>
               </Col>
               <Col xs={4} md={2} className="carousel-1">
@@ -64,8 +64,8 @@ export function CarouselHome() {
           <Card className=" home-carousel-2">
             <Row>
               <Col xs={8} md={6} className="carousel-text">
-                <p className="text-1">Bulan Ramadhan Banyak diskon!</p>
-                <p className="text-2">Diskon Hingga</p>
+                <p className="text-1">Month of Ramadan Many discounts!</p>
+                <p className="text-2">Up To</p>
                 <p className="text-3">60%</p>
               </Col>
               <Col xs={4} md={2} className="carousel-1">
@@ -81,8 +81,8 @@ export function CarouselHome() {
           <Card className=" home-carousel-3">
             <Row>
               <Col xs={8} md={6} className="carousel-text">
-                <p className="text-1">Bulan Ramadhan Banyak diskon!</p>
-                <p className="text-2">Diskon Hingga</p>
+                <p className="text-1">Month of Ramadan Many discounts!</p>
+                <p className="text-2">Up To</p>
                 <p className="text-3">60%</p>
               </Col>
               <Col xs={4} md={2} className="carousel-1">

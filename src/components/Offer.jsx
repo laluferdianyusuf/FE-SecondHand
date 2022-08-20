@@ -197,7 +197,7 @@ export function Offer() {
             </div>
           </div>
           <div className="items-offering">
-            <h6 className="mb-4">Daftar Produkmu Yang Ditawar</h6>
+            <h6 className="mb-4">List of Products Offered</h6>
 
             <div className="d-flex gap-3 first-div">
               <img
@@ -214,7 +214,7 @@ export function Offer() {
                     color: "rgba(138, 138, 138, 1)",
                   }}
                 >
-                  <span>Penawaran produk</span>
+                  <span>Product offer</span>
                   <span className="position-absolute" style={{ right: "25%" }}>
                     {dateFormat(productSeller.createdAt, "d mmm, h:MM")}
                   </span>
@@ -247,7 +247,7 @@ export function Offer() {
                       : false
                   }
                 >
-                  {productSeller.isAccepted === true ? "Status" : "Tolak"}
+                  {productSeller.isAccepted === true ? "Status" : "Reject"}
                 </Button>
                 <Button
                   className="py-1"
@@ -269,10 +269,10 @@ export function Offer() {
                       className="d-flex justify-content-evenly"
                       style={{ fontSize: "14px" }}
                     >
-                      Hubungi di <FaWhatsapp className=" align-self-center" />
+                      Contact at <FaWhatsapp className=" align-self-center" />
                     </span>
                   ) : (
-                    "Terima"
+                    "Accept"
                   )}
                 </Button>
 
@@ -304,7 +304,7 @@ export function Offer() {
               fontSize: "14px",
             }}
           >
-            Yeay kamu berhasil mendapat harga yang sesuai
+            Yeay you managed to get the right price
           </Modal.Body>
           <Modal.Body
             className="px-0"
@@ -314,7 +314,7 @@ export function Offer() {
               fontSize: "14px",
             }}
           >
-            Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya
+            Immediately contact the buyer via whatsapp for further transactions
           </Modal.Body>
 
           <div>
@@ -367,7 +367,7 @@ export function Offer() {
                     </s>
                   </Card.Text>
                   <Card.Text>
-                    Ditawar Rp {productSeller.bargain_price}
+                    Offered Rp {productSeller.bargain_price}
                   </Card.Text>
                 </div>
               </div>
@@ -421,7 +421,7 @@ export function Offer() {
                     name="status"
                     type="radio"
                     id={`radio-1`}
-                    label={`Berhasil terjual`}
+                    label={`Successfully sold`}
                     value={true}
                   />
                   <p className=" text-black-50 pb-4">
@@ -431,12 +431,12 @@ export function Offer() {
                   <Form.Check
                     name="status"
                     type="radio"
-                    label={`Batalkan transaksi`}
+                    label={`Cancel transaction`}
                     id={`radio-2`}
                     value={false}
                   />
                   <p className=" text-black-50">
-                    Kamu membatalkan transaksi produk ini dengan pembeli
+                    You cancel this product transaction with the buyer
                   </p>
                 </div>
               </Form>
@@ -450,7 +450,7 @@ export function Offer() {
                   handleCloseStatus();
                 }}
               >
-                Kirim
+                Send
               </Button>
             </Modal.Footer>
           </div>

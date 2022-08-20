@@ -191,7 +191,7 @@ export function SidebarFix() {
               <div className="category-daftar-jual-item">
                 <Box>
                   <List>
-                    <h5 className="category-seller-text1">Kategori</h5>
+                    <h5 className="category-seller-text1">Category</h5>
                     <ListItemButton
                       className="category-seller-button d-flex gap-3"
                       selected={selectedIndex === 1}
@@ -199,7 +199,7 @@ export function SidebarFix() {
                     >
                       <FiBox className="seller-icon" />
 
-                      <ListItemText primary="Semua Produk" />
+                      <ListItemText primary="All Product" />
                       <FiChevronRight className="seller-icon" />
                     </ListItemButton>
 
@@ -211,7 +211,7 @@ export function SidebarFix() {
                     >
                       <FiHeart className="seller-icon" />
 
-                      <ListItemText primary="Diminati" />
+                      <ListItemText primary="Interested" />
                       <FiChevronRight className="seller-icon" />
                     </ListItemButton>
 
@@ -223,7 +223,7 @@ export function SidebarFix() {
                     >
                       <FiDollarSign className="seller-icon" />
 
-                      <ListItemText primary="Terjual" />
+                      <ListItemText primary="Sold" />
                       <FiChevronRight className="seller-icon" />
                     </ListItemButton>
                   </List>
@@ -239,21 +239,21 @@ export function SidebarFix() {
                 variant="primary"
                 onClick={productsHandler}
               >
-                <FiBox className="align-self-center" /> Produk
+                <FiBox className="align-self-center" /> All Product
               </Button>
               <Button
                 className="d-flex gap-2"
                 variant="primary"
                 onClick={wishlistHandler}
               >
-                <FiHeart className="align-self-center" /> Diminati
+                <FiHeart className="align-self-center" /> Interested
               </Button>
               <Button
                 className="d-flex gap-2"
                 variant="primary"
                 onClick={soldHandler}
               >
-                <FiDollarSign className="align-self-center" /> Terjual
+                <FiDollarSign className="align-self-center" /> Sold
               </Button>
             </div>
             {products && <Content productSeller={productSeller} />}

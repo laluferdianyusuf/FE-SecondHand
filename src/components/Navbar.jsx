@@ -308,7 +308,7 @@ export function HomeNav() {
               <Link to="/login" className="text-decoration-none ms-auto">
                 <Button className=" d-flex gap-2" style={buttonStyle}>
                   <FiLogIn className="align-self-center" />
-                  Masuk
+                  Log In
                 </Button>
               </Link>
             )}
@@ -418,7 +418,7 @@ export function DaftarJualNavbar() {
         <Link to="/">
           <div className="box me-3"></div>
         </Link>
-        <h3 className="fw-bold mb-0">Daftar Jual Saya</h3>
+        <h3 className="fw-bold mb-0">My Sell List</h3>
         <div className="d-flex gap-3">
           <Navbar.Toggle aria-controls="offcanvas" onClick={handleShow} />
         </div>
@@ -490,15 +490,15 @@ export function DaftarJualNavbar() {
                                     color: "#8A8A8A",
                                   }}
                                 >
-                                  Penawaran Produk
+                                  Product Offer
                                 </p>
                                 <p className="mb-0">{notif.product.name}</p>
                                 <p className="mb-0">Rp.{notif.product.price}</p>
                                 <p className="mb-0">
                                   {user.id === notif.seller_id
-                                    ? "ditawar"
+                                    ? "bid"
                                     : user.id === notif.user_id &&
-                                      "menawar"}{" "}
+                                      "bidding"}{" "}
                                   Rp.{notif.bargain_price}
                                 </p>
                               </div>
@@ -544,7 +544,7 @@ export function DaftarJualNavbar() {
               <Link to="/login" className="text-decoration-none ms-auto">
                 <Button className=" d-flex gap-2" style={buttonStyle}>
                   <FiLogIn className="align-self-center" />
-                  Masuk
+                  Log In
                 </Button>
               </Link>
             )}

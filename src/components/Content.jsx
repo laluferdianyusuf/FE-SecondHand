@@ -42,7 +42,7 @@ export function Content({ productSeller }) {
                 <FiPlus
                   style={{ fontSize: "24px", divor: "rgba(138, 138, 138, 1)" }}
                 />{" "}
-                <p>Tambah Produk</p>
+                <p>Add Product</p>
               </Link>
             </Button>
           </Form.Group>

@@ -72,7 +72,7 @@ export function Category() {
   return (
     <>
       <Container className="category mb-4">
-        <h6 className="fw-bold">Telusuri Kategori</h6>
+        <h6 className="fw-bold">Search Category</h6>
         <div>
           <div className="d-flex gap-3 button-category">
             <Button
@@ -80,42 +80,42 @@ export function Category() {
               variant="primary"
               onClick={() => setCategory(null)}
             >
-              <FiSearch className="align-self-center" /> Semua
+              <FiSearch className="align-self-center" /> All
             </Button>
             <Button
               className="d-flex gap-1 px-3"
               variant="primary"
-              onClick={() => setCategory("Hobi")}
+              onClick={() => setCategory("Hobby")}
             >
-              <FiSearch className="align-self-center" /> Hobi
+              <FiSearch className="align-self-center" /> Hobby
             </Button>
             <Button
               className="d-flex gap-1 px-3"
               variant="primary"
-              onClick={() => setCategory("Kendaraan")}
+              onClick={() => setCategory("Vehicle")}
             >
-              <FiSearch className="align-self-center" /> Kendaraan
+              <FiSearch className="align-self-center" /> Vehicle
             </Button>
             <Button
               className="d-flex gap-1 px-3"
               variant="primary"
-              onClick={() => setCategory("Baju")}
+              onClick={() => setCategory("Cloth")}
             >
-              <FiSearch className="align-self-center" /> Baju
+              <FiSearch className="align-self-center" /> Cloth
             </Button>
             <Button
               className="d-flex gap-1 px-3"
               variant="primary"
-              onClick={() => setCategory("Elektronik")}
+              onClick={() => setCategory("Electronic")}
             >
-              <FiSearch className="align-self-center" /> Elektronik
+              <FiSearch className="align-self-center" /> Electronic
             </Button>
             <Button
               className="d-flex gap-1 px-3"
               variant="primary"
-              onClick={() => setCategory("Kesehatan")}
+              onClick={() => setCategory("Health")}
             >
-              <FiSearch className="align-self-center" /> Kesehatan
+              <FiSearch className="align-self-center" /> Health
             </Button>
           </div>
 
@@ -127,7 +127,7 @@ export function Category() {
               className="align-self-center "
               style={{ fontSize: "24px" }}
             />{" "}
-            Jual
+            Sell
           </Button>
         </div>
       </Container>

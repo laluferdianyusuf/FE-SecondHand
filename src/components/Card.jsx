@@ -59,7 +59,7 @@ export function CardProduct({ product }) {
             className="form-control"
             value={filter}
             onChange={searchText.bind(this)}
-            placeholder="Cari Di sini..."
+            placeholder="Search..."
           />
         </div>
       </div>

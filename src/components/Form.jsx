@@ -103,7 +103,7 @@ export function LoginForm() {
             <IoMdArrowBack className="arrow-back" />
           </Link>
           <div className="w-100 px-5 row-login-body">
-            <h3 className="mb-3 fw-bold">Masuk</h3>
+            <h3 className="mb-3 fw-bold">Sign In</h3>
             <Form onSubmit={onLogin}>
               <Form.Label>Email</Form.Label>
               <Form.Control
@@ -160,17 +160,17 @@ export function LoginForm() {
               )}
 
               <Button type="submit" style={buttonStyle} className="w-100 mt-3">
-                Masuk
+                Sign In
               </Button>
 
               <p className="text-center pt-3">
-                Belum punya akun?{" "}
+                Don't Hhave any account?{" "}
                 <Link
                   to="/register"
                   style={textStyle}
                   className="text-decoration-none fw-bold"
                 >
-                  Daftar di sini
+                  Click Here
                 </Link>
               </p>
             </Form>
@@ -268,10 +268,10 @@ export function RegisterForm() {
           <div className="w-100 px-5 row-register-body">
             <h3 className="mb-3 fw-bold">Daftar</h3>
             <Form onSubmit={onRegister}>
-              <Form.Label>Nama</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Nama Lengkap"
+                placeholder="Full Name"
                 className="mb-3"
                 style={formStyle}
                 ref={nameField}
@@ -279,7 +279,7 @@ export function RegisterForm() {
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Contoh:johndee@gmail.com"
+                placeholder="Ex:johndee@gmail.com"
                 className="mb-3"
                 style={formStyle}
                 ref={emailField}
@@ -335,13 +335,13 @@ export function RegisterForm() {
               </Button>
 
               <p className="text-center pt-3">
-                Sudah punya akun?{" "}
+                Already have an account?{" "}
                 <Link
                   to="/login"
                   style={textStyle}
                   className="text-decoration-none fw-bold"
                 >
-                  Masuk di sini
+                  Click Here
                 </Link>
               </p>
             </Form>
@@ -538,7 +538,7 @@ export function InfoAccForm() {
           >
             <IoMdArrowBack style={{ fontSize: "20px" }} />
           </Link>
-          <h5 className="text-center">Lengkapi Info Akun</h5>
+          <h5 className="text-center">Complete Your Account</h5>
           <Form onSubmit={onUpdate}>
             <Form.Group className="mb-3 upload ">
               <section>
@@ -567,37 +567,40 @@ export function InfoAccForm() {
             </Form.Group>
             <div className="w-50 form-body">
               <Form.Group className="mb-2">
-                <Form.Label>Nama</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   style={formStyle}
-                  placeholder="Nama"
+                  placeholder="Name"
                   className="py-2"
                   ref={nameField}
                 />
               </Form.Group>
               <Form.Group className="mb-2">
-                <Form.Label>Kota</Form.Label>
+                <Form.Label>City</Form.Label>
                 <Form.Select ref={cityField} style={formStyle}>
-                  <option hidden>Pilih Kota</option>
-                  <option value="Lombok">Lombok</option>
+                  <option hidden>Choose a city</option>
+                  <option value="Lombok">Praya</option>
                   <option value="Mataram">Mataram</option>
+                  <option value="Mataram">Tangerang</option>
+                  <option value="Mataram">Bandung</option>
+                  <option value="Mataram">Jakarta</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-2">
-                <Form.Label>Alamat</Form.Label>
+                <Form.Label>Address</Form.Label>
                 <Form.Control
                   style={formStyle}
                   as="textarea"
-                  placeholder="Contoh: Jalan Ikan Hiu 33"
+                  placeholder="Ex: Jalan Ikan Hiu 33"
                   className="py-2"
                   ref={addressField}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>No. Handphone</Form.Label>
+                <Form.Label>Number</Form.Label>
                 <Form.Control
                   style={formStyle}
-                  placeholder="contoh: +628123456789"
+                  placeholder="Ex: +628123456789"
                   className="py-2"
                   ref={phoneNumberField}
                 />
@@ -606,7 +609,7 @@ export function InfoAccForm() {
                 <Alert variant="danger">{errorResponse.message}</Alert>
               )}
               <Button type="submit" style={buttonStyle} className="w-100 py-2">
-                Simpan
+                Save
               </Button>
             </div>
           </Form>
@@ -755,7 +758,7 @@ export function InfoAccFormV2() {
           >
             <IoMdArrowBack style={{ fontSize: "20px" }} />
           </Link>
-          <h5 className="text-center">Lengkapi Info Akun</h5>
+          <h5 className="text-center">Complete Your Account</h5>
           <Form onSubmit={onUpdate}>
             <div className="w-50 form-body">
               {user.picture ? (
@@ -800,10 +803,10 @@ export function InfoAccFormV2() {
                 </Form.Group>
               )}
               <Form.Group className="mb-2">
-                <Form.Label>Nama</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   style={formStyle}
-                  placeholder="Nama"
+                  placeholder="Name"
                   className="py-2"
                   ref={nameField}
                   defaultValue={user.name}
@@ -822,7 +825,7 @@ export function InfoAccFormV2() {
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-2">
-                <Form.Label>Nama</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   style={formStyle}
                   as="textarea"
@@ -847,7 +850,7 @@ export function InfoAccFormV2() {
                 <Alert variant="danger">{errorResponse.message}</Alert>
               )}
               <Button type="submit" style={buttonStyle} className="w-100 py-2">
-                Simpan
+                Save
               </Button>
             </div>
           </Form>
@@ -1017,21 +1020,21 @@ export function InfoProductForm(props) {
         >
           <IoMdArrowBack style={{ fontSize: "20px" }} />
         </Link>
-        <h5 className="text-center">Lengkapi Detail Product</h5>
+        <h5 className="text-center">Product Detail</h5>
 
         <Form>
           <div className="w-50 form-body">
             <Form.Group className="mb-2">
-              <Form.Label>Nama Product</Form.Label>
+              <Form.Label>Product Name</Form.Label>
               <Form.Control
                 style={formStyle}
-                placeholder="Nama Produk"
+                placeholder="Product Name"
                 className="py-2"
                 ref={nameField}
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Harga Produk</Form.Label>
+              <Form.Label>Price</Form.Label>
               <Form.Control
                 style={formStyle}
                 placeholder="Rp 0,00"
@@ -1040,30 +1043,30 @@ export function InfoProductForm(props) {
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Kategori</Form.Label>
+              <Form.Label>Category</Form.Label>
               <Form.Select style={formStyle} ref={categoryField}>
-                <option hidden>Pilih Kategori</option>
-                <option value="Hobi">Hobi</option>
-                <option value="Kendaraan">Kendaraan</option>
-                <option value="Baju">Baju</option>
-                <option value="Elektronik">Elektronik</option>
-                <option value="Kesehatan">Kesehatan</option>
+                <option hidden>Category</option>
+                <option value="Hobby">Hobby</option>
+                <option value="Vehicle">Vehicle</option>
+                <option value="Cloth">Cloth</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Health">Health</option>
               </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-2">
-              <Form.Label>Deskripsi</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 style={formStyle}
                 as="textarea"
-                placeholder="Contoh: Jalan Ikan Hiu 33"
+                placeholder="Ex: Jalan Ikan Hiu 33"
                 className="py-2"
                 ref={descriptionField}
               />
             </Form.Group>
 
             <Form.Group className="mb-3 d-flex flex-column ">
-              <Form.Label>Foto Produk</Form.Label>
+              <Form.Label>Product Image</Form.Label>
 
               <section>
                 <div {...getRootProps({ className: "dropzone" })}>
@@ -1100,7 +1103,7 @@ export function InfoProductForm(props) {
                 className="w-50 py-2"
                 onClick={(e) => onCreate(e, true)}
               >
-                Terbitkan
+                Publish
               </Button>
             </div>
           </div>
@@ -1268,21 +1271,21 @@ export function InfoProductFormV2(props) {
         >
           <IoMdArrowBack style={{ fontSize: "20px" }} />
         </Link>
-        <h5 className="text-center">Lengkapi Detail Product</h5>
+        <h5 className="text-center">Product Detail</h5>
 
         <Form>
           <div className="w-50 form-body">
             <Form.Group className="mb-2">
-              <Form.Label>Nama Product</Form.Label>
+              <Form.Label>Product Name</Form.Label>
               <Form.Control
                 style={formStyle}
-                placeholder="Nama Produk"
+                placeholder="Product Name"
                 className="py-2"
                 ref={nameField}
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Harga Produk</Form.Label>
+              <Form.Label>Price</Form.Label>
               <Form.Control
                 style={formStyle}
                 placeholder="Rp 0,00"
@@ -1291,19 +1294,19 @@ export function InfoProductFormV2(props) {
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Kategori</Form.Label>
+              <Form.Label>Category</Form.Label>
               <Form.Select style={formStyle} ref={categoryField}>
-                <option hidden>Pilih Kategori</option>
-                <option value="Hobi">Hobi</option>
-                <option value="Kendaraan">Kendaraan</option>
-                <option value="Baju">Baju</option>
-                <option value="Elektronik">Elektronik</option>
-                <option value="Kesehatan">Kesehatan</option>
+                <option hidden>Category</option>
+                <option value="Hobby">Hobby</option>
+                <option value="Vehicle">Vehicle</option>
+                <option value="Cloth">Cloth</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Health">Health</option>
               </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-2">
-              <Form.Label>Deskripsi</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 style={formStyle}
                 as="textarea"
@@ -1314,7 +1317,7 @@ export function InfoProductFormV2(props) {
             </Form.Group>
 
             <Form.Group className="mb-3 d-flex flex-column ">
-              <Form.Label>Foto Produk</Form.Label>
+              <Form.Label>Product Image</Form.Label>
 
               <section>
                 <div {...getRootProps({ className: "dropzone" })}>
@@ -1351,7 +1354,7 @@ export function InfoProductFormV2(props) {
                 className="w-50 py-2"
                 onClick={(e) => onCreate(e, true)}
               >
-                Terbitkan
+                Publish
               </Button>
             </div>
           </div>
@@ -1549,17 +1552,17 @@ export function UpdateProductForm(props) {
         <Form>
           <div className="w-50 form-body">
             <Form.Group className="mb-2">
-              <Form.Label>Nama Product</Form.Label>
+              <Form.Label>Product Name</Form.Label>
               <Form.Control
                 style={formStyle}
-                placeholder="Nama Produk"
+                placeholder="Product Name"
                 className="py-2"
                 ref={nameField}
                 defaultValue={data.name}
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Harga Produk</Form.Label>
+              <Form.Label>Price</Form.Label>
               <Form.Control
                 style={formStyle}
                 placeholder="Rp 0,00"
@@ -1569,23 +1572,23 @@ export function UpdateProductForm(props) {
               />
             </Form.Group>
             <Form.Group className="mb-2">
-              <Form.Label>Kategori</Form.Label>
+              <Form.Label>Category</Form.Label>
               <Form.Select
                 style={formStyle}
                 ref={categoryField}
                 defaultValue={data.category}
               >
-                <option hidden>Pilih Kategori</option>
-                <option value="Hobi">Hobi</option>
-                <option value="Kendaraan">Kendaraan</option>
-                <option value="Baju">Baju</option>
-                <option value="Elektronik">Elektronik</option>
-                <option value="Kesehatan">Kesehatan</option>
+                <option hidden>Category</option>
+                <option value="Hobby">Hobby</option>
+                <option value="Vehicle">Vehicle</option>
+                <option value="Cloth">Cloth</option>
+                <option value="Electronic">Electronic</option>
+                <option value="Health">Health</option>
               </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-2">
-              <Form.Label>Deskripsi</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 style={formStyle}
                 as="textarea"
@@ -1597,7 +1600,7 @@ export function UpdateProductForm(props) {
             </Form.Group>
 
             <Form.Group className="mb-3 d-flex flex-column ">
-              <Form.Label>Foto Produk</Form.Label>
+              <Form.Label>Product Image</Form.Label>
 
               <section>
                 <div {...getRootProps({ className: "dropzone" })}>
@@ -1626,11 +1629,11 @@ export function UpdateProductForm(props) {
                 className="w-50 py-2"
                 onClick={(e) => onUpdate(e, false)}
               >
-                Simpan
+                Save
               </Button>
               <Link className="w-50" to={`/homeproduct/${data.id}`}>
                 <Button style={cancelButtonStyle} className="w-100 py-2">
-                  Batal
+                  Calcel
                 </Button>
               </Link>
             </div>
