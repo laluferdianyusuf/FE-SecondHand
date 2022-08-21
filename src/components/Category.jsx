@@ -72,7 +72,7 @@ export function Category() {
   return (
     <>
       <Container className="category mb-4">
-        <h6 className="fw-bold">Search Category</h6>
+        <h4 className="fw-bold">Category</h4>
         <div>
           <div className="d-flex gap-3 button-category">
             <Button
